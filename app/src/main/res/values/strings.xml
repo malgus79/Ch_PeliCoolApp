@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Movie Main</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="popular">Popular</string>
+    <string name="top_rated">Top Rated</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="movie_title">Movie Title</string>
+    <string name="movie_image">Movie Image</string>
+    <string name="overview">Overview</string>
+    <string name="movie_favourite">Favourite</string>
+    <string name="movie_share">Share</string>
+    <string name="share">Share</string>
+    <string name="movie_bookmark">Bookmark</string>
+    <string name="bookmark">Bookmark</string>
+    <string name="favourite">Favourite</string>
+    <string name="error_dialog">Error</string>
+    <string name="error_dialog_detail">Ha ocurrido un error obteniendo la información</string>
+    <string name="try_again">Reintentar</string>
+    <string name="movie_detail">Movie detail</string>
+</resources>
