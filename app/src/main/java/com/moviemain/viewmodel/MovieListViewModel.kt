@@ -3,6 +3,7 @@ package com.moviemain.viewmodel
 import androidx.lifecycle.*
 import com.moviemain.core.ResourceNotFoundException
 import com.moviemain.core.State
+import com.moviemain.data.NowPlayingList
 import com.moviemain.data.PopularList
 import com.moviemain.data.TopRatedList
 import com.moviemain.data.UpcomingList
@@ -53,6 +54,27 @@ class MovieListViewModel @Inject constructor(private val repository: HomeReposit
                 }
             } catch (e: Exception) {
                 _topRatedList.postValue(State.Failure(e))
+            }
+        }
+    }
+
+    /* ---------------------------Now Playing movies request--------------------------- */
+    private val _nowPlayingList = MutableLiveData<State<NowPlayingList>>()
+    val nowPlayingList: LiveData<State<NowPlayingList>> = _nowPlayingList
+
+    //Downloads data from api
+    fun getNowPlayingMovies() {
+        _nowPlayingList.postValue(State.Loading())
+        viewModelScope.launch {
+            try {
+                val nowPlayingList = repository.getNow_PlayingMovies()
+                if (nowPlayingList.data.isNullOrEmpty()) {
+                    _nowPlayingList.postValue((State.Failure(ResourceNotFoundException())))
+                } else {
+                    _nowPlayingList.postValue(State.Success(nowPlayingList))
+                }
+            } catch (e: Exception) {
+                _nowPlayingList.postValue(State.Failure(e))
             }
         }
     }

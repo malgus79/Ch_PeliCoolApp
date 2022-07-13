@@ -90,11 +90,35 @@
             android:layout_width="match_parent"
             android:layout_height="170dp"
             android:layout_marginTop="@dimen/common_margin_min"
-
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@+id/title_top_rated"
             tools:layout_editor_absoluteX="16dp" />
+
+        <TextView
+            android:id="@+id/title_now_playing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/common_margin_min"
+            android:layout_marginTop="@dimen/common_padding_default"
+            android:fontFamily="@font/lobster"
+            android:text="@string/now_playing_home"
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_size_default"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_movies_top_rated" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_movies_now_playing"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:layout_marginTop="@dimen/common_margin_min"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/title_now_playing"
+            tools:layout_editor_absoluteX="16dp"
+            android:layout_marginBottom="@dimen/common_margin_middle"/>
 
         <TextView
             android:id="@+id/title_upcoming"
@@ -108,7 +132,7 @@
             android:textSize="@dimen/common_size_default"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rv_movies_top_rated" />
+            app:layout_constraintTop_toBottomOf="@id/rv_movies_now_playing" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_movies_up_coming"

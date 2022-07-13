@@ -11,14 +11,12 @@ import androidx.lifecycle.Observer
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.moviemain.R
 import com.moviemain.core.State
+import com.moviemain.data.NowPlayingList
 import com.moviemain.data.PopularList
 import com.moviemain.data.TopRatedList
 import com.moviemain.data.UpcomingList
 import com.moviemain.databinding.FragmentMovieListBinding
-import com.moviemain.ui.adapters.CarouselAdapter
-import com.moviemain.ui.adapters.PopularAdapter
-import com.moviemain.ui.adapters.TopRatedAdapter
-import com.moviemain.ui.adapters.UpcomingAdapter
+import com.moviemain.ui.adapters.*
 import com.moviemain.viewmodel.MovieListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import org.imaginativeworld.whynotimagecarousel.ImageCarousel
@@ -70,6 +68,15 @@ class MovieListFragment : Fragment() {
             }
         })
 
+        viewModel.getNowPlayingMovies()
+        viewModel.nowPlayingList.observe(viewLifecycleOwner, Observer {
+            when (it) {
+                is State.Loading -> showSpinnerLoading(true)
+                is State.Success -> setNowPlayingMovies(it.data)
+                is State.Failure -> showErrorDialog(callback = { viewModel.getNowPlayingMovies() })
+            }
+        })
+
         viewModel.getUpcomingMovies()
         viewModel.upcomingList.observe(viewLifecycleOwner, Observer {
             when (it) {
@@ -103,6 +110,11 @@ class MovieListFragment : Fragment() {
         binding.rvMoviesTopRated.adapter = TopRatedAdapter(topRatedList.data)
     }
 
+    private fun setNowPlayingMovies(nowPlayingList: NowPlayingList) {
+        showSpinnerLoading(false)
+        binding.rvMoviesNowPlaying.adapter = NowPlayingAdapter(nowPlayingList.data)
+    }
+
     private fun setUpComingMovies(upcomingList: UpcomingList) {
         showSpinnerLoading(false)
         binding.rvMoviesUpComing.adapter = UpcomingAdapter(upcomingList.data)
@@ -112,6 +124,7 @@ class MovieListFragment : Fragment() {
         binding.progressBar.isVisible = loading
         binding.rvMoviesPopular.isVisible = !loading
         binding.rvMoviesTopRated.isVisible = !loading
+        binding.rvMoviesNowPlaying.isVisible = !loading
         binding.rvMoviesUpComing.isVisible = !loading
     }
 }

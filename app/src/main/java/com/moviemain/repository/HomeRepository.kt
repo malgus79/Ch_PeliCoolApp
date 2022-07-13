@@ -1,6 +1,7 @@
 package com.moviemain.repository
 
 
+import com.moviemain.data.NowPlayingList
 import com.moviemain.data.PopularList
 import com.moviemain.data.TopRatedList
 import com.moviemain.data.UpcomingList
@@ -22,6 +23,10 @@ class HomeRepository @Inject constructor(private val APIService: APIServices) {
 
     suspend fun getUpcomingMovies(): UpcomingList {
         return APIService.getUpcomingMovies(API_KEY)
+    }
+
+    suspend fun getNow_PlayingMovies(): NowPlayingList {
+        return APIService.getNow_PlayingMovies(API_KEY)
     }
 
 }

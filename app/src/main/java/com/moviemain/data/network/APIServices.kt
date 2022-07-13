@@ -1,5 +1,6 @@
 package com.moviemain.data.network
 
+import com.moviemain.data.NowPlayingList
 import com.moviemain.data.PopularList
 import com.moviemain.data.TopRatedList
 import com.moviemain.data.UpcomingList
@@ -17,4 +18,7 @@ interface APIServices {
 
     @GET("upcoming")
     suspend fun getUpcomingMovies(@Query("api_key") apiKey: String): UpcomingList
+
+    @GET("now_playing")
+    suspend fun getNow_PlayingMovies(@Query("api_key") apiKey: String): NowPlayingList
 }
