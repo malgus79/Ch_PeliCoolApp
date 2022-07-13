@@ -11,8 +11,8 @@ import com.moviemain.data.Upcoming
 import com.moviemain.databinding.MovieItemBinding
 import com.moviemain.ui.MovieListFragmentDirections
 
-class UpComingAdapter(private val upcomingList: List<Upcoming>) :
-    RecyclerView.Adapter<UpComingAdapter.UpComingViewHolder>() {
+class UpcomingAdapter(private val upcomingList: List<Upcoming>) :
+    RecyclerView.Adapter<UpcomingAdapter.UpComingViewHolder>() {
 
     class UpComingViewHolder(private val binding: MovieItemBinding) :
         RecyclerView.ViewHolder(binding.root) {

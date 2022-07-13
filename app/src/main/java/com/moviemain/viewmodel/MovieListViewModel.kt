@@ -1,9 +1,6 @@
 package com.moviemain.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.moviemain.core.ResourceNotFoundException
 import com.moviemain.core.State
 import com.moviemain.data.PopularList
@@ -32,7 +29,7 @@ class MovieListViewModel @Inject constructor(private val repository: HomeReposit
                 } else {
                     _popularList.postValue(State.Success(popularList))
                 }
-            } catch (e: Exception){
+            } catch (e: Exception) {
                 _popularList.postValue(State.Failure(e))
             }
         }
@@ -52,57 +49,30 @@ class MovieListViewModel @Inject constructor(private val repository: HomeReposit
                 } else {
                     _topRatedList.postValue(State.Success(topRatedList))
                 }
-            } catch (e: Exception){
+            } catch (e: Exception) {
                 _topRatedList.postValue(State.Failure(e))
             }
         }
     }
 
-    private val _upComingList = MutableLiveData<State<UpcomingList>>()
-    val upComingList: LiveData<State<UpcomingList>> = _upComingList
+    private val _upcomingList = MutableLiveData<State<UpcomingList>>()
+    val upcomingList: LiveData<State<UpcomingList>> = _upcomingList
 
     //Downloads data from api
-    fun getUpComingMovies() {
-        _upComingList.postValue(State.Loading())
+    fun getUpcomingMovies() {
+        _upcomingList.postValue(State.Loading())
         viewModelScope.launch {
             try {
-                val upComingList = repository.getUpComingMovies()
-                if (upComingList.data.isNullOrEmpty()) {
-                    _upComingList.postValue((State.Failure(ResourceNotFoundException())))
+                val upcomingList = repository.getUpcomingMovies()
+                if (upcomingList.data.isNullOrEmpty()) {
+                    _upcomingList.postValue((State.Failure(ResourceNotFoundException())))
                 } else {
-                    _upComingList.postValue(State.Success(upComingList))
+                    _upcomingList.postValue(State.Success(upcomingList))
                 }
-            } catch (e: Exception){
-                _upComingList.postValue(State.Failure(e))
+            } catch (e: Exception) {
+                _upcomingList.postValue(State.Failure(e))
             }
         }
     }
-
-//    private val _popularList = MutableLiveData<PopularList>()
-//    private val _popularStatus = MutableLiveData<ApiStatus>()
-//
-//    //External LiveData
-//    val popularList: LiveData<PopularList> = _popularList
-//    val popularStatus: LiveData<ApiStatus> = _popularStatus
-//
-//
-//    fun getPopularMovies() {
-//        _popularStatus.value = ApiStatus.LOADING
-//        viewModelScope.launch {
-//            try {
-//                val popularList = repository.getPopularMovies()
-//                if (popularList.data.isNullOrEmpty()) {
-//                    _popularStatus.value = ApiStatus.ERROR
-//                } else {
-//                    _popularList.value = popularList
-//                    _popularStatus.value = ApiStatus.DONE
-//                }
-//            } catch (e: Exception) {
-//                _popularStatus.value = ApiStatus.ERROR
-//
-//            }
-//        }
-//    }
-//    enum class ApiStatus {DONE, LOADING, ERROR  }
 }
 

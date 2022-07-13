@@ -6,7 +6,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-const val BASE_URL = "https://api.themoviedb.org/3/"
+const val BASE_URL = "https://api.themoviedb.org/3/movie/"
 const val API_KEY = "5ab6b649a24299a96dc96faa2c825afa"
 
 //Create logging interceptor

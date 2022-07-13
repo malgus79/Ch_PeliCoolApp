@@ -20,8 +20,8 @@ class HomeRepository @Inject constructor(private val APIService: APIServices) {
         return APIService.getTopRatedMovies(API_KEY)
     }
 
-    suspend fun getUpComingMovies(): UpcomingList {
-        return APIService.getUpComingMovies(API_KEY)
+    suspend fun getUpcomingMovies(): UpcomingList {
+        return APIService.getUpcomingMovies(API_KEY)
     }
 
 }

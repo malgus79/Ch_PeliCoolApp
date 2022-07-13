@@ -1,11 +1,11 @@
 package com.moviemain.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -15,18 +15,18 @@ import com.moviemain.data.PopularList
 import com.moviemain.data.TopRatedList
 import com.moviemain.data.UpcomingList
 import com.moviemain.databinding.FragmentMovieListBinding
-import com.moviemain.databinding.MovieItemBinding
 import com.moviemain.ui.adapters.PopularAdapter
 import com.moviemain.ui.adapters.TopRatedAdapter
-import com.moviemain.ui.adapters.UpComingAdapter
+import com.moviemain.ui.adapters.UpcomingAdapter
 import com.moviemain.viewmodel.MovieListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MovieListFragment : Fragment() {
 
-    private val viewModel by viewModels<MovieListViewModel>()
     private lateinit var binding: FragmentMovieListBinding
+    private val viewModel by viewModels<MovieListViewModel>()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +37,7 @@ class MovieListFragment : Fragment() {
         viewModel.getPopularMovies()
         viewModel.popularList.observe(viewLifecycleOwner, Observer {
             when (it) {
-                is State.Loading -> showSpinnerLoadingPopular(true)
+                is State.Loading -> showSpinnerLoading(true)
                 is State.Success -> setPopularMovies(it.data)
                 is State.Failure -> showErrorDialog(callback = { viewModel.getPopularMovies() })
             }
@@ -46,18 +46,18 @@ class MovieListFragment : Fragment() {
         viewModel.getTopRatedMovies()
         viewModel.topRatedList.observe(viewLifecycleOwner, Observer {
             when (it) {
-                is State.Loading -> showSpinnerLoadingTopRated(true)
+                is State.Loading -> showSpinnerLoading(true)
                 is State.Success -> setTopRatedMovies(it.data)
                 is State.Failure -> showErrorDialog(callback = { viewModel.getTopRatedMovies() })
             }
         })
 
-        viewModel.getUpComingMovies()
-        viewModel.upComingList.observe(viewLifecycleOwner, Observer {
+        viewModel.getUpcomingMovies()
+        viewModel.upcomingList.observe(viewLifecycleOwner, Observer {
             when (it) {
-                is State.Loading -> showSpinnerLoadingUpComing(true)
+                is State.Loading -> showSpinnerLoading(true)
                 is State.Success -> setUpComingMovies(it.data)
-                is State.Failure -> showErrorDialog(callback = { viewModel.getUpComingMovies() })
+                is State.Failure -> showErrorDialog(callback = { viewModel.getUpcomingMovies() })
             }
         })
 
@@ -76,32 +76,24 @@ class MovieListFragment : Fragment() {
     }
 
     private fun setPopularMovies(popularList: PopularList) {
-        showSpinnerLoadingPopular(false)
+        showSpinnerLoading(false)
         binding.rvMoviesPopular.adapter = PopularAdapter(popularList.data)
     }
 
-    private fun showSpinnerLoadingPopular(loading: Boolean) {
-        binding.progressBar.isVisible = loading
-        binding.rvMoviesPopular.isVisible = !loading
-    }
-
     private fun setTopRatedMovies(topRatedList: TopRatedList) {
-        showSpinnerLoadingTopRated(false)
+        showSpinnerLoading(false)
         binding.rvMoviesTopRated.adapter = TopRatedAdapter(topRatedList.data)
     }
 
-    private fun showSpinnerLoadingTopRated(loading: Boolean) {
-        binding.progressBar.isVisible = loading
-        binding.rvMoviesTopRated.isVisible = !loading
-    }
-
     private fun setUpComingMovies(upcomingList: UpcomingList) {
-        showSpinnerLoadingUpComing(false)
-        binding.rvMoviesUpComing.adapter = UpComingAdapter(upcomingList.data)
+        showSpinnerLoading(false)
+        binding.rvMoviesUpComing.adapter = UpcomingAdapter(upcomingList.data)
     }
 
-    private fun showSpinnerLoadingUpComing(loading: Boolean) {
+    private fun showSpinnerLoading(loading: Boolean) {
         binding.progressBar.isVisible = loading
+        binding.rvMoviesPopular.isVisible = !loading
+        binding.rvMoviesTopRated.isVisible = !loading
         binding.rvMoviesUpComing.isVisible = !loading
     }
 }

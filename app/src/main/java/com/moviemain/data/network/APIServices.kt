@@ -9,12 +9,12 @@ import retrofit2.http.Query
 
 interface APIServices {
 
-    @GET("movie/popular")
+    @GET("popular")
     suspend fun getPopularMovies(@Query("api_key") apiKey: String): PopularList
 
-    @GET("movie/top_rated")
+    @GET("top_rated")
     suspend fun getTopRatedMovies(@Query("api_key") apiKey: String): TopRatedList
 
-    @GET("movie/upcoming")
-    suspend fun getUpComingMovies(@Query("api_key") apiKey: String): UpcomingList
+    @GET("upcoming")
+    suspend fun getUpcomingMovies(@Query("api_key") apiKey: String): UpcomingList
 }
