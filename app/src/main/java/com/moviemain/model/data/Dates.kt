@@ -1,4 +1,4 @@
-package com.moviemain.data
+package com.moviemain.model.data
 
 data class Dates(
     val maximum: String,

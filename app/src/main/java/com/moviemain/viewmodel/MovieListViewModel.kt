@@ -3,10 +3,10 @@ package com.moviemain.viewmodel
 import androidx.lifecycle.*
 import com.moviemain.core.ResourceNotFoundException
 import com.moviemain.core.State
-import com.moviemain.data.NowPlayingList
-import com.moviemain.data.PopularList
-import com.moviemain.data.TopRatedList
-import com.moviemain.data.UpcomingList
+import com.moviemain.model.NowPlayingList
+import com.moviemain.model.PopularList
+import com.moviemain.model.TopRatedList
+import com.moviemain.model.UpcomingList
 import com.moviemain.repository.HomeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

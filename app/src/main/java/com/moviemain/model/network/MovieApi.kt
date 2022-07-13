@@ -1,4 +1,4 @@
-package com.moviemain.data.network
+package com.moviemain.model.network
 
 
 import okhttp3.OkHttpClient

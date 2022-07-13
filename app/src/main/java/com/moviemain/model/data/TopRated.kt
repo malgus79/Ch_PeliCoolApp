@@ -1,15 +1,15 @@
-package com.moviemain.data
+package com.moviemain.model
 
 import com.google.gson.annotations.SerializedName
 
-data class PopularList(
+data class TopRatedList(
     @SerializedName("page") val page: Int,
-    @SerializedName("results") val data: List<Popular>,
+    @SerializedName("results") val data: List<TopRated>,
     @SerializedName("total_pages") val total_pages: Int,
     @SerializedName("total_results") val total_results: Int
 )
 
-data class Popular(
+data class TopRated(
     @SerializedName("adult") val adult: Boolean,
     @SerializedName("backdrop_path") val backdrop_path: String,
     @SerializedName("genre_ids") val genre_ids: List<Int>,

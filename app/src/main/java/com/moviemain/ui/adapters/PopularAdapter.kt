@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.moviemain.R
-import com.moviemain.data.Popular
+import com.moviemain.model.Popular
 import com.moviemain.databinding.MovieItemBinding
 import com.moviemain.ui.MovieListFragmentDirections
 

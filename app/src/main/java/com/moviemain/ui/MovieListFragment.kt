@@ -11,10 +11,10 @@ import androidx.lifecycle.Observer
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.moviemain.R
 import com.moviemain.core.State
-import com.moviemain.data.NowPlayingList
-import com.moviemain.data.PopularList
-import com.moviemain.data.TopRatedList
-import com.moviemain.data.UpcomingList
+import com.moviemain.model.NowPlayingList
+import com.moviemain.model.PopularList
+import com.moviemain.model.TopRatedList
+import com.moviemain.model.UpcomingList
 import com.moviemain.databinding.FragmentMovieListBinding
 import com.moviemain.ui.adapters.*
 import com.moviemain.viewmodel.MovieListViewModel

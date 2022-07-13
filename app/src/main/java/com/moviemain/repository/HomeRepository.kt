@@ -1,12 +1,12 @@
 package com.moviemain.repository
 
 
-import com.moviemain.data.NowPlayingList
-import com.moviemain.data.PopularList
-import com.moviemain.data.TopRatedList
-import com.moviemain.data.UpcomingList
-import com.moviemain.data.network.APIServices
-import com.moviemain.data.network.API_KEY
+import com.moviemain.model.NowPlayingList
+import com.moviemain.model.PopularList
+import com.moviemain.model.TopRatedList
+import com.moviemain.model.UpcomingList
+import com.moviemain.model.network.APIServices
+import com.moviemain.model.network.API_KEY
 import javax.inject.Inject
 import javax.inject.Singleton
 

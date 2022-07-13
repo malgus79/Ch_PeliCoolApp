@@ -1,6 +1,6 @@
 package com.moviemain.di
 
-import com.moviemain.data.network.APIServices
+import com.moviemain.model.network.APIServices
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -1,9 +1,9 @@
-package com.moviemain.data.network
+package com.moviemain.model.network
 
-import com.moviemain.data.NowPlayingList
-import com.moviemain.data.PopularList
-import com.moviemain.data.TopRatedList
-import com.moviemain.data.UpcomingList
+import com.moviemain.model.NowPlayingList
+import com.moviemain.model.PopularList
+import com.moviemain.model.TopRatedList
+import com.moviemain.model.UpcomingList
 import retrofit2.http.GET
 import retrofit2.http.Query
 

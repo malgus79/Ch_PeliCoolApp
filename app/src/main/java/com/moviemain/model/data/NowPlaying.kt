@@ -1,6 +1,7 @@
-package com.moviemain.data
+package com.moviemain.model
 
 import com.google.gson.annotations.SerializedName
+import com.moviemain.model.data.Dates
 
 data class NowPlayingList(
     @SerializedName("dates") val dates: Dates,
