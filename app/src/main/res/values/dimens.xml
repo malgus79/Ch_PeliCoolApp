@@ -5,6 +5,8 @@
     <dimen name="common_margin_item_movie">4dp</dimen>
     <dimen name="common_margin_min">8dp</dimen>
     <dimen name="common_margin_default">16dp</dimen>
+    <dimen name="common_margin_middle">32dp</dimen>
+    <dimen name="common_margin_max">64dp</dimen>
     <dimen name="common_margin_details">80dp</dimen>
 
     <!-- Dimens Size -->
@@ -18,4 +20,5 @@
     <!-- Dimens CornerRadius -->
     <dimen name="common_corner_min">8dp</dimen>
     <dimen name="common_corner_default">16dp</dimen>
+
 </resources>

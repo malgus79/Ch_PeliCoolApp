@@ -1,98 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container_popular"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/black"
-    tools:context=".ui.MovieListFragment">
+    android:layout_height="match_parent">
 
-
-    <RelativeLayout
-        android:id="@+id/progress_bar"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container_popular"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
+        android:background="@color/black"
+        tools:context=".ui.MovieListFragment">
 
-        <ProgressBar
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/img_carousel"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:layout_marginHorizontal="80dp"
+            android:layout_marginTop="@dimen/common_padding_default"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <org.imaginativeworld.whynotimagecarousel.ImageCarousel
+                android:id="@+id/carousel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:autoPlay="true"
+                app:autoPlayDelay="3000"
+                app:imageScaleType="centerCrop"
+                app:infiniteCarousel="true"
+                app:touchToPause="true" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/title_popular"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true" />
+            android:layout_marginStart="@dimen/common_margin_min"
+            android:layout_marginTop="@dimen/common_padding_min"
+            android:fontFamily="@font/lobster"
+            android:text="@string/popular_home"
+            android:textColor="@color/yellow"
+            android:textSize="@dimen/common_size_default"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/img_carousel" />
 
-    </RelativeLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_movies_popular"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:layout_marginTop="@dimen/common_padding_min"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/title_popular" />
 
-    <TextView
-        android:id="@+id/title_popular"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/common_padding_min"
-        android:layout_marginStart="@dimen/common_margin_min"
-        android:fontFamily="@font/lobster"
-        android:text="@string/popular"
-        android:textColor="@color/white"
-        android:textSize="@dimen/common_size_default"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/title_top_rated"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/common_margin_min"
+            android:layout_marginTop="@dimen/common_padding_default"
+            android:fontFamily="@font/lobster"
+            android:text="@string/top_rated_home"
+            android:textColor="@color/yellow"
+            android:textSize="@dimen/common_size_default"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_movies_popular" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_movies_popular"
-        android:layout_width="match_parent"
-        android:layout_height="170dp"
-        android:layout_marginTop="@dimen/common_padding_min"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@id/title_popular" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_movies_top_rated"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:layout_marginTop="@dimen/common_margin_min"
 
-    <TextView
-        android:id="@+id/title_top_rated"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/common_padding_default"
-        android:layout_marginStart="@dimen/common_margin_min"
-        android:fontFamily="@font/lobster"
-        android:text="@string/top_rated"
-        android:textColor="@color/white"
-        android:textSize="@dimen/common_size_default"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rv_movies_popular" />
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@+id/title_top_rated"
+            tools:layout_editor_absoluteX="16dp" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_movies_top_rated"
-        android:layout_width="match_parent"
-        android:layout_height="170dp"
-        android:layout_marginTop="@dimen/common_margin_min"
+        <TextView
+            android:id="@+id/title_upcoming"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/common_margin_min"
+            android:layout_marginTop="@dimen/common_padding_default"
+            android:fontFamily="@font/lobster"
+            android:text="@string/upcoming_home"
+            android:textColor="@color/yellow"
+            android:textSize="@dimen/common_size_default"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_movies_top_rated" />
 
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@+id/title_top_rated"
-        tools:layout_editor_absoluteX="16dp" />
-
-    <TextView
-        android:id="@+id/title_upcoming"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/common_padding_default"
-        android:layout_marginStart="@dimen/common_margin_min"
-        android:fontFamily="@font/lobster"
-        android:text="@string/upcoming"
-        android:textColor="@color/white"
-        android:textSize="@dimen/common_size_default"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rv_movies_top_rated" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_movies_up_coming"
-        android:layout_width="match_parent"
-        android:layout_height="170dp"
-        android:layout_marginTop="@dimen/common_margin_min"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@+id/title_upcoming"
-        tools:layout_editor_absoluteX="16dp" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_movies_up_coming"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:layout_marginTop="@dimen/common_margin_min"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@+id/title_upcoming"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:layout_editor_absoluteX="16dp"
+            android:layout_marginBottom="@dimen/common_margin_middle"/>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

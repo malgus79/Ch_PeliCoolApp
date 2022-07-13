@@ -15,17 +15,21 @@ import com.moviemain.data.PopularList
 import com.moviemain.data.TopRatedList
 import com.moviemain.data.UpcomingList
 import com.moviemain.databinding.FragmentMovieListBinding
+import com.moviemain.ui.adapters.CarouselAdapter
 import com.moviemain.ui.adapters.PopularAdapter
 import com.moviemain.ui.adapters.TopRatedAdapter
 import com.moviemain.ui.adapters.UpcomingAdapter
 import com.moviemain.viewmodel.MovieListViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import org.imaginativeworld.whynotimagecarousel.ImageCarousel
+import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 
 @AndroidEntryPoint
 class MovieListFragment : Fragment() {
 
     private lateinit var binding: FragmentMovieListBinding
     private val viewModel by viewModels<MovieListViewModel>()
+    private val list = mutableListOf<CarouselItem>()
 
 
     override fun onCreateView(
@@ -33,6 +37,20 @@ class MovieListFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         binding = FragmentMovieListBinding.inflate(inflater, container, false)
+
+        val carousel: ImageCarousel = binding.carousel
+        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/wKiOkZTN9lUUUNZLmtnwubZYONg.jpg"))
+        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/9Gtg2DzBhmYamXBS1hKAhiwbBKS.jpg"))
+        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/pIkRyD18kl4FhoCNQuWxWu5cBLM.jpg"))
+        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/kAVRgw7GgK1CfYEJq8ME6EvRIgU.jpg"))
+        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/dHKfsdNcEPw7YIWFPIhqiuWrSAb.jpg"))
+        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/neMZH82Stu91d3iqvLdNQfqPPyl.jpg"))
+        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/rugyJdeoJm7cSJL1q4jBpTNbxyU.jpg"))
+        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/vpILbP9eOQEtdQgl4vgjZUNY07r.jpg"))
+        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/62HCnUTziyWcpDaBO2i1DX17ljH.jpg"))
+        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/4Q1n3TwieoULnuaztu9aFjqHDTI.jpg"))
+        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/4zsihgkxMZ7MrflNCjkD3ySFJtc.jpg"))
+        carousel.addData(list)
 
         viewModel.getPopularMovies()
         viewModel.popularList.observe(viewLifecycleOwner, Observer {

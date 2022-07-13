@@ -15,6 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MovieListViewModel @Inject constructor(private val repository: HomeRepository) : ViewModel() {
 
+    /* ---------------------------Popular movies request--------------------------- */
     private val _popularList = MutableLiveData<State<PopularList>>()
     val popularList: LiveData<State<PopularList>> = _popularList
 
@@ -35,6 +36,7 @@ class MovieListViewModel @Inject constructor(private val repository: HomeReposit
         }
     }
 
+    /* ---------------------------Top Rated movies request--------------------------- */
     private val _topRatedList = MutableLiveData<State<TopRatedList>>()
     val topRatedList: LiveData<State<TopRatedList>> = _topRatedList
 
@@ -55,6 +57,7 @@ class MovieListViewModel @Inject constructor(private val repository: HomeReposit
         }
     }
 
+    /* ---------------------------Upcoming movies request--------------------------- */
     private val _upcomingList = MutableLiveData<State<UpcomingList>>()
     val upcomingList: LiveData<State<UpcomingList>> = _upcomingList
 

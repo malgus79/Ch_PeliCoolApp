@@ -10,4 +10,6 @@
     <color name="green_met">#37FD00</color>
     <color name="black_dense">#0E0E0E</color>
     <color name="grey_loading">#c8c8c9</color>
+    <color name="yellow">#FDD200</color>
+    <color name="yellow_dense">#AC8F00</color>
 </resources>
