@@ -8,6 +8,7 @@ import com.moviemain.core.ResourceNotFoundException
 import com.moviemain.core.State
 import com.moviemain.data.PopularList
 import com.moviemain.data.TopRatedList
+import com.moviemain.data.UpcomingList
 import com.moviemain.repository.HomeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -53,6 +54,26 @@ class MovieListViewModel @Inject constructor(private val repository: HomeReposit
                 }
             } catch (e: Exception){
                 _topRatedList.postValue(State.Failure(e))
+            }
+        }
+    }
+
+    private val _upComingList = MutableLiveData<State<UpcomingList>>()
+    val upComingList: LiveData<State<UpcomingList>> = _upComingList
+
+    //Downloads data from api
+    fun getUpComingMovies() {
+        _upComingList.postValue(State.Loading())
+        viewModelScope.launch {
+            try {
+                val upComingList = repository.getUpComingMovies()
+                if (upComingList.data.isNullOrEmpty()) {
+                    _upComingList.postValue((State.Failure(ResourceNotFoundException())))
+                } else {
+                    _upComingList.postValue(State.Success(upComingList))
+                }
+            } catch (e: Exception){
+                _upComingList.postValue(State.Failure(e))
             }
         }
     }

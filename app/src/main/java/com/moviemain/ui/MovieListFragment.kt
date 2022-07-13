@@ -13,10 +13,12 @@ import com.moviemain.R
 import com.moviemain.core.State
 import com.moviemain.data.PopularList
 import com.moviemain.data.TopRatedList
+import com.moviemain.data.UpcomingList
 import com.moviemain.databinding.FragmentMovieListBinding
 import com.moviemain.databinding.MovieItemBinding
 import com.moviemain.ui.adapters.PopularAdapter
 import com.moviemain.ui.adapters.TopRatedAdapter
+import com.moviemain.ui.adapters.UpComingAdapter
 import com.moviemain.viewmodel.MovieListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -47,6 +49,15 @@ class MovieListFragment : Fragment() {
                 is State.Loading -> showSpinnerLoadingTopRated(true)
                 is State.Success -> setTopRatedMovies(it.data)
                 is State.Failure -> showErrorDialog(callback = { viewModel.getTopRatedMovies() })
+            }
+        })
+
+        viewModel.getUpComingMovies()
+        viewModel.upComingList.observe(viewLifecycleOwner, Observer {
+            when (it) {
+                is State.Loading -> showSpinnerLoadingUpComing(true)
+                is State.Success -> setUpComingMovies(it.data)
+                is State.Failure -> showErrorDialog(callback = { viewModel.getUpComingMovies() })
             }
         })
 
@@ -82,5 +93,15 @@ class MovieListFragment : Fragment() {
     private fun showSpinnerLoadingTopRated(loading: Boolean) {
         binding.progressBar.isVisible = loading
         binding.rvMoviesTopRated.isVisible = !loading
+    }
+
+    private fun setUpComingMovies(upcomingList: UpcomingList) {
+        showSpinnerLoadingUpComing(false)
+        binding.rvMoviesUpComing.adapter = UpComingAdapter(upcomingList.data)
+    }
+
+    private fun showSpinnerLoadingUpComing(loading: Boolean) {
+        binding.progressBar.isVisible = loading
+        binding.rvMoviesUpComing.isVisible = !loading
     }
 }
