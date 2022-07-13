@@ -8,15 +8,12 @@
     <string name="movie_title">Movie Title</string>
     <string name="movie_image">Movie Image</string>
     <string name="overview">Overview</string>
-    <string name="movie_favourite">Favourite</string>
-    <string name="movie_share">Share</string>
     <string name="share">Share</string>
-    <string name="movie_bookmark">Bookmark</string>
     <string name="bookmark">Bookmark</string>
     <string name="favourite">Favourite</string>
     <string name="error_dialog">Error</string>
-    <string name="error_dialog_detail">Ha ocurrido un error obteniendo la información</string>
-    <string name="try_again">Reintentar</string>
+    <string name="error_dialog_detail">An error occurred while obtaining the information</string>
+    <string name="try_again">Retry</string>
     <string name="movie_detail">Movie detail</string>
     <string name="retry">Retry</string>
 </resources>

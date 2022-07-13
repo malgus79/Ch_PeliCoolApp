@@ -173,7 +173,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_favorite_border"
-            android:contentDescription="@string/movie_favourite" />
+            android:contentDescription="@string/favourite" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -199,7 +199,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_share"
-            android:contentDescription="@string/movie_share" />
+            android:contentDescription="@string/share" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -225,7 +225,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_bookmark_border"
-            android:contentDescription="@string/movie_bookmark" />
+            android:contentDescription="@string/bookmark" />
 
         <TextView
             android:layout_width="wrap_content"
