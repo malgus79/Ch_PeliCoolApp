@@ -10,6 +10,8 @@
     <dimen name="common_margin_details">80dp</dimen>
 
     <!-- Dimens Size -->
+    <dimen name="common_size_min">5sp</dimen>
+    <dimen name="common_size_middle">10sp</dimen>
     <dimen name="common_size_default">20sp</dimen>
     <dimen name="common_size_title">25sp</dimen>
 
@@ -20,5 +22,6 @@
     <!-- Dimens CornerRadius -->
     <dimen name="common_corner_min">8dp</dimen>
     <dimen name="common_corner_default">16dp</dimen>
+
 
 </resources>
