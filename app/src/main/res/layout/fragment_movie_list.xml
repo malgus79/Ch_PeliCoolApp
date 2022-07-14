@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/black"
-        tools:context=".ui.MovieListFragment">
+        tools:context=".ui.view.main.MovieListFragment">
 
         <RelativeLayout
             android:id="@+id/progress_bar"

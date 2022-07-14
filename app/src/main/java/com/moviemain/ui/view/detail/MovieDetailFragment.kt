@@ -1,4 +1,4 @@
-package com.moviemain.ui
+package com.moviemain.ui.view.detail
 
 import android.os.Bundle
 import android.view.View

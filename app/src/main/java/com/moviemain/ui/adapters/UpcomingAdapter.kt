@@ -9,7 +9,8 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.moviemain.R
 import com.moviemain.model.Upcoming
 import com.moviemain.databinding.MovieItemBinding
-import com.moviemain.ui.MovieListFragmentDirections
+import com.moviemain.ui.view.main.MovieListFragmentDirections
+
 
 class UpcomingAdapter(private val upcomingList: List<Upcoming>) :
     RecyclerView.Adapter<UpcomingAdapter.UpComingViewHolder>() {
