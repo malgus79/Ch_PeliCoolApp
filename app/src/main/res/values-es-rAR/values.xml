@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Movie Main</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="popular">Populares</string>
+    <string name="popular_home"> ______________ Populares _______________</string>
+    <string name="top_rated">Mas Votadas</string>
+    <string name="top_rated_home">_____________ Mas Votadas _____________</string>
+    <string name="upcoming">Próximamente</string>
+    <string name="upcoming_home">____________ Próximamente ____________</string>
+    <string name="movie_title">Movie Title</string>
+    <string name="movie_image">Movie Image</string>
+    <string name="overview">Información</string>
+    <string name="share">Compartir</string>
+    <string name="bookmark">Guardar</string>
+    <string name="favourite">Favorito</string>
+    <string name="error_dialog">Error</string>
+    <string name="error_dialog_detail">Ha ocurrido un error obteniendo la información</string>
+    <string name="try_again">intentar otra vez</string>
+    <string name="movie_detail">Detalles</string>
+    <string name="retry">Reintentar</string>
+    <string name="now_playing_home">_______________ Estrenos _______________</string>
+</resources>

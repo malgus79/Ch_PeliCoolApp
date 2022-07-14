@@ -7,6 +7,7 @@ import com.moviemain.model.TopRatedList
 import com.moviemain.model.UpcomingList
 import com.moviemain.model.network.APIServices
 import com.moviemain.model.network.API_KEY
+import com.moviemain.model.network.LANGUAGE_es_ES
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -14,19 +15,19 @@ import javax.inject.Singleton
 class HomeRepository @Inject constructor(private val APIService: APIServices) {
 
     suspend fun getPopularMovies(): PopularList {
-        return APIService.getPopularMovies(API_KEY)
+        return APIService.getPopularMovies(API_KEY, LANGUAGE_es_ES)
     }
 
     suspend fun getTopRatedMovies(): TopRatedList {
-        return APIService.getTopRatedMovies(API_KEY)
+        return APIService.getTopRatedMovies(API_KEY, LANGUAGE_es_ES)
     }
 
     suspend fun getUpcomingMovies(): UpcomingList {
-        return APIService.getUpcomingMovies(API_KEY)
+        return APIService.getUpcomingMovies(API_KEY, LANGUAGE_es_ES)
     }
 
     suspend fun getNow_PlayingMovies(): NowPlayingList {
-        return APIService.getNow_PlayingMovies(API_KEY)
+        return APIService.getNow_PlayingMovies(API_KEY, LANGUAGE_es_ES)
     }
 
 }
