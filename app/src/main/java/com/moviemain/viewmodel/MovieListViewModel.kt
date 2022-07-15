@@ -67,7 +67,7 @@ class MovieListViewModel @Inject constructor(private val repository: HomeReposit
         _nowPlayingList.postValue(State.Loading())
         viewModelScope.launch {
             try {
-                val nowPlayingList = repository.getNow_PlayingMovies()
+                val nowPlayingList = repository.getNowPlayingMovies()
                 if (nowPlayingList.data.isNullOrEmpty()) {
                     _nowPlayingList.postValue((State.Failure(ResourceNotFoundException())))
                 } else {
