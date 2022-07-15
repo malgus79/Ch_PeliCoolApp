@@ -1,18 +1,12 @@
-package com.moviemain.repository
-
+package com.moviemain.model.network
 
 import com.moviemain.model.data.NowPlayingList
 import com.moviemain.model.data.PopularList
 import com.moviemain.model.data.TopRatedList
 import com.moviemain.model.data.UpcomingList
-import com.moviemain.model.network.APIServices
-import com.moviemain.model.network.API_KEY
-import com.moviemain.model.network.LANGUAGE_es_ES
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class HomeRepository @Inject constructor(private val APIService: APIServices) {
+class RemoteDataSource @Inject constructor(private val APIService: APIServices) {
 
     suspend fun getPopularMovies(): PopularList {
         return APIService.getPopularMovies(API_KEY, LANGUAGE_es_ES)
@@ -26,7 +20,7 @@ class HomeRepository @Inject constructor(private val APIService: APIServices) {
         return APIService.getUpcomingMovies(API_KEY, LANGUAGE_es_ES)
     }
 
-    suspend fun getNow_PlayingMovies(): NowPlayingList {
+    suspend fun getNowPlayingMovies(): NowPlayingList {
         return APIService.getNow_PlayingMovies(API_KEY, LANGUAGE_es_ES)
     }
 

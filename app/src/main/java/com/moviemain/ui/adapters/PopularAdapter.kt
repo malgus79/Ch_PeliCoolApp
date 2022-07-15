@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.moviemain.R
 import com.moviemain.databinding.MovieItemBinding
-import com.moviemain.model.Popular
+import com.moviemain.model.data.Popular
 import com.moviemain.ui.view.main.MovieListFragmentDirections
 
 class PopularAdapter(private val popularList: List<Popular>) :

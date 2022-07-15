@@ -21,14 +21,14 @@ class LocalModule {
     fun providesRoom(@ApplicationContext context: Context): MovieDatabase {
         return Room.databaseBuilder(context,
             MovieDatabase::class.java,
-            Companion.MOVIE_DATABASE_NAME).build()
+            MOVIE_DATABASE_NAME).build()
     }
 
     //Inyectar el Dao
     @Singleton
     @Provides
     fun providesMovieDao(moviesdb: MovieDatabase): MovieDao {
-        return moviesdb.getMovieDao()
+        return moviesdb.movieDao()
     }
 
     companion object {

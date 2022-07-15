@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.moviemain.R
 import com.moviemain.databinding.MovieItemBinding
-import com.moviemain.model.TopRated
+import com.moviemain.model.data.TopRated
 import com.moviemain.ui.view.main.MovieListFragmentDirections
 
 class TopRatedAdapter(private val topRatedList: List<TopRated>) :
