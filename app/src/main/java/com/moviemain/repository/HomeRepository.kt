@@ -1,6 +1,5 @@
 package com.moviemain.repository
 
-
 import com.moviemain.model.data.NowPlayingList
 import com.moviemain.model.data.PopularList
 import com.moviemain.model.data.TopRatedList

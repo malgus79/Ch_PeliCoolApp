@@ -1,10 +1,34 @@
 package com.moviemain.model.local
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.moviemain.model.data.Movie
 import com.moviemain.model.data.MovieList
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
+data class Movie(
+    val adult: Boolean = false,
+    val backdrop_path: String = "",
+    val id: Int = -1,
+    val original_title: String = "",
+    val original_language: String = "",
+    val overview: String = "",
+    val popularity: Double = -1.0,
+    val poster_path: String = "",
+    val release_date: String = "",
+    val title: String = "",
+    val video: Boolean = false,
+    val vote_average: Double = -1.0,
+    val vote_count: Int = -1,
+    var movie_type: String = "",
+) : Parcelable
+
+data class MovieList(val results: List<Movie> = listOf())
+
+// Room
 
 @Entity(tableName = "movieEntity")
 data class MovieEntity(
@@ -35,7 +59,7 @@ data class MovieEntity(
     @ColumnInfo(name = "vote_count")
     val vote_count: Int = -1,
     @ColumnInfo(name = "movie_type")
-    var movie_type: String = ""
+    var movie_type: String = "",
 )
 
 fun List<MovieEntity>.toMovieList(): MovieList {
@@ -59,7 +83,8 @@ fun MovieEntity.toMovie(): Movie = Movie(
     this.title,
     this.video,
     this.vote_average,
-    this.vote_count
+    this.vote_count,
+    this.movie_type
 )
 
 fun Movie.toMovieEntity(movieType: String): MovieEntity = MovieEntity(

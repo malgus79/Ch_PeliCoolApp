@@ -21,7 +21,7 @@ class LocalMovieDataSource(private val movieDao: MovieDao) {
     }
 
     // Save a MovieEntity
-    suspend fun saveMovie(movie:MovieEntity) {
+    suspend fun saveMovie(movie: MovieEntity) {
         movieDao.saveMovie(movie)
     }
 }

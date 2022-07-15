@@ -10,7 +10,6 @@ import com.moviemain.model.data.UpcomingList
 import com.moviemain.repository.HomeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import java.lang.Exception
 import javax.inject.Inject
 
 @HiltViewModel
