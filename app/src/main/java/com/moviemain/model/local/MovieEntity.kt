@@ -5,7 +5,6 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.moviemain.model.data.Movie
-import com.moviemain.model.data.MovieList
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize

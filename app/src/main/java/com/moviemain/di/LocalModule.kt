@@ -13,25 +13,39 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class LocalModule {
+//class LocalModule {
+//
+//    //Inyectar la base de datos
+//    @Singleton
+//    @Provides
+//    fun providesRoom(@ApplicationContext context: Context): MovieDatabase {
+//        return Room.databaseBuilder(context,
+//            MovieDatabase::class.java,
+//            MOVIE_DATABASE_NAME).build()
+//    }
+//
+//    //Inyectar el Dao
+//    @Singleton
+//    @Provides
+//    fun providesMovieDao(moviesdb: MovieDatabase): MovieDao {
+//        return moviesdb.movieDao()
+//    }
+//
+//    companion object {
+//        private const val MOVIE_DATABASE_NAME = "movie_database"
+//    }
+//}
 
-    //Inyectar la base de datos
+object RoomModule {
+
+    private const val MOVIE_DATABASE_NAME = "movie_database"
+
     @Singleton
     @Provides
-    fun providesRoom(@ApplicationContext context: Context): MovieDatabase {
-        return Room.databaseBuilder(context,
-            MovieDatabase::class.java,
-            MOVIE_DATABASE_NAME).build()
-    }
+    fun provideRoom(@ApplicationContext context: Context) =
+        Room.databaseBuilder(context, MovieDatabase::class.java, MOVIE_DATABASE_NAME).build()
 
-    //Inyectar el Dao
     @Singleton
     @Provides
-    fun providesMovieDao(moviesdb: MovieDatabase): MovieDao {
-        return moviesdb.movieDao()
-    }
-
-    companion object {
-        private const val MOVIE_DATABASE_NAME = "movie_database"
-    }
+    fun rovidesMovieDao(db: MovieDatabase) = db.movieDao()
 }
