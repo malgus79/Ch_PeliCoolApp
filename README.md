@@ -1,4 +1,4 @@
-Peli Cool App es una aplicación de las películas, mostrando las mas populares, los estrenos, las mas votadas y las que vendrán próximamente.
+Peli Cool App es una aplicación de películas, mostrando las mas populares, los estrenos, las mas votadas y las que vendrán próximamente.
 Puedes ver el detalle de cada película y así saber de que se trata.
 
 
@@ -8,7 +8,7 @@ Herramientas utilizadas:
 - Componentes de las aplicaciones.
 - Views y View Group.
 - Activity, Fragments y Dialog Fragments.
-- Navigations Comnponents.
+- Navigations components.
 - Linear Layout, Constraint Layout, FrameLayout, NestedScrollView, Recycler Views, CardViews. 
 - Material Design y Material Components
 - AppBarLayout, ToolBar
