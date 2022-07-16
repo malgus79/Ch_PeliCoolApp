@@ -39,4 +39,8 @@ class HomeRepository @Inject constructor(
     suspend fun getAllMoviesFromDatabase(movie: MovieEntity) {
         movieDao.getAllMovies()
     }
+
+    suspend fun clearMovies(){
+        movieDao.deleteMovie()
+    }
 }

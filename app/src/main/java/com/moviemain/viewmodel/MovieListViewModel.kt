@@ -30,6 +30,7 @@ class MovieListViewModel @Inject constructor(private val repository: HomeReposit
                     _popularList.postValue((State.Failure(ResourceNotFoundException())))
                     repository.getAllMoviesFromDatabase(MovieEntity())
                 } else {
+                    repository.clearMovies()
                     _popularList.postValue(State.Success(popularList))
                     repository.saveMovieToLocalDataBase(MovieEntity())
                 }
@@ -53,6 +54,7 @@ class MovieListViewModel @Inject constructor(private val repository: HomeReposit
                     _topRatedList.postValue((State.Failure(ResourceNotFoundException())))
                     repository.getAllMoviesFromDatabase(MovieEntity())
                 } else {
+                    repository.clearMovies()
                     _topRatedList.postValue(State.Success(topRatedList))
                     repository.saveMovieToLocalDataBase(MovieEntity())
                 }
@@ -76,6 +78,7 @@ class MovieListViewModel @Inject constructor(private val repository: HomeReposit
                     _nowPlayingList.postValue((State.Failure(ResourceNotFoundException())))
                     repository.getAllMoviesFromDatabase(MovieEntity())
                 } else {
+                    repository.clearMovies()
                     _nowPlayingList.postValue(State.Success(nowPlayingList))
                     repository.saveMovieToLocalDataBase(MovieEntity())
                 }
@@ -99,6 +102,7 @@ class MovieListViewModel @Inject constructor(private val repository: HomeReposit
                     _upcomingList.postValue((State.Failure(ResourceNotFoundException())))
                     repository.getAllMoviesFromDatabase(MovieEntity())
                 } else {
+                    repository.clearMovies()
                     _upcomingList.postValue(State.Success(upcomingList))
                     repository.saveMovieToLocalDataBase(MovieEntity())
                 }
