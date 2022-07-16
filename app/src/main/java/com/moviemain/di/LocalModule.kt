@@ -42,10 +42,10 @@ object RoomModule {
 
     @Singleton
     @Provides
-    fun provideRoom(@ApplicationContext context: Context) =
+    fun providesRoom(@ApplicationContext context: Context) =
         Room.databaseBuilder(context, MovieDatabase::class.java, MOVIE_DATABASE_NAME).build()
 
     @Singleton
     @Provides
-    fun rovidesMovieDao(db: MovieDatabase) = db.movieDao()
+    fun providesMovieDao(db: MovieDatabase) = db.movieDao()
 }
