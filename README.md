@@ -1,7 +1,7 @@
 Peli Cool App es una aplicación de películas, mostrando las mas populares, los estrenos, las mas votadas y las que vendrán próximamente.
 Puedes ver el detalle de cada película y así saber de que se trata.
 
-
+ 
 Herramientas utilizadas:
 - Estructura de aplicaciones Android.
 - Depuración en virtual device y dispositivos físicos.
@@ -25,8 +25,8 @@ Herramientas utilizadas:
 - Clean Architecture
 
 
-
-
+ 
+ 
 Logo:
 
 ![image](https://user-images.githubusercontent.com/101361708/179371518-7e9f9fc2-05d2-474e-b076-1c368168a06c.png)
