@@ -1,0 +1,3 @@
+package com.moviemain.viewmodel
+
+internal class MovieListViewModelTest
