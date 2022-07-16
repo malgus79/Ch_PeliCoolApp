@@ -29,14 +29,14 @@ class NowPlayingAdapter(private val nowPlayingList: List<NowPlaying>) :
             binding.cvImgMovie.setOnClickListener {
 //                it -> it.findNavController().navigate(R.id.action_movieFragment_to_movieDetailFragment)
                 val action = MovieListFragmentDirections.actionMovieFragmentToMovieDetailFragment(
-                    nowPlaying.poster_path.toString(),
-                    nowPlaying.backdrop_path.toString(),
+                    nowPlaying.poster_path,
+                    nowPlaying.backdrop_path,
                     nowPlaying.vote_average.toFloat(),
-                    nowPlaying.vote_count.toInt(),
-                    nowPlaying.overview.toString(),
-                    nowPlaying.title.toString(),
-                    nowPlaying.original_language.toString(),
-                    nowPlaying.release_date.toString()
+                    nowPlaying.vote_count,
+                    nowPlaying.overview,
+                    nowPlaying.title,
+                    nowPlaying.original_language,
+                    nowPlaying.release_date
                 )
                 this.itemView.findNavController().navigate(action)
             }

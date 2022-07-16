@@ -1,6 +1,9 @@
 package com.moviemain.viewmodel
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.moviemain.core.ResourceNotFoundException
 import com.moviemain.core.State
 import com.moviemain.model.data.NowPlayingList
@@ -26,7 +29,7 @@ class MovieListViewModel @Inject constructor(private val repository: HomeReposit
         viewModelScope.launch {
             try {
                 val popularList = repository.getPopularMovies()
-                if (popularList.data.isNullOrEmpty()) {
+                if (popularList.data.isEmpty()) {
                     _popularList.postValue((State.Failure(ResourceNotFoundException())))
                     repository.getAllMoviesFromDatabase(MovieEntity())
                 } else {
@@ -50,7 +53,7 @@ class MovieListViewModel @Inject constructor(private val repository: HomeReposit
         viewModelScope.launch {
             try {
                 val topRatedList = repository.getTopRatedMovies()
-                if (topRatedList.data.isNullOrEmpty()) {
+                if (topRatedList.data.isEmpty()) {
                     _topRatedList.postValue((State.Failure(ResourceNotFoundException())))
                     repository.getAllMoviesFromDatabase(MovieEntity())
                 } else {
@@ -74,7 +77,7 @@ class MovieListViewModel @Inject constructor(private val repository: HomeReposit
         viewModelScope.launch {
             try {
                 val nowPlayingList = repository.getNowPlayingMovies()
-                if (nowPlayingList.data.isNullOrEmpty()) {
+                if (nowPlayingList.data.isEmpty()) {
                     _nowPlayingList.postValue((State.Failure(ResourceNotFoundException())))
                     repository.getAllMoviesFromDatabase(MovieEntity())
                 } else {
@@ -98,7 +101,7 @@ class MovieListViewModel @Inject constructor(private val repository: HomeReposit
         viewModelScope.launch {
             try {
                 val upcomingList = repository.getUpcomingMovies()
-                if (upcomingList.data.isNullOrEmpty()) {
+                if (upcomingList.data.isEmpty()) {
                     _upcomingList.postValue((State.Failure(ResourceNotFoundException())))
                     repository.getAllMoviesFromDatabase(MovieEntity())
                 } else {

@@ -24,5 +24,5 @@ data class TopRated(
     @SerializedName("video") val video: Boolean,
     @SerializedName("vote_average") val vote_average: Double,
     @SerializedName("vote_count") val vote_count: Int,
-    var movie_type: String = ""
+    var movie_type: String = "",
 )

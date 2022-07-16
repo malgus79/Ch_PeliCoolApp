@@ -29,14 +29,14 @@ class PopularAdapter(private val popularList: List<Popular>) :
             binding.cvImgMovie.setOnClickListener {
 //                it -> it.findNavController().navigate(R.id.action_movieFragment_to_movieDetailFragment)
                 val action = MovieListFragmentDirections.actionMovieFragmentToMovieDetailFragment(
-                    popular.poster_path.toString(),
-                    popular.backdrop_path.toString(),
+                    popular.poster_path,
+                    popular.backdrop_path,
                     popular.vote_average.toFloat(),
-                    popular.vote_count.toInt(),
-                    popular.overview.toString(),
-                    popular.title.toString(),
-                    popular.original_language.toString(),
-                    popular.release_date.toString()
+                    popular.vote_count,
+                    popular.overview,
+                    popular.title,
+                    popular.original_language,
+                    popular.release_date
                 )
                 this.itemView.findNavController().navigate(action)
             }

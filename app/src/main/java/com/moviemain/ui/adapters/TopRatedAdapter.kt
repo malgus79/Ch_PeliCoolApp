@@ -29,14 +29,14 @@ class TopRatedAdapter(private val topRatedList: List<TopRated>) :
             binding.cvImgMovie.setOnClickListener {
 //                it -> it.findNavController().navigate(R.id.action_movieFragment_to_movieDetailFragment)
                 val action = MovieListFragmentDirections.actionMovieFragmentToMovieDetailFragment(
-                    topRated.poster_path.toString(),
-                    topRated.backdrop_path.toString(),
+                    topRated.poster_path,
+                    topRated.backdrop_path,
                     topRated.vote_average.toFloat(),
-                    topRated.vote_count.toInt(),
-                    topRated.overview.toString(),
-                    topRated.title.toString(),
-                    topRated.original_language.toString(),
-                    topRated.release_date.toString()
+                    topRated.vote_count,
+                    topRated.overview,
+                    topRated.title,
+                    topRated.original_language,
+                    topRated.release_date
                 )
                 this.itemView.findNavController().navigate(action)
             }

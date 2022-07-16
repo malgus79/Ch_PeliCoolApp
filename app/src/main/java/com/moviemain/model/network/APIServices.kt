@@ -29,7 +29,7 @@ interface APIServices {
     ): UpcomingList
 
     @GET("now_playing")
-    suspend fun getNow_PlayingMovies(
+    suspend fun getNowPlayingMovies(
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
     ): NowPlayingList

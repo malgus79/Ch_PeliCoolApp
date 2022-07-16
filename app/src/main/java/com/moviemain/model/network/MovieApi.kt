@@ -12,7 +12,8 @@ const val LANGUAGE_es_ES = "es-ES"
 const val LANGUAGE_en_US = "en-US"
 
 //Create logging interceptor
-private val loggingInterceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+private val loggingInterceptor =
+    HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
 
 //Create OkHttp Client
 private val client = OkHttpClient.Builder()
