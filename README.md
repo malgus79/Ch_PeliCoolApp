@@ -1,4 +1,6 @@
-Peli Cool App es una aplicación de películas, mostrando las mas populares, los estrenos, las mas votadas y las que vendrán próximamente.
+# Peli Cool App
+
+Aplicación de películas, mostrando las mas populares, los estrenos, las mas votadas y las que vendrán próximamente.
 Puedes ver el detalle de cada película y así saber de que se trata.
 
  
