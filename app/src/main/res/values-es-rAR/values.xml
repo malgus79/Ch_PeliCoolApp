@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Movie Main</string>
+    <string name="app_name">Peli Cool App</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="popular">Populares</string>
     <string name="popular_home"> ______________ Populares _______________</string>
@@ -15,7 +15,7 @@
     <string name="favourite">Favorito</string>
     <string name="error_dialog">Error</string>
     <string name="error_dialog_detail">Ha ocurrido un error obteniendo la información</string>
-    <string name="try_again">intentar otra vez</string>
+    <string name="try_again">Reintentar</string>
     <string name="movie_detail">Detalles</string>
     <string name="retry">Reintentar</string>
     <string name="now_playing_home">_______________ Estrenos _______________</string>
