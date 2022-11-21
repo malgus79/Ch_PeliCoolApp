@@ -29,7 +29,7 @@ class HomeRepository @Inject constructor(
     }
 
     suspend fun getNowPlayingMovies(): NowPlayingList {
-        return APIService.getNow_PlayingMovies(API_KEY, LANGUAGE_es_ES)
+        return APIService.getNowPlayingMovies(API_KEY, LANGUAGE_es_ES)
     }
 
     suspend fun saveMovieToLocalDataBase(movie: MovieEntity) {
@@ -40,7 +40,7 @@ class HomeRepository @Inject constructor(
         movieDao.getAllMovies()
     }
 
-    suspend fun clearMovies(){
+    suspend fun clearMovies() {
         movieDao.deleteMovie()
     }
 }

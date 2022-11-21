@@ -1,5 +1,6 @@
 package com.moviemain.ui.view.detail
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -15,6 +16,7 @@ class MovieDetailFragment : Fragment(R.layout.fragment_movie_detail) {
     private lateinit var binding: FragmentMovieDetailBinding
     private val args by navArgs<MovieDetailFragmentArgs>()
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.moviemain.R
-import com.moviemain.model.data.Upcoming
 import com.moviemain.databinding.MovieItemBinding
+import com.moviemain.model.data.Upcoming
 import com.moviemain.ui.view.main.MovieListFragmentDirections
 
 
@@ -30,14 +30,14 @@ class UpcomingAdapter(private val upcomingList: List<Upcoming>) :
             binding.cvImgMovie.setOnClickListener {
 //                it -> it.findNavController().navigate(R.id.action_movieFragment_to_movieDetailFragment)
                 val action = MovieListFragmentDirections.actionMovieFragmentToMovieDetailFragment(
-                    upcoming.poster_path.toString(),
-                    upcoming.backdrop_path.toString(),
+                    upcoming.poster_path,
+                    upcoming.backdrop_path,
                     upcoming.vote_average.toFloat(),
-                    upcoming.vote_count.toInt(),
-                    upcoming.overview.toString(),
-                    upcoming.title.toString(),
-                    upcoming.original_language.toString(),
-                    upcoming.release_date.toString()
+                    upcoming.vote_count,
+                    upcoming.overview,
+                    upcoming.title,
+                    upcoming.original_language,
+                    upcoming.release_date
                 )
                 this.itemView.findNavController().navigate(action)
             }

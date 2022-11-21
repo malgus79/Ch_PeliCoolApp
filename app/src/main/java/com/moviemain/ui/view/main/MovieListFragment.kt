@@ -7,16 +7,18 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.moviemain.R
 import com.moviemain.core.State
+import com.moviemain.databinding.FragmentMovieListBinding
 import com.moviemain.model.data.NowPlayingList
 import com.moviemain.model.data.PopularList
 import com.moviemain.model.data.TopRatedList
 import com.moviemain.model.data.UpcomingList
-import com.moviemain.databinding.FragmentMovieListBinding
-import com.moviemain.ui.adapters.*
+import com.moviemain.ui.adapters.NowPlayingAdapter
+import com.moviemain.ui.adapters.PopularAdapter
+import com.moviemain.ui.adapters.TopRatedAdapter
+import com.moviemain.ui.adapters.UpcomingAdapter
 import com.moviemain.viewmodel.MovieListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import org.imaginativeworld.whynotimagecarousel.ImageCarousel
@@ -33,58 +35,58 @@ class MovieListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         binding = FragmentMovieListBinding.inflate(inflater, container, false)
 
         val carousel: ImageCarousel = binding.carousel
-        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/wKiOkZTN9lUUUNZLmtnwubZYONg.jpg"))
-        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/9Gtg2DzBhmYamXBS1hKAhiwbBKS.jpg"))
-        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/pIkRyD18kl4FhoCNQuWxWu5cBLM.jpg"))
-        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/kAVRgw7GgK1CfYEJq8ME6EvRIgU.jpg"))
-        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/dHKfsdNcEPw7YIWFPIhqiuWrSAb.jpg"))
-        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/neMZH82Stu91d3iqvLdNQfqPPyl.jpg"))
-        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/rugyJdeoJm7cSJL1q4jBpTNbxyU.jpg"))
-        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/vpILbP9eOQEtdQgl4vgjZUNY07r.jpg"))
-        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/62HCnUTziyWcpDaBO2i1DX17ljH.jpg"))
-        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/4Q1n3TwieoULnuaztu9aFjqHDTI.jpg"))
-        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/4zsihgkxMZ7MrflNCjkD3ySFJtc.jpg"))
+        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/ehSQcx7fYCRe92FPRdOjVjlgM3W.jpg"))
+        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/zBk0guZ6NI2aHclb4sbrQdrrnOC.jpg"))
+        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/sXeWfpT1EhG7f4uBouqraOhmouH.jpg"))
+        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/q5v13A4zZ0ffXqDQMfxKcNu1xzQ.jpg"))
+        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/1D2R2wIgbTyXTPzmyJIKSbVN9wG.jpg"))
+        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/bPIm1SXYp5RQ3c4wP91JQRewIb8.jpg"))
+        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/uOnutpXJdDWyWzUCkApkahPSKuy.jpg"))
+        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/engWUYSxDogn8csr3wJOq4cOzna.jpg"))
+        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/1dtdayBxKoYsD3YjuRyi9lSRNcF.jpg"))
+        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/osYbtvqjMUhEXgkuFJOsRYVpq6N.jpg"))
+        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/2r5ZISrHQUQLBMdAJF3CDDAxp54.jpg"))
         carousel.addData(list)
 
         viewModel.getPopularMovies()
-        viewModel.popularList.observe(viewLifecycleOwner, Observer {
+        viewModel.popularList.observe(viewLifecycleOwner) {
             when (it) {
                 is State.Loading -> showSpinnerLoading(true)
                 is State.Success -> setPopularMovies(it.data)
                 is State.Failure -> showErrorDialog(callback = { viewModel.getPopularMovies() })
             }
-        })
+        }
 
         viewModel.getTopRatedMovies()
-        viewModel.topRatedList.observe(viewLifecycleOwner, Observer {
+        viewModel.topRatedList.observe(viewLifecycleOwner) {
             when (it) {
                 is State.Loading -> showSpinnerLoading(true)
                 is State.Success -> setTopRatedMovies(it.data)
                 is State.Failure -> showErrorDialog(callback = { viewModel.getTopRatedMovies() })
             }
-        })
+        }
 
         viewModel.getNowPlayingMovies()
-        viewModel.nowPlayingList.observe(viewLifecycleOwner, Observer {
+        viewModel.nowPlayingList.observe(viewLifecycleOwner) {
             when (it) {
                 is State.Loading -> showSpinnerLoading(true)
                 is State.Success -> setNowPlayingMovies(it.data)
                 is State.Failure -> showErrorDialog(callback = { viewModel.getNowPlayingMovies() })
             }
-        })
+        }
 
         viewModel.getUpcomingMovies()
-        viewModel.upcomingList.observe(viewLifecycleOwner, Observer {
+        viewModel.upcomingList.observe(viewLifecycleOwner) {
             when (it) {
                 is State.Loading -> showSpinnerLoading(true)
                 is State.Success -> setUpComingMovies(it.data)
                 is State.Failure -> showErrorDialog(callback = { viewModel.getUpcomingMovies() })
             }
-        })
+        }
 
         return binding.root
     }
