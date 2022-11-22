@@ -1,5 +1,7 @@
 package com.moviemain.repository
 
+import com.moviemain.core.Constants.API_KEY
+import com.moviemain.core.Constants.LANGUAGE_es_ES
 import com.moviemain.model.data.NowPlayingList
 import com.moviemain.model.data.PopularList
 import com.moviemain.model.data.TopRatedList
@@ -7,8 +9,6 @@ import com.moviemain.model.data.UpcomingList
 import com.moviemain.model.local.MovieDao
 import com.moviemain.model.local.MovieEntity
 import com.moviemain.model.network.APIServices
-import com.moviemain.model.network.API_KEY
-import com.moviemain.model.network.LANGUAGE_es_ES
 import javax.inject.Inject
 
 class HomeRepository @Inject constructor(
