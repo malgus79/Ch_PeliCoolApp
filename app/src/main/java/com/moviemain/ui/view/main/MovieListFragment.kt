@@ -11,10 +11,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.moviemain.R
 import com.moviemain.core.State
 import com.moviemain.databinding.FragmentMovieListBinding
-import com.moviemain.model.data.NowPlayingList
-import com.moviemain.model.data.PopularList
-import com.moviemain.model.data.TopRatedList
-import com.moviemain.model.data.UpcomingList
+import com.moviemain.model.data.MovieList
 import com.moviemain.ui.adapters.NowPlayingAdapter
 import com.moviemain.ui.adapters.PopularAdapter
 import com.moviemain.ui.adapters.TopRatedAdapter
@@ -102,24 +99,24 @@ class MovieListFragment : Fragment() {
             .show()
     }
 
-    private fun setPopularMovies(popularList: PopularList) {
+    private fun setPopularMovies(popularList: MovieList) {
         showSpinnerLoading(false)
-        binding.rvMoviesPopular.adapter = PopularAdapter(popularList.data)
+        binding.rvMoviesPopular.adapter = PopularAdapter(popularList.results)
     }
 
-    private fun setTopRatedMovies(topRatedList: TopRatedList) {
+    private fun setTopRatedMovies(topRatedList: MovieList) {
         showSpinnerLoading(false)
-        binding.rvMoviesTopRated.adapter = TopRatedAdapter(topRatedList.data)
+        binding.rvMoviesTopRated.adapter = TopRatedAdapter(topRatedList.results)
     }
 
-    private fun setNowPlayingMovies(nowPlayingList: NowPlayingList) {
+    private fun setNowPlayingMovies(nowPlayingList: MovieList) {
         showSpinnerLoading(false)
-        binding.rvMoviesNowPlaying.adapter = NowPlayingAdapter(nowPlayingList.data)
+        binding.rvMoviesNowPlaying.adapter = NowPlayingAdapter(nowPlayingList.results)
     }
 
-    private fun setUpComingMovies(upcomingList: UpcomingList) {
+    private fun setUpComingMovies(upcomingList: MovieList) {
         showSpinnerLoading(false)
-        binding.rvMoviesUpComing.adapter = UpcomingAdapter(upcomingList.data)
+        binding.rvMoviesUpComing.adapter = UpcomingAdapter(upcomingList.results)
     }
 
     private fun showSpinnerLoading(loading: Boolean) {

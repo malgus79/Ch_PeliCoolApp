@@ -8,16 +8,16 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.moviemain.R
 import com.moviemain.databinding.MovieItemBinding
-import com.moviemain.model.data.Popular
+import com.moviemain.model.data.Movie
 import com.moviemain.ui.view.main.MovieListFragmentDirections
 
-class PopularAdapter(private val popularList: List<Popular>) :
+class PopularAdapter(private val popularList: List<Movie>) :
     RecyclerView.Adapter<PopularAdapter.PopularViewHolder>() {
 
     class PopularViewHolder(private val binding: MovieItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun setData(popular: Popular) {
+        fun setData(popular: Movie) {
             val imageUrl = "https://image.tmdb.org/t/p/w500"
             val posterFormat = imageUrl + popular.poster_path
             Glide.with(binding.root.context)

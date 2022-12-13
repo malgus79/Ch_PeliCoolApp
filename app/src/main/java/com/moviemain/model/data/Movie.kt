@@ -19,6 +19,8 @@ data class Movie(
     var movie_type: String = "",
 )
 
+data class MovieList(val results: List<Movie> = listOf())
+
 fun Movie.toDomain() = Movie(adult,
     backdrop_path,
     id,

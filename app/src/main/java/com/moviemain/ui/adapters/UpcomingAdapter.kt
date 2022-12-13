@@ -8,17 +8,17 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.moviemain.R
 import com.moviemain.databinding.MovieItemBinding
-import com.moviemain.model.data.Upcoming
+import com.moviemain.model.data.Movie
 import com.moviemain.ui.view.main.MovieListFragmentDirections
 
 
-class UpcomingAdapter(private val upcomingList: List<Upcoming>) :
+class UpcomingAdapter(private val upcomingList: List<Movie>) :
     RecyclerView.Adapter<UpcomingAdapter.UpComingViewHolder>() {
 
     class UpComingViewHolder(private val binding: MovieItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun setData(upcoming: Upcoming) {
+        fun setData(upcoming: Movie) {
             val imageUrl = "https://image.tmdb.org/t/p/w500"
             val posterFormat = imageUrl + upcoming.poster_path
             Glide.with(binding.root.context)

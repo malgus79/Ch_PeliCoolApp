@@ -8,16 +8,16 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.moviemain.R
 import com.moviemain.databinding.MovieItemBinding
-import com.moviemain.model.data.TopRated
+import com.moviemain.model.data.Movie
 import com.moviemain.ui.view.main.MovieListFragmentDirections
 
-class TopRatedAdapter(private val topRatedList: List<TopRated>) :
+class TopRatedAdapter(private val topRatedList: List<Movie>) :
     RecyclerView.Adapter<TopRatedAdapter.TopRatedViewHolder>() {
 
     class TopRatedViewHolder(private val binding: MovieItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun setData(topRated: TopRated) {
+        fun setData(topRated: Movie) {
             val imageUrl = "https://image.tmdb.org/t/p/w500"
             val posterFormat = imageUrl + topRated.poster_path
             Glide.with(binding.root.context)

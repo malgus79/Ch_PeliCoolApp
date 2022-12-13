@@ -25,7 +25,7 @@ data class Movie(
     var movie_type: String = "",
 ) : Parcelable
 
-data class MovieList(val results: List<Movie> = listOf())
+//data class MovieList(val results: List<Movie> = listOf())
 
 // Room
 
@@ -61,13 +61,13 @@ data class MovieEntity(
     var movie_type: String = "",
 )
 
-fun List<MovieEntity>.toMovieList(): MovieList {
-    val resultList = mutableListOf<Movie>()
-    this.forEach { movieEntity ->
-        resultList.add(movieEntity.toMovie())
-    }
-    return MovieList(resultList)
-}
+//fun List<MovieEntity>.toMovieList(): MovieList {
+//    val resultList = mutableListOf<Movie>()
+//    this.forEach { movieEntity ->
+//        resultList.add(movieEntity.toMovie())
+//    }
+//    return MovieList(resultList)
+//}
 
 fun MovieEntity.toMovie(): Movie = Movie(
     this.adult,
