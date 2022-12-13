@@ -12,10 +12,7 @@ import com.moviemain.R
 import com.moviemain.core.State
 import com.moviemain.databinding.FragmentMovieListBinding
 import com.moviemain.model.data.MovieList
-import com.moviemain.ui.adapters.NowPlayingAdapter
-import com.moviemain.ui.adapters.PopularAdapter
-import com.moviemain.ui.adapters.TopRatedAdapter
-import com.moviemain.ui.adapters.UpcomingAdapter
+import com.moviemain.ui.adapters.*
 import com.moviemain.viewmodel.MovieListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import org.imaginativeworld.whynotimagecarousel.ImageCarousel
@@ -101,22 +98,22 @@ class MovieListFragment : Fragment() {
 
     private fun setPopularMovies(popularList: MovieList) {
         showSpinnerLoading(false)
-        binding.rvMoviesPopular.adapter = PopularAdapter(popularList.results)
+        binding.rvMoviesPopular.adapter = MovieAdapter(popularList.results)
     }
 
     private fun setTopRatedMovies(topRatedList: MovieList) {
         showSpinnerLoading(false)
-        binding.rvMoviesTopRated.adapter = TopRatedAdapter(topRatedList.results)
+        binding.rvMoviesTopRated.adapter = MovieAdapter(topRatedList.results)
     }
 
     private fun setNowPlayingMovies(nowPlayingList: MovieList) {
         showSpinnerLoading(false)
-        binding.rvMoviesNowPlaying.adapter = NowPlayingAdapter(nowPlayingList.results)
+        binding.rvMoviesNowPlaying.adapter = MovieAdapter(nowPlayingList.results)
     }
 
     private fun setUpComingMovies(upcomingList: MovieList) {
         showSpinnerLoading(false)
-        binding.rvMoviesUpComing.adapter = UpcomingAdapter(upcomingList.results)
+        binding.rvMoviesUpComing.adapter = MovieAdapter(upcomingList.results)
     }
 
     private fun showSpinnerLoading(loading: Boolean) {

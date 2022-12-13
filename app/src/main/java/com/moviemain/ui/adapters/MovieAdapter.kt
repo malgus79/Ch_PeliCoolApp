@@ -11,15 +11,15 @@ import com.moviemain.databinding.MovieItemBinding
 import com.moviemain.model.data.Movie
 import com.moviemain.ui.view.main.MovieListFragmentDirections
 
-class TopRatedAdapter(private val topRatedList: List<Movie>) :
-    RecyclerView.Adapter<TopRatedAdapter.TopRatedViewHolder>() {
+class MovieAdapter(private val movieList: List<Movie>) :
+    RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
-    class TopRatedViewHolder(private val binding: MovieItemBinding) :
+    class MovieViewHolder(private val binding: MovieItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun setData(topRated: Movie) {
+        fun setData(movie: Movie) {
             val imageUrl = "https://image.tmdb.org/t/p/w500"
-            val posterFormat = imageUrl + topRated.poster_path
+            val posterFormat = imageUrl + movie.poster_path
             Glide.with(binding.root.context)
                 .load(posterFormat)
                 .error(R.drawable.gradient)
@@ -27,30 +27,29 @@ class TopRatedAdapter(private val topRatedList: List<Movie>) :
                 .into(binding.imgMovie)
 
             binding.cvImgMovie.setOnClickListener {
-//                it -> it.findNavController().navigate(R.id.action_movieFragment_to_movieDetailFragment)
                 val action = MovieListFragmentDirections.actionMovieFragmentToMovieDetailFragment(
-                    topRated.poster_path,
-                    topRated.backdrop_path,
-                    topRated.vote_average.toFloat(),
-                    topRated.vote_count,
-                    topRated.overview,
-                    topRated.title,
-                    topRated.original_language,
-                    topRated.release_date
+                    movie.poster_path,
+                    movie.backdrop_path,
+                    movie.vote_average.toFloat(),
+                    movie.vote_count,
+                    movie.overview,
+                    movie.title,
+                    movie.original_language,
+                    movie.release_date
                 )
                 this.itemView.findNavController().navigate(action)
             }
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopRatedViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val binding = MovieItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return TopRatedViewHolder(binding)
+        return MovieViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: TopRatedViewHolder, position: Int) {
-        holder.setData(topRatedList[position])
+    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
+        holder.setData(movieList[position])
     }
 
-    override fun getItemCount(): Int = topRatedList.size
+    override fun getItemCount(): Int = movieList.size
 }
