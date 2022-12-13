@@ -2,8 +2,9 @@ package com.moviemain.di
 
 import android.content.Context
 import androidx.room.Room
+import com.moviemain.core.Constants.MOVIE_DATABASE_NAME
 import com.moviemain.model.local.dao.MovieDao
-import com.moviemain.model.local.MovieDatabase
+import com.moviemain.model.local.database.MovieDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,25 +14,21 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class LocalModule {
+object LocalModule {
 
-    //Inyect the database
     @Singleton
     @Provides
     fun providesRoom(@ApplicationContext context: Context): MovieDatabase {
-        return Room.databaseBuilder(context,
+        return Room.databaseBuilder(
+            context,
             MovieDatabase::class.java,
-            MOVIE_DATABASE_NAME).build()
+            MOVIE_DATABASE_NAME
+        ).build()
     }
 
-    //Inyect the Dao
     @Singleton
     @Provides
     fun providesMovieDao(moviesdb: MovieDatabase): MovieDao {
         return moviesdb.movieDao()
-    }
-
-    companion object {
-        private const val MOVIE_DATABASE_NAME = "movie_database"
     }
 }

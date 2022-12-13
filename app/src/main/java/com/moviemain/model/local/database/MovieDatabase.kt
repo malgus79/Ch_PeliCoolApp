@@ -1,4 +1,4 @@
-package com.moviemain.model.local
+package com.moviemain.model.local.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
