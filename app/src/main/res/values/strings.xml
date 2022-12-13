@@ -19,4 +19,6 @@
     <string name="movie_detail">Movie detail</string>
     <string name="retry">Retry</string>
     <string name="now_playing_home">____________ Now Playing ____________</string>
+    <string name="home">Home</string>
+    <string name="search">Search</string>
 </resources>
