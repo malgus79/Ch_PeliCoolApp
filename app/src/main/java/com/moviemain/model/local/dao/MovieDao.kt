@@ -1,4 +1,4 @@
-package com.moviemain.model.local
+package com.moviemain.model.local.dao
 
 import androidx.room.*
 import com.moviemain.model.local.entity.MovieEntity
@@ -12,10 +12,12 @@ interface MovieDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveMovie(movie: MovieEntity)
 
-    @Delete
-    suspend fun deleteMovie(movie: MovieEntity)
-
-    // Alternative to delete
     @Query("DELETE FROM movieEntity")
     suspend fun deleteMovie()
+
+/*
+    // Alternative to delete
+    @Delete
+    suspend fun deleteMovie(movie: MovieEntity)
+*/
 }

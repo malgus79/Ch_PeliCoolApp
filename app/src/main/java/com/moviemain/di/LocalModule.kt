@@ -2,7 +2,7 @@ package com.moviemain.di
 
 import android.content.Context
 import androidx.room.Room
-import com.moviemain.model.local.MovieDao
+import com.moviemain.model.local.dao.MovieDao
 import com.moviemain.model.local.MovieDatabase
 import dagger.Module
 import dagger.Provides
