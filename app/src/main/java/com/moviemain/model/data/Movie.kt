@@ -1,7 +1,5 @@
 package com.moviemain.model.data
 
-import com.moviemain.model.local.MovieEntity
-
 data class Movie(
     val adult: Boolean = false,
     val backdrop_path: String = "",
@@ -20,33 +18,33 @@ data class Movie(
 )
 
 data class MovieList(val results: List<Movie> = listOf())
-
-fun Movie.toDomain() = Movie(adult,
-    backdrop_path,
-    id,
-    original_title,
-    original_language,
-    overview,
-    popularity,
-    poster_path,
-    release_date,
-    title,
-    video,
-    vote_average,
-    vote_count,
-    movie_type)
-
-fun MovieEntity.toDomain() = Movie(adult,
-    backdrop_path,
-    id,
-    original_title,
-    original_language,
-    overview,
-    popularity,
-    poster_path,
-    release_date,
-    title,
-    video,
-    vote_average,
-    vote_count,
-    movie_type)
+//
+//fun Movie.toDomain() = Movie(adult,
+//    backdrop_path,
+//    id,
+//    original_title,
+//    original_language,
+//    overview,
+//    popularity,
+//    poster_path,
+//    release_date,
+//    title,
+//    video,
+//    vote_average,
+//    vote_count,
+//    movie_type)
+//
+//fun MovieEntity.toDomain() = Movie(adult,
+//    backdrop_path,
+//    id,
+//    original_title,
+//    original_language,
+//    overview,
+//    popularity,
+//    poster_path,
+//    release_date,
+//    title,
+//    video,
+//    vote_average,
+//    vote_count,
+//    movie_type)

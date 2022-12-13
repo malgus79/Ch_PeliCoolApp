@@ -1,5 +1,7 @@
 package com.moviemain.model.local
 
+import com.moviemain.model.local.entity.MovieEntity
+
 class LocalDataSource(private val movieDao: MovieDao) {
 
 //    suspend fun getPopularMovies(): MovieList {

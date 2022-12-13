@@ -1,6 +1,7 @@
 package com.moviemain.model.local
 
 import androidx.room.*
+import com.moviemain.model.local.entity.MovieEntity
 
 @Dao
 interface MovieDao {
