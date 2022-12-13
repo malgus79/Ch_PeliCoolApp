@@ -26,4 +26,8 @@ class LocalDataSource(private val movieDao: MovieDao) {
     suspend fun saveMovie(movie: MovieEntity) {
         movieDao.saveMovie(movie)
     }
+
+    suspend fun clearMovies() {
+        movieDao.deleteMovie()
+    }
 }
