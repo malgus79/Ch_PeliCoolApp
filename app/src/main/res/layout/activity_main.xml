@@ -33,6 +33,7 @@
         app:itemIconTint="@color/grey_light"
         app:itemRippleColor="@color/white"
         app:itemTextColor="@color/grey_light"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0"
+        style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

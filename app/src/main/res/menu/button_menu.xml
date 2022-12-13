@@ -3,18 +3,22 @@
 
     <item android:id="@+id/nav_home"
         android:title="@string/home"
+        android:enabled="true"
         android:icon="@drawable/ic_home"/>
 
     <item android:id="@+id/nav_upcoming"
         android:title="@string/upcoming"
+        android:enabled="true"
         android:icon="@drawable/ic_upcoming"/>
 
     <item android:id="@+id/nav_bookmark"
         android:title="@string/bookmark"
+        android:enabled="true"
         android:icon="@drawable/ic_bookmark_added"/>
 
     <item android:id="@+id/nav_searh"
         android:title="@string/search"
+        android:enabled="true"
         android:icon="@drawable/ic_search"/>
 
 </menu>
