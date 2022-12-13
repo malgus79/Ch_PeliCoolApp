@@ -1,5 +1,6 @@
 package com.moviemain.di
 
+import com.moviemain.core.Constants.BASE_URL
 import com.moviemain.model.network.APIServices
 import dagger.Module
 import dagger.Provides
@@ -13,7 +14,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class RemoteModule {
+object RemoteModule {
 
     @Singleton
     @Provides
@@ -38,5 +39,3 @@ class RemoteModule {
             .build()
     }
 }
-
-const val BASE_URL = "https://api.themoviedb.org/3/movie/"
