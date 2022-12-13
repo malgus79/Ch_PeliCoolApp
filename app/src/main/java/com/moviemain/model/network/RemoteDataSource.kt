@@ -6,7 +6,7 @@ import com.moviemain.model.data.MovieList
 import javax.inject.Inject
 
 class RemoteDataSource @Inject constructor(
-    private val apiService: APIService,
+    private val apiService: ApiService,
 //    private val movieDao: MovieDao,
 ) {
 
