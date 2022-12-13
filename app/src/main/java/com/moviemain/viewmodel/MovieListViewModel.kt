@@ -6,14 +6,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.moviemain.core.ResourceNotFoundException
 import com.moviemain.core.State
+import com.moviemain.domain.Repository
 import com.moviemain.model.data.MovieList
-import com.moviemain.model.network.RemoteDataSource
+import com.moviemain.model.local.entity.MovieEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MovieListViewModel @Inject constructor(private val repository: RemoteDataSource) : ViewModel() {
+class MovieListViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
     /* ---------------------------Popular movies request--------------------------- */
     private val _popularList = MutableLiveData<State<MovieList>>()
@@ -24,14 +25,14 @@ class MovieListViewModel @Inject constructor(private val repository: RemoteDataS
         _popularList.postValue(State.Loading())
         viewModelScope.launch {
             try {
-                val popularList = repository.getPopularMovies()
-                if (popularList.results.isEmpty()) {
+                val popularList = repository.getAllMoviesFromApi()
+                if (popularList.isEmpty()) {
                     _popularList.postValue((State.Failure(ResourceNotFoundException())))
-//                    repository.getAllMoviesFromDatabase(MovieEntity())
+                    repository.getAllMoviesFromDatabase()
                 } else {
 //                    repository.clearMovies()
                     _popularList.postValue(State.Success(popularList))
-//                    repository.saveMovieToLocalDataBase(MovieEntity())
+//                    repository.insertMovies(MovieEntity())
                 }
             } catch (e: Exception) {
                 _popularList.postValue(State.Failure(e))
@@ -39,76 +40,76 @@ class MovieListViewModel @Inject constructor(private val repository: RemoteDataS
         }
     }
 
-    /* ---------------------------Top Rated movies request--------------------------- */
-    private val _topRatedList = MutableLiveData<State<MovieList>>()
-    val topRatedList: LiveData<State<MovieList>> = _topRatedList
-
-    //Downloads data from api
-    fun getTopRatedMovies() {
-        _topRatedList.postValue(State.Loading())
-        viewModelScope.launch {
-            try {
-                val topRatedList = repository.getTopRatedMovies()
-                if (topRatedList.results.isEmpty()) {
-                    _topRatedList.postValue((State.Failure(ResourceNotFoundException())))
-//                    repository.getAllMoviesFromDatabase(MovieEntity())
-                } else {
-//                    repository.clearMovies()
-                    _topRatedList.postValue(State.Success(topRatedList))
-//                    repository.saveMovieToLocalDataBase(MovieEntity())
-                }
-            } catch (e: Exception) {
-                _topRatedList.postValue(State.Failure(e))
-            }
-        }
-    }
-
-    /* ---------------------------Now Playing movies request--------------------------- */
-    private val _nowPlayingList = MutableLiveData<State<MovieList>>()
-    val nowPlayingList: LiveData<State<MovieList>> = _nowPlayingList
-
-    //Downloads data from api
-    fun getNowPlayingMovies() {
-        _nowPlayingList.postValue(State.Loading())
-        viewModelScope.launch {
-            try {
-                val nowPlayingList = repository.getNowPlayingMovies()
-                if (nowPlayingList.results.isEmpty()) {
-                    _nowPlayingList.postValue((State.Failure(ResourceNotFoundException())))
-//                    repository.getAllMoviesFromDatabase(MovieEntity())
-                } else {
-//                    repository.clearMovies()
-                    _nowPlayingList.postValue(State.Success(nowPlayingList))
-//                    repository.saveMovieToLocalDataBase(MovieEntity())
-                }
-            } catch (e: Exception) {
-                _nowPlayingList.postValue(State.Failure(e))
-            }
-        }
-    }
-
-    /* ---------------------------Upcoming movies request--------------------------- */
-    private val _upcomingList = MutableLiveData<State<MovieList>>()
-    val upcomingList: LiveData<State<MovieList>> = _upcomingList
-
-    //Downloads data from api
-    fun getUpcomingMovies() {
-        _upcomingList.postValue(State.Loading())
-        viewModelScope.launch {
-            try {
-                val upcomingList = repository.getUpcomingMovies()
-                if (upcomingList.results.isEmpty()) {
-                    _upcomingList.postValue((State.Failure(ResourceNotFoundException())))
-//                    repository.getAllMoviesFromDatabase(MovieEntity())
-                } else {
-//                    repository.clearMovies()
-                    _upcomingList.postValue(State.Success(upcomingList))
-//                    repository.saveMovieToLocalDataBase(MovieEntity())
-                }
-            } catch (e: Exception) {
-                _upcomingList.postValue(State.Failure(e))
-            }
-        }
-    }
+//    /* ---------------------------Top Rated movies request--------------------------- */
+//    private val _topRatedList = MutableLiveData<State<MovieList>>()
+//    val topRatedList: LiveData<State<MovieList>> = _topRatedList
+//
+//    //Downloads data from api
+//    fun getTopRatedMovies() {
+//        _topRatedList.postValue(State.Loading())
+//        viewModelScope.launch {
+//            try {
+//                val topRatedList = repository.getTopRatedMovies()
+//                if (topRatedList.results.isEmpty()) {
+//                    _topRatedList.postValue((State.Failure(ResourceNotFoundException())))
+////                    repository.getAllMoviesFromDatabase(MovieEntity())
+//                } else {
+////                    repository.clearMovies()
+//                    _topRatedList.postValue(State.Success(topRatedList))
+////                    repository.saveMovieToLocalDataBase(MovieEntity())
+//                }
+//            } catch (e: Exception) {
+//                _topRatedList.postValue(State.Failure(e))
+//            }
+//        }
+//    }
+//
+//    /* ---------------------------Now Playing movies request--------------------------- */
+//    private val _nowPlayingList = MutableLiveData<State<MovieList>>()
+//    val nowPlayingList: LiveData<State<MovieList>> = _nowPlayingList
+//
+//    //Downloads data from api
+//    fun getNowPlayingMovies() {
+//        _nowPlayingList.postValue(State.Loading())
+//        viewModelScope.launch {
+//            try {
+//                val nowPlayingList = repository.getNowPlayingMovies()
+//                if (nowPlayingList.results.isEmpty()) {
+//                    _nowPlayingList.postValue((State.Failure(ResourceNotFoundException())))
+////                    repository.getAllMoviesFromDatabase(MovieEntity())
+//                } else {
+////                    repository.clearMovies()
+//                    _nowPlayingList.postValue(State.Success(nowPlayingList))
+////                    repository.saveMovieToLocalDataBase(MovieEntity())
+//                }
+//            } catch (e: Exception) {
+//                _nowPlayingList.postValue(State.Failure(e))
+//            }
+//        }
+//    }
+//
+//    /* ---------------------------Upcoming movies request--------------------------- */
+//    private val _upcomingList = MutableLiveData<State<MovieList>>()
+//    val upcomingList: LiveData<State<MovieList>> = _upcomingList
+//
+//    //Downloads data from api
+//    fun getUpcomingMovies() {
+//        _upcomingList.postValue(State.Loading())
+//        viewModelScope.launch {
+//            try {
+//                val upcomingList = repository.getUpcomingMovies()
+//                if (upcomingList.results.isEmpty()) {
+//                    _upcomingList.postValue((State.Failure(ResourceNotFoundException())))
+////                    repository.getAllMoviesFromDatabase(MovieEntity())
+//                } else {
+////                    repository.clearMovies()
+//                    _upcomingList.postValue(State.Success(upcomingList))
+////                    repository.saveMovieToLocalDataBase(MovieEntity())
+//                }
+//            } catch (e: Exception) {
+//                _upcomingList.postValue(State.Failure(e))
+//            }
+//        }
+//    }
 }
 

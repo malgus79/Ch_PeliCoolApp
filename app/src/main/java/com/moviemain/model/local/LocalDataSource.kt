@@ -4,8 +4,9 @@ import com.moviemain.model.data.MovieList
 import com.moviemain.model.local.dao.MovieDao
 import com.moviemain.model.local.entity.MovieEntity
 import com.moviemain.model.local.entity.toMovieList
+import javax.inject.Inject
 
-class LocalDataSource(private val movieDao: MovieDao) {
+class LocalDataSource @Inject constructor(private val movieDao: MovieDao) {
 
     suspend fun getPopularMovies(): MovieList {
         return movieDao.getAllMovies().filter { it.movie_type == "popular" }.toMovieList()

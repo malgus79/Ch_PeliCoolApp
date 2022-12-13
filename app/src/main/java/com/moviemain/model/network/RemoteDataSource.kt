@@ -5,10 +5,7 @@ import com.moviemain.core.Constants.LANGUAGE_es_ES
 import com.moviemain.model.data.MovieList
 import javax.inject.Inject
 
-class RemoteDataSource @Inject constructor(
-    private val apiService: ApiService,
-//    private val movieDao: MovieDao,
-) {
+class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
 
     suspend fun getPopularMovies(): MovieList {
         return apiService.getPopularMovies(API_KEY, LANGUAGE_es_ES)

@@ -6,8 +6,9 @@ import com.moviemain.model.data.toDomain
 import com.moviemain.model.local.LocalDataSource
 import com.moviemain.model.local.entity.MovieEntity
 import com.moviemain.model.network.RemoteDataSource
+import javax.inject.Inject
 
-class Repository(
+class Repository @Inject constructor(
     private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource
 ) {

@@ -11,6 +11,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.moviemain.R
 import com.moviemain.core.State
 import com.moviemain.databinding.FragmentMovieListBinding
+import com.moviemain.model.data.Movie
 import com.moviemain.model.data.MovieList
 import com.moviemain.ui.adapters.*
 import com.moviemain.viewmodel.MovieListViewModel
@@ -55,32 +56,32 @@ class MovieListFragment : Fragment() {
             }
         }
 
-        viewModel.getTopRatedMovies()
-        viewModel.topRatedList.observe(viewLifecycleOwner) {
-            when (it) {
-                is State.Loading -> showSpinnerLoading(true)
-                is State.Success -> setTopRatedMovies(it.data)
-                is State.Failure -> showErrorDialog(callback = { viewModel.getTopRatedMovies() })
-            }
-        }
-
-        viewModel.getNowPlayingMovies()
-        viewModel.nowPlayingList.observe(viewLifecycleOwner) {
-            when (it) {
-                is State.Loading -> showSpinnerLoading(true)
-                is State.Success -> setNowPlayingMovies(it.data)
-                is State.Failure -> showErrorDialog(callback = { viewModel.getNowPlayingMovies() })
-            }
-        }
-
-        viewModel.getUpcomingMovies()
-        viewModel.upcomingList.observe(viewLifecycleOwner) {
-            when (it) {
-                is State.Loading -> showSpinnerLoading(true)
-                is State.Success -> setUpComingMovies(it.data)
-                is State.Failure -> showErrorDialog(callback = { viewModel.getUpcomingMovies() })
-            }
-        }
+//        viewModel.getTopRatedMovies()
+//        viewModel.topRatedList.observe(viewLifecycleOwner) {
+//            when (it) {
+//                is State.Loading -> showSpinnerLoading(true)
+//                is State.Success -> setTopRatedMovies(it.data)
+//                is State.Failure -> showErrorDialog(callback = { viewModel.getTopRatedMovies() })
+//            }
+//        }
+//
+//        viewModel.getNowPlayingMovies()
+//        viewModel.nowPlayingList.observe(viewLifecycleOwner) {
+//            when (it) {
+//                is State.Loading -> showSpinnerLoading(true)
+//                is State.Success -> setNowPlayingMovies(it.data)
+//                is State.Failure -> showErrorDialog(callback = { viewModel.getNowPlayingMovies() })
+//            }
+//        }
+//
+//        viewModel.getUpcomingMovies()
+//        viewModel.upcomingList.observe(viewLifecycleOwner) {
+//            when (it) {
+//                is State.Loading -> showSpinnerLoading(true)
+//                is State.Success -> setUpComingMovies(it.data)
+//                is State.Failure -> showErrorDialog(callback = { viewModel.getUpcomingMovies() })
+//            }
+//        }
 
         return binding.root
     }
@@ -96,9 +97,9 @@ class MovieListFragment : Fragment() {
             .show()
     }
 
-    private fun setPopularMovies(popularList: MovieList) {
+    private fun setPopularMovies(popularList: List<Movie>) {
         showSpinnerLoading(false)
-        binding.rvMoviesPopular.adapter = MovieAdapter(popularList.results)
+        binding.rvMoviesPopular.adapter = MovieAdapter(popularList)
     }
 
     private fun setTopRatedMovies(topRatedList: MovieList) {
