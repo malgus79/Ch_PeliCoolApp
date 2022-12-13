@@ -5,7 +5,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 
-interface APIServices {
+interface APIService {
 
     @GET("popular")
     suspend fun getPopularMovies(

@@ -7,13 +7,13 @@ import androidx.lifecycle.viewModelScope
 import com.moviemain.core.ResourceNotFoundException
 import com.moviemain.core.State
 import com.moviemain.model.data.MovieList
-import com.moviemain.repository.HomeRepository
+import com.moviemain.model.network.RemoteDataSource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MovieListViewModel @Inject constructor(private val repository: HomeRepository) : ViewModel() {
+class MovieListViewModel @Inject constructor(private val repository: RemoteDataSource) : ViewModel() {
 
     /* ---------------------------Popular movies request--------------------------- */
     private val _popularList = MutableLiveData<State<MovieList>>()

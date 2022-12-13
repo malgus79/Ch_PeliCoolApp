@@ -1,7 +1,7 @@
 package com.moviemain.di
 
 import com.moviemain.core.Constants.BASE_URL
-import com.moviemain.model.network.APIServices
+import com.moviemain.model.network.APIService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,8 +18,8 @@ object RemoteModule {
 
     @Singleton
     @Provides
-    fun providesAPIService(retrofit: Retrofit): APIServices {
-        return retrofit.create(APIServices::class.java)
+    fun providesAPIService(retrofit: Retrofit): APIService {
+        return retrofit.create(APIService::class.java)
     }
 
     @Singleton

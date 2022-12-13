@@ -1,6 +1,6 @@
 package com.moviemain.model.local
 
-class LocalMovieDataSource(private val movieDao: MovieDao) {
+class LocalDataSource(private val movieDao: MovieDao) {
 
 //    suspend fun getPopularMovies(): MovieList {
 //        return movieDao.getAllMovies().filter { it.movie_type == "popular" }.toMovieList()

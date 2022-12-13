@@ -3,7 +3,7 @@ package com.moviemain.viewmodel
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.moviemain.MainDispatcherRule
 import com.moviemain.model.data.*
-import com.moviemain.repository.HomeRepository
+import com.moviemain.model.network.RemoteDataSource
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -83,7 +83,7 @@ internal class MovieListViewModelTest() {
             443)
         val upcomingList = UpcomingList(listOf(upcoming))
 
-        val repository = mockk<HomeRepository>()
+        val repository = mockk<RemoteDataSource>()
 
         coEvery { repository.getPopularMovies() } returns popularList
         coEvery { repository.getTopRatedMovies() } returns topRatedList
@@ -125,7 +125,7 @@ internal class MovieListViewModelTest() {
             333)
         val popularList = PopularList(listOf(popular))
 
-        val repository = mockk<HomeRepository>()
+        val repository = mockk<RemoteDataSource>()
 
         coEvery { repository.getPopularMovies() } returns popularList
 
@@ -158,7 +158,7 @@ internal class MovieListViewModelTest() {
             21785)
         val topRatedList = TopRatedList(listOf(topRated))
 
-        val repository = mockk<HomeRepository>()
+        val repository = mockk<RemoteDataSource>()
 
         coEvery { repository.getTopRatedMovies() } returns topRatedList
 
@@ -191,7 +191,7 @@ internal class MovieListViewModelTest() {
             974)
         val nowPlayingList = NowPlayingList(listOf(nowPlaying))
 
-        val repository = mockk<HomeRepository>()
+        val repository = mockk<RemoteDataSource>()
 
         coEvery { repository.getNowPlayingMovies() } returns nowPlayingList
 
@@ -224,7 +224,7 @@ internal class MovieListViewModelTest() {
             443)
         val upcomingList = UpcomingList(listOf(upcoming))
 
-        val repository = mockk<HomeRepository>()
+        val repository = mockk<RemoteDataSource>()
 
         coEvery { repository.getUpcomingMovies() } returns upcomingList
 
@@ -303,7 +303,7 @@ internal class MovieListViewModelTest() {
             -1)
         val upcomingList = UpcomingList(listOf(upcoming))
 
-        val repository = mockk<HomeRepository>()
+        val repository = mockk<RemoteDataSource>()
 
         coEvery { repository.getPopularMovies() } returns popularList
         coEvery { repository.getTopRatedMovies() } returns topRatedList
@@ -335,7 +335,7 @@ internal class MovieListViewModelTest() {
         val nowPlayingList = NowPlayingList(listOf())
         val upcomingList = UpcomingList(listOf())
 
-        val repository = mockk<HomeRepository>()
+        val repository = mockk<RemoteDataSource>()
 
         coEvery { repository.getPopularMovies() } returns popularList
         coEvery { repository.getTopRatedMovies() } returns topRatedList
@@ -422,7 +422,7 @@ internal class MovieListViewModelTest() {
             -1)
         val upcomingList = UpcomingList(listOf(upcoming))
 
-        val repository = mockk<HomeRepository>()
+        val repository = mockk<RemoteDataSource>()
 
         coEvery { repository.getPopularMovies() } returns popularList
         coEvery { repository.getTopRatedMovies() } returns topRatedList
@@ -510,7 +510,7 @@ internal class MovieListViewModelTest() {
         val upcomingList = UpcomingList(listOf(upcoming))
 
 
-        val repository = mockk<HomeRepository>()
+        val repository = mockk<RemoteDataSource>()
 
         coEvery { repository.getPopularMovies() } returns popularList
         coEvery { repository.getTopRatedMovies() } returns topRatedList
