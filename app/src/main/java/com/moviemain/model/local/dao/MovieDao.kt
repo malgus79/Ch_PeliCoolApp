@@ -6,13 +6,13 @@ import com.moviemain.model.local.entity.MovieEntity
 @Dao
 interface MovieDao {
 
-    @Query("SELECT * FROM movieEntity")
+    @Query("SELECT * FROM movie_entity")
     suspend fun getAllMovies(): List<MovieEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveMovie(movie: MovieEntity)
 
-    @Query("DELETE FROM movieEntity")
+    @Query("DELETE FROM movie_entity")
     suspend fun deleteMovie()
 
 /*

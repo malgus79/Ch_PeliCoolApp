@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import com.moviemain.model.data.Movie
 import com.moviemain.model.data.MovieList
 
-@Entity(tableName = "movieEntity")
+@Entity(tableName = "movie_entity")
 data class MovieEntity(
     @PrimaryKey val id: Int = -1,
     @ColumnInfo(name = "adult") val adult: Boolean = false,
