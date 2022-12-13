@@ -2,19 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:id="@+id/nav_home"
-        android:title="Inicio"
+        android:title="Home"
         android:icon="@drawable/ic_home"/>
 
     <item android:id="@+id/nav_upcoming"
-        android:title="Staff"
+        android:title="Upcoming"
         android:icon="@drawable/ic_upcoming"/>
 
     <item android:id="@+id/nav_bookmark"
-        android:title="Actividades"
+        android:title="Bookmark"
         android:icon="@drawable/ic_bookmark_added"/>
 
     <item android:id="@+id/nav_searh"
-        android:title="Novedades"
+        android:title="Search"
         android:icon="@drawable/ic_search"/>
 
 </menu>
