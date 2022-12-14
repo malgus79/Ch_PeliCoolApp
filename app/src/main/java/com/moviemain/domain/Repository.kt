@@ -3,6 +3,7 @@ package com.moviemain.domain
 import com.moviemain.model.data.Movie
 import com.moviemain.model.data.MovieList
 import com.moviemain.model.network.RemoteDataSource
+import retrofit2.Response
 import javax.inject.Inject
 
 class Repository @Inject constructor(
@@ -25,9 +26,8 @@ class Repository @Inject constructor(
         return response.results
     }
 
-    suspend fun getUpcomingMovies(): List<Movie> {
-        val response: MovieList = remoteDataSource.getUpcomingMovies()
-        return response.results
+    suspend fun getUpcomingMovies(currentPage: Int): Response<MovieList> {
+        return remoteDataSource.getUpcomingMovies()
     }
 
 }

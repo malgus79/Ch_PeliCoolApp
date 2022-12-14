@@ -12,7 +12,6 @@ import com.moviemain.R
 import com.moviemain.core.State
 import com.moviemain.databinding.FragmentMovieListBinding
 import com.moviemain.model.data.Movie
-import com.moviemain.model.data.MovieList
 import com.moviemain.ui.adapters.*
 import com.moviemain.viewmodel.MovieListViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -74,6 +73,7 @@ class MovieListFragment : Fragment() {
             }
         }
 
+/*
         viewModel.getUpcomingMovies()
         viewModel.upcomingList.observe(viewLifecycleOwner) {
             when (it) {
@@ -82,6 +82,7 @@ class MovieListFragment : Fragment() {
                 is State.Failure -> showErrorDialog(callback = { viewModel.getUpcomingMovies() })
             }
         }
+*/
 
         return binding.root
     }
@@ -112,10 +113,12 @@ class MovieListFragment : Fragment() {
         binding.rvMoviesNowPlaying.adapter = MovieAdapter(nowPlayingList)
     }
 
+/*
     private fun setUpComingMovies(upcomingList: List<Movie>) {
         showSpinnerLoading(false)
         binding.rvMoviesUpComing.adapter = MovieAdapter(upcomingList)
     }
+*/
 
     private fun showSpinnerLoading(loading: Boolean) {
         binding.progressBar.isVisible = loading

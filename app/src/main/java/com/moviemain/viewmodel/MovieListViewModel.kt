@@ -87,7 +87,8 @@ class MovieListViewModel @Inject constructor(private val repository: Repository)
         }
     }
 
-    /* ---------------------------Upcoming movies request--------------------------- */
+/*
+     ---------------------------Upcoming movies request---------------------------
     private val _upcomingList = MutableLiveData<State<MovieList>>()
     val upcomingList: LiveData<State<MovieList>> = _upcomingList
 
@@ -110,5 +111,6 @@ class MovieListViewModel @Inject constructor(private val repository: Repository)
             }
         }
     }
+*/
 }
 

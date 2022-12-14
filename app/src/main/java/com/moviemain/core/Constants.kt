@@ -6,4 +6,5 @@ object Constants {
     const val LANGUAGE_es_ES = "es-ES"
     const val LANGUAGE_en_US = "en-US"
     const val MOVIE_DATABASE_NAME = "movie_database"
+    const val PAGE_INDEX = 1
 }

@@ -6,7 +6,8 @@
     <string name="top_rated">Mas Votadas</string>
     <string name="top_rated_home">_____________ Mas Votadas _____________</string>
     <string name="upcoming">Próximamente</string>
-    <string name="upcoming_home">____________ Próximamente ____________</string>
+<!--    <string name="upcoming_home">____________ Próximamente ____________</string>-->
+    <string name="upcoming_home">Próximamente</string>
     <string name="movie_title">Movie Title</string>
     <string name="movie_image">Movie Image</string>
     <string name="overview">Información</string>
