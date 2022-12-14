@@ -86,31 +86,5 @@ class MovieListViewModel @Inject constructor(private val repository: Repository)
             }
         }
     }
-
-/*
-     ---------------------------Upcoming movies request---------------------------
-    private val _upcomingList = MutableLiveData<State<MovieList>>()
-    val upcomingList: LiveData<State<MovieList>> = _upcomingList
-
-    //Downloads data from api
-    fun getUpcomingMovies() {
-        _upcomingList.postValue(State.Loading())
-        viewModelScope.launch {
-            try {
-                val upcomingList = repository.getUpcomingMovies()
-                if (upcomingList.isEmpty()) {
-                    _upcomingList.postValue((State.Failure(ResourceNotFoundException())))
-//                    repository.getAllMoviesFromDatabase(MovieEntity())
-                } else {
-//                    repository.clearMovies()
-                    _upcomingList.postValue(State.Success(upcomingList))
-//                    repository.saveMovieToLocalDataBase(MovieEntity())
-                }
-            } catch (e: Exception) {
-                _upcomingList.postValue(State.Failure(e))
-            }
-        }
-    }
-*/
 }
 

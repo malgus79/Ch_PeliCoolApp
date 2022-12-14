@@ -9,7 +9,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.moviemain.R
 import com.moviemain.databinding.MovieItemBinding
 import com.moviemain.model.data.Movie
-import com.moviemain.ui.view.main.MovieListFragmentDirections
+import com.moviemain.ui.view.main.HomeFragmentDirections
 
 class MovieAdapter(private val movieList: List<Movie>) :
     RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
@@ -27,7 +27,7 @@ class MovieAdapter(private val movieList: List<Movie>) :
                 .into(binding.imgMovie)
 
             binding.cvImgMovie.setOnClickListener {
-                val action = MovieListFragmentDirections.actionMovieFragmentToMovieDetailFragment(
+                val action = HomeFragmentDirections.actionMovieFragmentToMovieDetailFragment(
                     movie.poster_path,
                     movie.backdrop_path,
                     movie.vote_average.toFloat(),

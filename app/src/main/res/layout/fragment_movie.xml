@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/black"
-        tools:context=".ui.view.main.MovieListFragment">
+        tools:context=".ui.view.main.HomeFragment">
 
         <RelativeLayout
             android:id="@+id/progress_bar"
@@ -121,33 +121,6 @@
             app:layout_constraintTop_toBottomOf="@id/title_now_playing"
             tools:layout_editor_absoluteX="16dp"
             android:layout_marginBottom="@dimen/common_margin_middle"/>
-
-        <TextView
-            android:id="@+id/title_upcoming"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/common_margin_min"
-            android:layout_marginTop="@dimen/common_padding_default"
-            android:fontFamily="@font/lobster"
-            android:text="@string/upcoming_home"
-            android:textColor="@color/yellow"
-            android:textSize="@dimen/common_size_default"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rv_movies_now_playing" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_movies_up_coming"
-            android:layout_width="match_parent"
-            android:layout_height="170dp"
-            android:layout_marginTop="@dimen/common_margin_min"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toBottomOf="@+id/title_upcoming"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:layout_editor_absoluteX="16dp"
-            android:layout_marginBottom="@dimen/common_margin_middle"/>
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -11,8 +11,6 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.moviemain.databinding.MovieItemBinding
 import com.moviemain.model.data.Movie
 import com.moviemain.ui.view.fragments.GalleryFragmentDirections
-import com.moviemain.ui.view.main.MovieListFragmentDirections
-
 class PagingAdapter : PagingDataAdapter<Movie,
         PagingAdapter.ImageViewHolder>(diffCallback) {
 
@@ -60,12 +58,12 @@ class PagingAdapter : PagingDataAdapter<Movie,
                     val action = GalleryFragmentDirections.actionGalleryFragmentToMovieDetailFragment(
                         currMovie?.poster_path.toString(),
                         currMovie?.backdrop_path.toString(),
-                        currMovie!!.vote_average!!.toFloat(),
-                        currMovie.vote_count!!,
-                        currMovie.overview.toString(),
-                        currMovie.title.toString(),
-                        currMovie.original_language.toString(),
-                        currMovie.release_date.toString()
+                        currMovie!!.vote_average.toFloat(),
+                        currMovie.vote_count,
+                        currMovie.overview,
+                        currMovie.title,
+                        currMovie.original_language,
+                        currMovie.release_date
                     )
                     this.findNavController().navigate(action)
                 }
