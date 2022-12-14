@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.moviemain.R
 import com.moviemain.core.State
-import com.moviemain.databinding.FragmentMovieBinding
+import com.moviemain.databinding.FragmentHomeBinding
 import com.moviemain.model.data.Movie
 import com.moviemain.ui.adapters.MovieAdapter
 import com.moviemain.viewmodel.MovieListViewModel
@@ -21,7 +21,7 @@ import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
-    private lateinit var binding: FragmentMovieBinding
+    private lateinit var binding: FragmentHomeBinding
     private val viewModel by viewModels<MovieListViewModel>()
     private val list = mutableListOf<CarouselItem>()
 
@@ -30,7 +30,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        binding = FragmentMovieBinding.inflate(inflater, container, false)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         val carousel: ImageCarousel = binding.carousel
         list.add(CarouselItem("https://image.tmdb.org/t/p/w500/ehSQcx7fYCRe92FPRdOjVjlgM3W.jpg"))

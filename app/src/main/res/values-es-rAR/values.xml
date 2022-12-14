@@ -2,9 +2,9 @@
     <string name="app_name">Peli Cool App</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="popular">Populares</string>
-    <string name="popular_home"> ______________ Populares _______________</string>
+    <string name="popular_home">Populares</string>
     <string name="top_rated">Mas Votadas</string>
-    <string name="top_rated_home">_____________ Mas Votadas _____________</string>
+    <string name="top_rated_home">Mas Votadas</string>
     <string name="upcoming">Próximamente</string>
 <!--    <string name="upcoming_home">____________ Próximamente ____________</string>-->
     <string name="upcoming_home">Próximamente</string>
@@ -19,5 +19,8 @@
     <string name="try_again">Reintentar</string>
     <string name="movie_detail">Detalles</string>
     <string name="retry">Reintentar</string>
-    <string name="now_playing_home">_______________ Estrenos _______________</string>
+    <string name="now_playing_home">Estrenos</string>
+    <string name="home">Inicio</string>
+    <string name="search">Buscar</string>
+    <string name="ok">OK</string>
 </resources>

@@ -4,11 +4,7 @@
     <font
         android:fontStyle="normal"
         android:fontWeight="400"
-        android:font="@font/lobster_italic"
-        tools:targetApi="o" />
-    <font
-        android:fontStyle="italic"
-        android:fontWeight="400"
-        android:font="@font/lobster_italic"
-        tools:targetApi="o" />
+        android:font="@font/lobster"
+        tools:targetApi="o"
+        tools:ignore="ResourceCycle" />
 </font-family>
