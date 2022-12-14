@@ -27,7 +27,7 @@ class Repository @Inject constructor(
     }
 
     suspend fun getUpcomingMovies(currentPage: Int): Response<MovieList> {
-        return remoteDataSource.getUpcomingMovies()
+        return remoteDataSource.getUpcomingMovies(currentPage)
     }
 
 }

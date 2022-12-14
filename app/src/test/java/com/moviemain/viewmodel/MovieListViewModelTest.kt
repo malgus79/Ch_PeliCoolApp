@@ -88,7 +88,7 @@ internal class MovieListViewModelTest() {
         coEvery { repository.getPopularMovies() } returns popularList
         coEvery { repository.getTopRatedMovies() } returns topRatedList
         coEvery { repository.getNowPlayingMovies() } returns nowPlayingList
-        coEvery { repository.getUpcomingMovies() } returns upcomingList
+        coEvery { repository.getUpcomingMovies(currentPage) } returns upcomingList
 
         val movieListViewModel = MovieListViewModel(repository)
 
@@ -226,7 +226,7 @@ internal class MovieListViewModelTest() {
 
         val repository = mockk<RemoteDataSource>()
 
-        coEvery { repository.getUpcomingMovies() } returns upcomingList
+        coEvery { repository.getUpcomingMovies(currentPage) } returns upcomingList
 
         val upcomingViewModel = MovieListViewModel(repository)
 
@@ -308,7 +308,7 @@ internal class MovieListViewModelTest() {
         coEvery { repository.getPopularMovies() } returns popularList
         coEvery { repository.getTopRatedMovies() } returns topRatedList
         coEvery { repository.getNowPlayingMovies() } returns nowPlayingList
-        coEvery { repository.getUpcomingMovies() } returns upcomingList
+        coEvery { repository.getUpcomingMovies(currentPage) } returns upcomingList
 
         val movieListViewModel = MovieListViewModel(repository)
 
@@ -340,7 +340,7 @@ internal class MovieListViewModelTest() {
         coEvery { repository.getPopularMovies() } returns popularList
         coEvery { repository.getTopRatedMovies() } returns topRatedList
         coEvery { repository.getNowPlayingMovies() } returns nowPlayingList
-        coEvery { repository.getUpcomingMovies() } returns upcomingList
+        coEvery { repository.getUpcomingMovies(currentPage) } returns upcomingList
 
         val movieListViewModel = MovieListViewModel(repository)
 
@@ -427,7 +427,7 @@ internal class MovieListViewModelTest() {
         coEvery { repository.getPopularMovies() } returns popularList
         coEvery { repository.getTopRatedMovies() } returns topRatedList
         coEvery { repository.getNowPlayingMovies() } returns nowPlayingList
-        coEvery { repository.getUpcomingMovies() } returns upcomingList
+        coEvery { repository.getUpcomingMovies(currentPage) } returns upcomingList
 
         val movieListViewModel = MovieListViewModel(repository)
 
@@ -515,7 +515,7 @@ internal class MovieListViewModelTest() {
         coEvery { repository.getPopularMovies() } returns popularList
         coEvery { repository.getTopRatedMovies() } returns topRatedList
         coEvery { repository.getNowPlayingMovies() } returns nowPlayingList
-        coEvery { repository.getUpcomingMovies() } returns upcomingList
+        coEvery { repository.getUpcomingMovies(currentPage) } returns upcomingList
 
         val movieListViewModel = MovieListViewModel(repository)
 

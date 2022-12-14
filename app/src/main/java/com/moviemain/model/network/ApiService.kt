@@ -30,5 +30,6 @@ interface ApiService {
     suspend fun getUpcomingMovies(
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
+        @Query("page") page: Int,
     ): Response<MovieList>
 }
