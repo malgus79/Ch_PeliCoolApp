@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/movieFragment">
+    app:startDestination="@id/nav_home">
 
     <fragment
-        android:id="@+id/movieFragment"
+        android:id="@+id/nav_home"
         android:name="com.moviemain.ui.view.main.MovieListFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_movie_list">
@@ -18,7 +18,7 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
-            android:id="@+id/action_movieFragment_to_galleryFragment"
+            android:id="@+id/nav_upcoming"
             app:destination="@id/galleryFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"

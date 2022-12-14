@@ -1,14 +1,12 @@
 package com.moviemain.ui
 
 import android.os.Bundle
-import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.navigation.NavigationBarView
 import com.moviemain.R
 import com.moviemain.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,31 +29,19 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomNavigationView.setupWithNavController(navController)
 
-//        NavigationBarView.OnItemSelectedListener { item ->
-//            when (item.itemId) {
-//                R.id.nav_home -> {
-//                    true
-//                }
-//                R.id.nav_upcoming -> {
-//                    true
-//                }
-//                R.id.nav_bookmark -> {
-//                    true
-//                }
-//                R.id.nav_searh -> {
-//                    true
-//                }
-//                else -> false
-//            }
-//        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.popBackStack()
     }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.button_menu, menu)
-        return true
-    }
 }
+
+
+//    override fun onSupportNavigateUp(): Boolean {
+//        return navController.navigateUp() || super.onSupportNavigateUp()
+//    }
+
+//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+//        menuInflater.inflate(R.menu.button_menu, menu)
+//        return true
+//    }
