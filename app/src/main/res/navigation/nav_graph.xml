@@ -18,8 +18,15 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
-            android:id="@+id/nav_upcoming"
+            android:id="@+id/nav_gallery"
             app:destination="@id/galleryFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/nav_bookmark"
+            app:destination="@id/bookmarkFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -69,4 +76,9 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
+    <fragment
+        android:id="@+id/bookmarkFragment"
+        android:name="com.moviemain.ui.view.fragments.BookmarkFragment"
+        android:label="@string/bookmark"
+        tools:layout="@layout/fragment_bookmark"/>
 </navigation>
