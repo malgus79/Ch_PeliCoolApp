@@ -37,3 +37,7 @@
         style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--
+    app:itemTextAppearanceActive="@color/yellow"
+    app:itemTextAppearanceInactive="@color/grey_light"-->

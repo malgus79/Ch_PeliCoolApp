@@ -59,10 +59,14 @@
     <fragment
         android:id="@+id/galleryFragment"
         android:name="com.moviemain.ui.view.fragments.GalleryFragment"
-        android:label="fragment_gallery"
+        android:label="@string/upcoming"
         tools:layout="@layout/fragment_gallery" >
         <action
             android:id="@+id/action_galleryFragment_to_movieDetailFragment"
-            app:destination="@id/movieDetailFragment" />
+            app:destination="@id/movieDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 </navigation>
