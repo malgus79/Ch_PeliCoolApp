@@ -25,23 +25,30 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.findNavController()
-        NavigationUI.setupActionBarWithNavController(this, navController)
+//        NavigationUI.setupActionBarWithNavController(this, navController)
 
         binding.bottomNavigationView.setupWithNavController(navController)
 
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.popBackStack()
-    }
-}
-
-
 //    override fun onSupportNavigateUp(): Boolean {
-//        return navController.navigateUp() || super.onSupportNavigateUp()
+//        return navController.popBackStack()
 //    }
 
-//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onSupportNavigateUp()
+    }
+
+//        override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 //        menuInflater.inflate(R.menu.button_menu, menu)
 //        return true
 //    }
+
+//    override fun onSupportNavigateUp(): Boolean {
+//        return navController.popBackStack()
+//    }
+}
+
+
+
+
