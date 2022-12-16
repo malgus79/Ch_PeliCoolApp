@@ -13,8 +13,8 @@
         android:title="@string/bookmark"
         android:icon="@drawable/ic_bookmark_added"/>
 
-    <item android:id="@+id/nav_searh"
+<!--    <item android:id="@+id/nav_search"
         android:title="@string/search"
-        android:icon="@drawable/ic_search"/>
+        android:icon="@drawable/ic_search"/>-->
 
 </menu>

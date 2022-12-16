@@ -10,7 +10,7 @@
     <string name="movie_image">Imagen</string>
     <string name="overview">Información</string>
     <string name="share">Compartir</string>
-    <string name="bookmark">Guardar</string>
+    <string name="bookmark">Mi Lista</string>
     <string name="favourite">Favorito</string>
     <string name="error_dialog">Error</string>
     <string name="error_dialog_detail">Ha ocurrido un error obteniendo la información</string>
@@ -20,5 +20,6 @@
     <string name="search">Buscar</string>
     <string name="ok">OK</string>
     <string name="try_again">Intentar otra vez</string>
-    <string name="my_list">Mi Lista</string>
+    <string name="gallery">Galeria</string>
+    <string name="movie_item">Movie_item</string>
 </resources>
