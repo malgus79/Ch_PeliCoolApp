@@ -45,7 +45,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_movies_up_coming"
             android:layout_width="match_parent"
-            android:layout_height="650dp"
+            android:layout_height="750dp"
             android:layout_marginTop="@dimen/common_margin_min"
             android:orientation="vertical"
             android:layout_marginHorizontal="@dimen/common_margin_min"

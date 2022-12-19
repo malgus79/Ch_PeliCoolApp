@@ -13,4 +13,14 @@
     <color name="grey_light">#A0A0A1</color>
     <color name="yellow">#FFFB00</color>
     <color name="yellow_dense">#C7A501</color>
+
+
+
+
+    <color name="rojo_theme">#ED190C</color>
+    <color name="pink_theme">#FA3EDF</color>
+    <color name="purple_theme">#7000E0</color>
+    <color name="blue_dark_theme">#5F6BFA</color>
+    <color name="blue_light_theme">#059AF0</color>
+
 </resources>
