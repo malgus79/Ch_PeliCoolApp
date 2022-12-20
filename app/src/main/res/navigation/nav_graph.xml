@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/nav_home">
+    app:startDestination="@id/menu_home">
 
     <fragment
-        android:id="@+id/nav_home"
+        android:id="@+id/menu_home"
         android:name="com.moviemain.ui.view.main.HomeFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_home">
@@ -18,15 +18,15 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
-            android:id="@+id/nav_gallery"
-            app:destination="@id/nav_gallery"
+            android:id="@+id/menu_gallery"
+            app:destination="@id/menu_gallery"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
-            android:id="@+id/nav_bookmark"
-            app:destination="@id/nav_bookmark"
+            android:id="@+id/menu_bookmark"
+            app:destination="@id/menu_bookmark"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -64,7 +64,7 @@
             app:argType="string" />
     </fragment>
     <fragment
-        android:id="@+id/nav_gallery"
+        android:id="@+id/menu_gallery"
         android:name="com.moviemain.ui.view.fragments.GalleryFragment"
         android:label="@string/upcoming"
         tools:layout="@layout/fragment_gallery" >
@@ -77,7 +77,7 @@
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
-        android:id="@+id/nav_bookmark"
+        android:id="@+id/menu_bookmark"
         android:name="com.moviemain.ui.view.fragments.BookmarkFragment"
         android:label="@string/bookmark"
         tools:layout="@layout/fragment_bookmark"/>

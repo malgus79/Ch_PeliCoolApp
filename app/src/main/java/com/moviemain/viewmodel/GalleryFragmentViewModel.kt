@@ -12,7 +12,7 @@ import com.moviemain.core.ResourceNotFoundException
 import com.moviemain.core.StatePaging
 import com.moviemain.domain.Repository
 import com.moviemain.model.data.MovieList
-import com.moviemain.ui.paging.DataPagingSource
+import com.moviemain.model.paging.DataPagingSource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Response

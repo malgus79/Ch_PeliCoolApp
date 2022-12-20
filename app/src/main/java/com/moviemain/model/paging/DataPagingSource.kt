@@ -1,4 +1,4 @@
-package com.moviemain.ui.paging
+package com.moviemain.model.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
