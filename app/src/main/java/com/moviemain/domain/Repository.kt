@@ -1,5 +1,6 @@
 package com.moviemain.domain
 
+import com.moviemain.core.CheckInternet
 import com.moviemain.model.data.MovieList
 import com.moviemain.model.local.LocalDataSource
 import com.moviemain.model.local.toMovieEntity
@@ -13,24 +14,36 @@ class Repository @Inject constructor(
 ) {
 
     suspend fun getPopularMovies(): MovieList {
-        remoteDataSource.getPopularMovies().results.forEach {
-            localDataSource.saveMovie(it.toMovieEntity("popular"))
+        return if (CheckInternet.isNetworkAvailable()) {
+            remoteDataSource.getPopularMovies().results.forEach {
+                localDataSource.saveMovie(it.toMovieEntity("popular"))
+            }
+            localDataSource.getPopularMovies()
+        } else {
+            localDataSource.getPopularMovies()
         }
-        return localDataSource.getPopularMovies()
     }
 
     suspend fun getTopRatedMovies(): MovieList {
-        remoteDataSource.getTopRatedMovies().results.forEach {
-            localDataSource.saveMovie(it.toMovieEntity("top_rated"))
+        return if (CheckInternet.isNetworkAvailable()) {
+            remoteDataSource.getTopRatedMovies().results.forEach {
+                localDataSource.saveMovie(it.toMovieEntity("top_rated"))
+            }
+            localDataSource.getTopRatedMovies()
+        } else {
+            localDataSource.getTopRatedMovies()
         }
-        return localDataSource.getTopRatedMovies()
     }
 
     suspend fun getNowPlayingMovies(): MovieList {
-        remoteDataSource.getNowPlayingMovies().results.forEach {
-            localDataSource.saveMovie(it.toMovieEntity("now_playing"))
+        return if (CheckInternet.isNetworkAvailable()) {
+            remoteDataSource.getNowPlayingMovies().results.forEach {
+                localDataSource.saveMovie(it.toMovieEntity("now_playing"))
+            }
+            remoteDataSource.getNowPlayingMovies()
+        } else {
+            remoteDataSource.getNowPlayingMovies()
         }
-        return remoteDataSource.getNowPlayingMovies()
     }
 
     suspend fun getUpcomingMovies(currentPage: Int): Response<MovieList> {
