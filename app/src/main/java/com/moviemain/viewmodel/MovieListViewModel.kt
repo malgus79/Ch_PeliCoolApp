@@ -25,7 +25,7 @@ class MovieListViewModel @Inject constructor(private val repository: Repository)
         viewModelScope.launch {
             try {
                 val popularList = repository.getPopularMovies()
-                if (popularList.isEmpty()) {
+                if (popularList.results.isEmpty()) {
                     _popularList.postValue((State.Failure(ResourceNotFoundException())))
 //                    repository.getAllMoviesFromDatabase()
                 } else {
@@ -49,7 +49,7 @@ class MovieListViewModel @Inject constructor(private val repository: Repository)
         viewModelScope.launch {
             try {
                 val topRatedList = repository.getTopRatedMovies()
-                if (topRatedList.isEmpty()) {
+                if (topRatedList.results.isEmpty()) {
                     _topRatedList.postValue((State.Failure(ResourceNotFoundException())))
 //                    repository.getAllMoviesFromDatabase(MovieEntity())
                 } else {
@@ -73,7 +73,7 @@ class MovieListViewModel @Inject constructor(private val repository: Repository)
         viewModelScope.launch {
             try {
                 val nowPlayingList = repository.getNowPlayingMovies()
-                if (nowPlayingList.isEmpty()) {
+                if (nowPlayingList.results.isEmpty()) {
                     _nowPlayingList.postValue((State.Failure(ResourceNotFoundException())))
 //                    repository.getAllMoviesFromDatabase(MovieEntity())
                 } else {

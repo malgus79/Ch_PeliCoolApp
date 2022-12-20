@@ -12,6 +12,7 @@ import com.moviemain.R
 import com.moviemain.core.State
 import com.moviemain.databinding.FragmentHomeBinding
 import com.moviemain.model.data.Movie
+import com.moviemain.model.data.MovieList
 import com.moviemain.ui.adapters.MovieAdapter
 import com.moviemain.viewmodel.MovieListViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -87,17 +88,17 @@ class HomeFragment : Fragment() {
             .show()
     }
 
-    private fun setPopularMovies(popularList: List<Movie>) {
+    private fun setPopularMovies(popularList: MovieList) {
         showSpinnerLoading(false)
         binding.rvMoviesPopular.adapter = MovieAdapter(popularList)
     }
 
-    private fun setTopRatedMovies(topRatedList: List<Movie>) {
+    private fun setTopRatedMovies(topRatedList: MovieList) {
         showSpinnerLoading(false)
         binding.rvMoviesTopRated.adapter = MovieAdapter(topRatedList)
     }
 
-    private fun setNowPlayingMovies(nowPlayingList: List<Movie>) {
+    private fun setNowPlayingMovies(nowPlayingList: MovieList) {
         showSpinnerLoading(false)
         binding.rvMoviesNowPlaying.adapter = MovieAdapter(nowPlayingList)
     }
