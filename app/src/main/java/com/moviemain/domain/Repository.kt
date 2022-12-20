@@ -1,6 +1,7 @@
 package com.moviemain.domain
 
 import com.moviemain.model.data.MovieList
+import com.moviemain.model.data.toMovieEntity
 import com.moviemain.model.local.LocalDataSource
 import com.moviemain.model.network.RemoteDataSource
 import retrofit2.Response
@@ -12,14 +13,23 @@ class Repository @Inject constructor(
 ) {
 
     suspend fun getPopularMovies(): MovieList {
-        return remoteDataSource.getPopularMovies()
+        remoteDataSource.getPopularMovies().results.forEach {
+            localDataSource.saveMovie(it.toMovieEntity("popular"))
+        }
+        return localDataSource.getPopularMovies()
     }
 
     suspend fun getTopRatedMovies(): MovieList {
-        return remoteDataSource.getTopRatedMovies()
+        remoteDataSource.getTopRatedMovies().results.forEach {
+            localDataSource.saveMovie(it.toMovieEntity("top_rated"))
+        }
+        return localDataSource.getTopRatedMovies()
     }
 
     suspend fun getNowPlayingMovies(): MovieList {
+        remoteDataSource.getNowPlayingMovies().results.forEach {
+            localDataSource.saveMovie(it.toMovieEntity("now_playing"))
+        }
         return remoteDataSource.getNowPlayingMovies()
     }
 

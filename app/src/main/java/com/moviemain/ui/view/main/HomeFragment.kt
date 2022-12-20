@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -52,7 +53,7 @@ class HomeFragment : Fragment() {
             when (it) {
                 is State.Loading -> showSpinnerLoading(true)
                 is State.Success -> setPopularMovies(it.data)
-                is State.Failure -> showErrorDialog(callback = { viewModel.getPopularMovies() })
+                is State.Failure -> showErrorDialog()
             }
         }
 
@@ -61,7 +62,7 @@ class HomeFragment : Fragment() {
             when (it) {
                 is State.Loading -> showSpinnerLoading(true)
                 is State.Success -> setTopRatedMovies(it.data)
-                is State.Failure -> showErrorDialog(callback = { viewModel.getTopRatedMovies() })
+                is State.Failure -> showErrorDialog()
             }
         }
 
@@ -70,21 +71,20 @@ class HomeFragment : Fragment() {
             when (it) {
                 is State.Loading -> showSpinnerLoading(true)
                 is State.Success -> setNowPlayingMovies(it.data)
-                is State.Failure -> showErrorDialog(callback = { viewModel.getNowPlayingMovies() })
+                is State.Failure -> showErrorDialog()
             }
         }
 
         return binding.root
     }
 
-    private fun showErrorDialog(
-        callback: (() -> Unit)? = null,
-    ) {
+    private fun showErrorDialog() {
         binding.progressBar.isVisible = false
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(getString(R.string.error_dialog))
             .setMessage(getString(R.string.error_dialog_detail))
-            .setPositiveButton(getString(R.string.try_again)) { _, _ -> callback?.invoke() }
+            .setPositiveButton(getString(R.string.ok)) {_, _ ->}
+//            .setPositiveButton(getString(R.string.try_again)) { _, _ -> callback?.invoke() }
             .show()
     }
 
