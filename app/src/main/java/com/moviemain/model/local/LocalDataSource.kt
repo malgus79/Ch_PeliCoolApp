@@ -1,8 +1,6 @@
 package com.moviemain.model.local
 
-import com.moviemain.model.data.MovieEntity
 import com.moviemain.model.data.MovieList
-import com.moviemain.model.data.toMovieList
 import javax.inject.Inject
 
 class LocalDataSource @Inject constructor(private val movieDao: MovieDao) {

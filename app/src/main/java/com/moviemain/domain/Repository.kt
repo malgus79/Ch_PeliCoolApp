@@ -1,8 +1,8 @@
 package com.moviemain.domain
 
 import com.moviemain.model.data.MovieList
-import com.moviemain.model.data.toMovieEntity
 import com.moviemain.model.local.LocalDataSource
+import com.moviemain.model.local.toMovieEntity
 import com.moviemain.model.network.RemoteDataSource
 import retrofit2.Response
 import javax.inject.Inject
