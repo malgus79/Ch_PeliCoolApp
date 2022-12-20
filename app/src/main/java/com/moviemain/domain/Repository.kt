@@ -1,12 +1,13 @@
 package com.moviemain.domain
 
 import com.moviemain.model.data.MovieList
+import com.moviemain.model.local.LocalDataSource
 import com.moviemain.model.network.RemoteDataSource
 import retrofit2.Response
 import javax.inject.Inject
 
 class Repository @Inject constructor(
-//    private val localDataSource: LocalDataSource,
+    private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource
 ) {
 
