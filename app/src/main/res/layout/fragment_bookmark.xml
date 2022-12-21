@@ -7,7 +7,7 @@
     android:background="@color/black">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/container_popular"
+        android:id="@+id/container_bookmark"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/black"
@@ -29,7 +29,7 @@
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/title_upcoming"
+            android:id="@+id/title_bookmark"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/common_margin_min"
@@ -43,7 +43,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_movies_up_coming"
+            android:id="@+id/rv_movies_bookmark"
             android:layout_width="match_parent"
             android:layout_height="750dp"
             android:layout_marginTop="@dimen/common_margin_min"
@@ -53,7 +53,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title_upcoming" />
+            app:layout_constraintTop_toBottomOf="@id/title_bookmark" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
