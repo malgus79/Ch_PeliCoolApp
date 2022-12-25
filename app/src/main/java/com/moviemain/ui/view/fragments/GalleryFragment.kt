@@ -12,7 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.moviemain.R
-import com.moviemain.core.StatePaging
+import com.moviemain.core.ResourcePaging
 import com.moviemain.databinding.FragmentGalleryBinding
 import com.moviemain.model.data.MovieList
 import com.moviemain.ui.adapters.PagingAdapter
@@ -40,15 +40,15 @@ class GalleryFragment : Fragment() {
         viewModel.getUpcomingMovies()
         viewModel.movieUpcomingList.observe(viewLifecycleOwner) {
             when (it) {
-                is StatePaging.SuccessPaging<*> -> {
+                is ResourcePaging.SuccessPaging<*> -> {
                     setMovie(it.data)
                     showSpinnerLoading(false)
                 }
-                is StatePaging.FailurePaging -> {
+                is ResourcePaging.FailurePaging -> {
                     showErrorDialog()
                     binding.rvMoviesUpComing.isVisible = false
                 }
-                is StatePaging.LoadingPaging -> showSpinnerLoading(true)
+                is ResourcePaging.LoadingPaging -> showSpinnerLoading(true)
                 else -> {}
             }
         }

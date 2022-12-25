@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.moviemain.R
-import com.moviemain.core.State
+import com.moviemain.core.Resource
 import com.moviemain.databinding.FragmentHomeBinding
 import com.moviemain.model.data.MovieList
 import com.moviemain.ui.adapters.MovieAdapter
@@ -49,27 +49,27 @@ class HomeFragment : Fragment() {
         viewModel.getPopularMovies()
         viewModel.popularList.observe(viewLifecycleOwner) {
             when (it) {
-                is State.Loading -> showSpinnerLoading(true)
-                is State.Success -> setPopularMovies(it.data)
-                is State.Failure -> showErrorDialog()
+                is Resource.Loading -> showSpinnerLoading(true)
+                is Resource.Success -> setPopularMovies(it.data)
+                is Resource.Failure -> showErrorDialog()
             }
         }
 
         viewModel.getTopRatedMovies()
         viewModel.topRatedList.observe(viewLifecycleOwner) {
             when (it) {
-                is State.Loading -> showSpinnerLoading(true)
-                is State.Success -> setTopRatedMovies(it.data)
-                is State.Failure -> showErrorDialog()
+                is Resource.Loading -> showSpinnerLoading(true)
+                is Resource.Success -> setTopRatedMovies(it.data)
+                is Resource.Failure -> showErrorDialog()
             }
         }
 
         viewModel.getNowPlayingMovies()
         viewModel.nowPlayingList.observe(viewLifecycleOwner) {
             when (it) {
-                is State.Loading -> showSpinnerLoading(true)
-                is State.Success -> setNowPlayingMovies(it.data)
-                is State.Failure -> showErrorDialog()
+                is Resource.Loading -> showSpinnerLoading(true)
+                is Resource.Success -> setNowPlayingMovies(it.data)
+                is Resource.Failure -> showErrorDialog()
             }
         }
 

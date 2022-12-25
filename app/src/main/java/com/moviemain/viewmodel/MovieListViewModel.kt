@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.moviemain.core.ResourceNotFoundException
-import com.moviemain.core.State
+import com.moviemain.core.Resource
 import com.moviemain.domain.RepositoryImpl
 import com.moviemain.model.data.MovieList
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,73 +16,73 @@ import javax.inject.Inject
 class MovieListViewModel @Inject constructor(private val repository: RepositoryImpl) : ViewModel() {
 
     /* ---------------------------Popular movies request--------------------------- */
-    private val _popularList = MutableLiveData<State<MovieList>>()
-    val popularList: LiveData<State<MovieList>> = _popularList
+    private val _popularList = MutableLiveData<Resource<MovieList>>()
+    val popularList: LiveData<Resource<MovieList>> = _popularList
 
     //Downloads data from api
     fun getPopularMovies() {
-        _popularList.postValue(State.Loading())
+        _popularList.postValue(Resource.Loading)
         viewModelScope.launch {
             try {
                 val popularList = repository.getPopularMovies()
                 if (popularList.results.isEmpty()) {
-                    _popularList.postValue((State.Failure(ResourceNotFoundException())))
+                    _popularList.postValue((Resource.Failure(ResourceNotFoundException())))
 //                    repository.getAllMoviesFromDatabase()
                 } else {
 //                    repository.clearMovies()
-                    _popularList.postValue(State.Success(popularList))
+                    _popularList.postValue(Resource.Success(popularList))
 //                    repository.insertMovies(MovieEntity())
                 }
             } catch (e: Exception) {
-                _popularList.postValue(State.Failure(e))
+                _popularList.postValue(Resource.Failure(e))
             }
         }
     }
 
     /* ---------------------------Top Rated movies request--------------------------- */
-    private val _topRatedList = MutableLiveData<State<MovieList>>()
-    val topRatedList: LiveData<State<MovieList>> = _topRatedList
+    private val _topRatedList = MutableLiveData<Resource<MovieList>>()
+    val topRatedList: LiveData<Resource<MovieList>> = _topRatedList
 
     //Downloads data from api
     fun getTopRatedMovies() {
-        _topRatedList.postValue(State.Loading())
+        _topRatedList.postValue(Resource.Loading)
         viewModelScope.launch {
             try {
                 val topRatedList = repository.getTopRatedMovies()
                 if (topRatedList.results.isEmpty()) {
-                    _topRatedList.postValue((State.Failure(ResourceNotFoundException())))
+                    _topRatedList.postValue((Resource.Failure(ResourceNotFoundException())))
 //                    repository.getAllMoviesFromDatabase(MovieEntity())
                 } else {
 //                    repository.clearMovies()
-                    _topRatedList.postValue(State.Success(topRatedList))
+                    _topRatedList.postValue(Resource.Success(topRatedList))
 //                    repository.saveMovieToLocalDataBase(MovieEntity())
                 }
             } catch (e: Exception) {
-                _topRatedList.postValue(State.Failure(e))
+                _topRatedList.postValue(Resource.Failure(e))
             }
         }
     }
 
     /* ---------------------------Now Playing movies request--------------------------- */
-    private val _nowPlayingList = MutableLiveData<State<MovieList>>()
-    val nowPlayingList: LiveData<State<MovieList>> = _nowPlayingList
+    private val _nowPlayingList = MutableLiveData<Resource<MovieList>>()
+    val nowPlayingList: LiveData<Resource<MovieList>> = _nowPlayingList
 
     //Downloads data from api
     fun getNowPlayingMovies() {
-        _nowPlayingList.postValue(State.Loading())
+        _nowPlayingList.postValue(Resource.Loading)
         viewModelScope.launch {
             try {
                 val nowPlayingList = repository.getNowPlayingMovies()
                 if (nowPlayingList.results.isEmpty()) {
-                    _nowPlayingList.postValue((State.Failure(ResourceNotFoundException())))
+                    _nowPlayingList.postValue((Resource.Failure(ResourceNotFoundException())))
 //                    repository.getAllMoviesFromDatabase(MovieEntity())
                 } else {
 //                    repository.clearMovies()
-                    _nowPlayingList.postValue(State.Success(nowPlayingList))
+                    _nowPlayingList.postValue(Resource.Success(nowPlayingList))
 //                    repository.saveMovieToLocalDataBase(MovieEntity())
                 }
             } catch (e: Exception) {
-                _nowPlayingList.postValue(State.Failure(e))
+                _nowPlayingList.postValue(Resource.Failure(e))
             }
         }
     }
