@@ -10,7 +10,7 @@ import androidx.paging.cachedIn
 import com.moviemain.core.Constants.PAGE_INDEX
 import com.moviemain.core.ResourceNotFoundException
 import com.moviemain.core.StatePaging
-import com.moviemain.domain.Repository
+import com.moviemain.domain.RepositoryImpl
 import com.moviemain.model.data.MovieList
 import com.moviemain.model.paging.DataPagingSource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,7 +19,7 @@ import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
-class GalleryFragmentViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
+class GalleryFragmentViewModel @Inject constructor(private val repository: RepositoryImpl) : ViewModel() {
 
     private val _movieUpcomingList = MutableLiveData<StatePaging<Response<MovieList>>>()
     val movieUpcomingList: LiveData<StatePaging<Response<MovieList>>> = _movieUpcomingList
