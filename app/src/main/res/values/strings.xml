@@ -20,6 +20,6 @@
     <string name="search">Search</string>
     <string name="ok">OK</string>
     <string name="try_again">Try again</string>
-    <string name="gallery">Upcoming</string>
+    <string name="gallery">Gallery</string>
     <string name="movie_item">Movie_item</string>
 </resources>

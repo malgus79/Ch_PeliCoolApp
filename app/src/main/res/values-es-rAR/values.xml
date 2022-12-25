@@ -1,25 +1,27 @@
 <resources>
     <string name="app_name">Peli Cool App</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="popular">Populares</string>
     <string name="top_rated">Mas Votadas</string>
     <string name="upcoming">Próximamente</string>
     <string name="now_playing">Estrenos</string>
-    <!--    <string name="upcoming_home">____________ Próximamente ____________</string>-->
+
     <string name="movie_title">Titulo</string>
     <string name="movie_image">Imagen</string>
     <string name="overview">Información</string>
     <string name="share">Compartir</string>
     <string name="bookmark">Mi Lista</string>
     <string name="favourite">Favorito</string>
+    <string name="movie_detail">Detalles</string>
+    <string name="movie_item">Movie_item</string>
+
     <string name="error_dialog">Error</string>
     <string name="error_dialog_detail">Ha ocurrido un error obteniendo la información</string>
-    <string name="movie_detail">Detalles</string>
     <string name="retry">Reintentar</string>
-    <string name="home">Inicio</string>
-    <string name="search">Buscar</string>
-    <string name="ok">OK</string>
     <string name="try_again">Intentar otra vez</string>
+    <string name="ok">OK</string>
+
+    <string name="home">Inicio</string>
     <string name="gallery">Próximamente</string>
-    <string name="movie_item">Movie_item</string>
+    <string name="search">Buscar</string>
 </resources>

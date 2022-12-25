@@ -23,16 +23,4 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
     suspend fun getUpcomingMovies(currentPage: Int): Response<MovieList> {
         return apiService.getUpcomingMovies(API_KEY, LANGUAGE_es_ES, currentPage)
     }
-
-//    suspend fun saveMovieToLocalDataBase(movie: MovieEntity) {
-//        movieDao.saveMovie(movie)
-//    }
-//
-//    suspend fun getAllMoviesFromDatabase(movie: MovieEntity) {
-//        movieDao.getAllMovies()
-//    }
-//
-//    suspend fun clearMovies() {
-//        movieDao.deleteMovie()
-//    }
 }

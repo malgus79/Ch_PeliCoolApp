@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -12,7 +11,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.moviemain.R
 import com.moviemain.core.State
 import com.moviemain.databinding.FragmentHomeBinding
-import com.moviemain.model.data.Movie
 import com.moviemain.model.data.MovieList
 import com.moviemain.ui.adapters.MovieAdapter
 import com.moviemain.viewmodel.MovieListViewModel

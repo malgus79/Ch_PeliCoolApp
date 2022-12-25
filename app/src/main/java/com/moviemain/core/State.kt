@@ -1,6 +1,5 @@
 package com.moviemain.core
 
-import com.moviemain.model.data.Movie
 import com.moviemain.model.data.MovieList
 import retrofit2.Response
 
