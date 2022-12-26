@@ -12,9 +12,9 @@ object CheckInternet {
     suspend fun isNetworkAvailable() = coroutineScope {
         return@coroutineScope try {
             val sock = Socket()
-            val socketAddress = InetSocketAddress("8.8.8.8", 50)
+            val socketAddress = InetSocketAddress("8.8.8.8", 53)
             withContext(Dispatchers.IO) {
-                sock.connect(socketAddress, 2000)
+                sock.connect(socketAddress, 1000)
             }
             withContext(Dispatchers.IO) {
                 sock.close()

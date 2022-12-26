@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.moviemain.R
 import com.moviemain.core.ResourcePaging
+import com.moviemain.core.hide
+import com.moviemain.core.showToast
 import com.moviemain.databinding.FragmentGalleryBinding
 import com.moviemain.model.data.MovieList
 import com.moviemain.ui.adapters.PagingAdapter
@@ -46,7 +48,8 @@ class GalleryFragment : Fragment() {
                 }
                 is ResourcePaging.FailurePaging -> {
                     showErrorDialog()
-                    binding.rvMoviesUpComing.isVisible = false
+                    showToast("Ocurrió un error al traer los datos ${it.exception}")
+                    binding.rvMoviesUpComing.hide()
                 }
                 is ResourcePaging.LoadingPaging -> showSpinnerLoading(true)
                 else -> {}

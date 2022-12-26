@@ -8,7 +8,6 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.moviemain.core.Constants.PAGE_INDEX
-import com.moviemain.core.ResourceNotFoundException
 import com.moviemain.core.ResourcePaging
 import com.moviemain.domain.RepositoryImpl
 import com.moviemain.model.data.MovieList
@@ -31,7 +30,7 @@ class GalleryFragmentViewModel @Inject constructor(private val repository: Repos
             try {
                 val movieList = repository.getUpcomingMovies(PAGE_INDEX)
                 if (movieList.body()?.results.isNullOrEmpty()) {
-                    _movieUpcomingList.postValue(ResourcePaging.FailurePaging(ResourceNotFoundException()))
+                    _movieUpcomingList.postValue(ResourcePaging.FailurePaging(Exception()))
                 } else {
                     _movieUpcomingList.postValue(ResourcePaging.SuccessPaging(movieList))
                 }

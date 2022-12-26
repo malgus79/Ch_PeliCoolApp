@@ -12,6 +12,9 @@ import androidx.recyclerview.widget.ConcatAdapter
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.moviemain.R
 import com.moviemain.core.Resource
+import com.moviemain.core.hide
+import com.moviemain.core.show
+import com.moviemain.core.showToast
 import com.moviemain.databinding.FragmentHomeBinding
 import com.moviemain.ui.adapters.MovieAdapter
 import com.moviemain.ui.adapters.concat.NowPlayingConcatAdapter
@@ -65,20 +68,22 @@ class HomeFragment : Fragment() {
         viewModel.fetchMainMovies().observe(viewLifecycleOwner, Observer {
             when (it) {
                 is Resource.Loading -> {
-                    binding.progressBar.visibility = View.VISIBLE
+                    binding.progressBar.show()
                 }
                 is Resource.Success -> {
-                    binding.progressBar.visibility = View.GONE
+                    binding.progressBar.hide()
                     concatAdapter.apply {
-                        addAdapter(0, PopularConcatAdapter(MovieAdapter(it.data.first.results)))
+                        addAdapter(0, PopularConcatAdapter(MovieAdapter(it.data.third.results)))
                         addAdapter(1, TopRatedConcatAdapter(MovieAdapter(it.data.second.results)))
-                        addAdapter(2, NowPlayingConcatAdapter(MovieAdapter(it.data.third.results)))
+                        addAdapter(2, NowPlayingConcatAdapter(MovieAdapter(it.data.first.results)))
                     }
                     binding.rvMovies.adapter = concatAdapter
                 }
                 is Resource.Failure -> {
-                    binding.progressBar.visibility = View.GONE
-                    showErrorDialog()
+                    binding.progressBar.hide()
+                    showToast("Ocurrió un error al traer los datos ${it.exception}")
+
+                    //showErrorDialog()
                 }
             }
         })
