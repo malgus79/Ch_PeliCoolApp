@@ -36,9 +36,14 @@ class GalleryFragment : Fragment() {
     ): View {
         binding = FragmentGalleryBinding.inflate(inflater, container, false)
 
+        setupGalleryData()
         setupRecyclerView()
         loadData()
 
+        return binding.root
+    }
+
+    private fun setupGalleryData() {
         viewModel.getUpcomingMovies()
         viewModel.movieUpcomingList.observe(viewLifecycleOwner) {
             when (it) {
@@ -48,15 +53,12 @@ class GalleryFragment : Fragment() {
                 }
                 is ResourcePaging.FailurePaging -> {
                     showErrorDialog()
-                    showToast("Ocurrió un error al traer los datos ${it.exception}")
                     binding.rvMoviesUpComing.hide()
                 }
                 is ResourcePaging.LoadingPaging -> showSpinnerLoading(true)
                 else -> {}
             }
         }
-
-        return binding.root
     }
 
     private fun setupRecyclerView() {
