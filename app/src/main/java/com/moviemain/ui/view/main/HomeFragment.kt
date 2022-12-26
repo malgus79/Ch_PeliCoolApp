@@ -7,12 +7,16 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.ConcatAdapter
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.moviemain.R
 import com.moviemain.core.Resource
 import com.moviemain.databinding.FragmentHomeBinding
-import com.moviemain.model.data.MovieList
 import com.moviemain.ui.adapters.MovieAdapter
+import com.moviemain.ui.adapters.concat.NowPlayingConcatAdapter
+import com.moviemain.ui.adapters.concat.PopularConcatAdapter
+import com.moviemain.ui.adapters.concat.TopRatedConcatAdapter
 import com.moviemain.viewmodel.MovieListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import org.imaginativeworld.whynotimagecarousel.ImageCarousel
@@ -22,9 +26,14 @@ import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
-    private val viewModel by viewModels<MovieListViewModel>()
     private val list = mutableListOf<CarouselItem>()
+    private lateinit var concatAdapter: ConcatAdapter
+    private val viewModel by viewModels<MovieListViewModel>()
 
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,34 +55,33 @@ class HomeFragment : Fragment() {
         list.add(CarouselItem("https://image.tmdb.org/t/p/w500/2r5ZISrHQUQLBMdAJF3CDDAxp54.jpg"))
         carousel.addData(list)
 
-        viewModel.getPopularMovies()
-        viewModel.popularList.observe(viewLifecycleOwner) {
-            when (it) {
-                is Resource.Loading -> showSpinnerLoading(true)
-                is Resource.Success -> setPopularMovies(it.data)
-                is Resource.Failure -> showErrorDialog()
-            }
-        }
-
-        viewModel.getTopRatedMovies()
-        viewModel.topRatedList.observe(viewLifecycleOwner) {
-            when (it) {
-                is Resource.Loading -> showSpinnerLoading(true)
-                is Resource.Success -> setTopRatedMovies(it.data)
-                is Resource.Failure -> showErrorDialog()
-            }
-        }
-
-        viewModel.getNowPlayingMovies()
-        viewModel.nowPlayingList.observe(viewLifecycleOwner) {
-            when (it) {
-                is Resource.Loading -> showSpinnerLoading(true)
-                is Resource.Success -> setNowPlayingMovies(it.data)
-                is Resource.Failure -> showErrorDialog()
-            }
-        }
+        setupMainMovies()
 
         return binding.root
+    }
+
+    private fun setupMainMovies() {
+        concatAdapter = ConcatAdapter()
+        viewModel.fetchMainMovies().observe(viewLifecycleOwner, Observer {
+            when (it) {
+                is Resource.Loading -> {
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+                    binding.progressBar.visibility = View.GONE
+                    concatAdapter.apply {
+                        addAdapter(0, PopularConcatAdapter(MovieAdapter(it.data.first.results)))
+                        addAdapter(1, TopRatedConcatAdapter(MovieAdapter(it.data.second.results)))
+                        addAdapter(2, NowPlayingConcatAdapter(MovieAdapter(it.data.third.results)))
+                    }
+                    binding.rvMovies.adapter = concatAdapter
+                }
+                is Resource.Failure -> {
+                    binding.progressBar.visibility = View.GONE
+                    showErrorDialog()
+                }
+            }
+        })
     }
 
     private fun showErrorDialog() {
@@ -81,30 +89,8 @@ class HomeFragment : Fragment() {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(getString(R.string.error_dialog))
             .setMessage(getString(R.string.error_dialog_detail))
-            .setPositiveButton(getString(R.string.ok)) {_, _ ->}
+            .setPositiveButton(getString(R.string.ok)) { _, _ -> }
 //            .setPositiveButton(getString(R.string.try_again)) { _, _ -> callback?.invoke() }
             .show()
-    }
-
-    private fun setPopularMovies(popularList: MovieList) {
-        showSpinnerLoading(false)
-        binding.rvMoviesPopular.adapter = MovieAdapter(popularList)
-    }
-
-    private fun setTopRatedMovies(topRatedList: MovieList) {
-        showSpinnerLoading(false)
-        binding.rvMoviesTopRated.adapter = MovieAdapter(topRatedList)
-    }
-
-    private fun setNowPlayingMovies(nowPlayingList: MovieList) {
-        showSpinnerLoading(false)
-        binding.rvMoviesNowPlaying.adapter = MovieAdapter(nowPlayingList)
-    }
-
-    private fun showSpinnerLoading(loading: Boolean) {
-        binding.progressBar.isVisible = loading
-        binding.rvMoviesPopular.isVisible = !loading
-        binding.rvMoviesTopRated.isVisible = !loading
-        binding.rvMoviesNowPlaying.isVisible = !loading
     }
 }

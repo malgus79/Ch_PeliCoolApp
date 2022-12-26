@@ -9,10 +9,9 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.moviemain.R
 import com.moviemain.databinding.MovieItemBinding
 import com.moviemain.model.data.Movie
-import com.moviemain.model.data.MovieList
 import com.moviemain.ui.view.main.HomeFragmentDirections
 
-class MovieAdapter(private val movieList: MovieList) :
+class MovieAdapter(private var movieList: List<Movie>) :
     RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     class MovieViewHolder(private val binding: MovieItemBinding) :
@@ -49,8 +48,8 @@ class MovieAdapter(private val movieList: MovieList) :
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.setData(movieList.results[position])
+        holder.setData(movieList[position])
     }
 
-    override fun getItemCount(): Int = movieList.results.size
+    override fun getItemCount(): Int = movieList.size
 }

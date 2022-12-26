@@ -40,14 +40,13 @@ class RepositoryImpl @Inject constructor(
             remoteDataSource.getNowPlayingMovies().results.forEach {
                 localDataSource.saveMovie(it.toMovieEntity("now_playing"))
             }
-            remoteDataSource.getNowPlayingMovies()
+            localDataSource.getNowPlayingMovies()
         } else {
-            remoteDataSource.getNowPlayingMovies()
+            localDataSource.getNowPlayingMovies()
         }
     }
 
     override suspend fun getUpcomingMovies(currentPage: Int): Response<MovieList> {
         return remoteDataSource.getUpcomingMovies(currentPage)
     }
-
 }
