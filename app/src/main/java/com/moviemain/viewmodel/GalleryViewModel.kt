@@ -18,7 +18,7 @@ import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
-class GalleryFragmentViewModel @Inject constructor(private val repository: RepositoryImpl) : ViewModel() {
+class GalleryViewModel @Inject constructor(private val repository: RepositoryImpl) : ViewModel() {
 
     private val _movieUpcomingList = MutableLiveData<ResourcePaging<Response<MovieList>>>()
     val movieUpcomingList: LiveData<ResourcePaging<Response<MovieList>>> = _movieUpcomingList

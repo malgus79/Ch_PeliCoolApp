@@ -14,11 +14,10 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.moviemain.R
 import com.moviemain.core.ResourcePaging
 import com.moviemain.core.hide
-import com.moviemain.core.showToast
 import com.moviemain.databinding.FragmentGalleryBinding
 import com.moviemain.model.data.MovieList
 import com.moviemain.ui.adapters.PagingAdapter
-import com.moviemain.viewmodel.GalleryFragmentViewModel
+import com.moviemain.viewmodel.GalleryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import retrofit2.Response
@@ -28,7 +27,7 @@ class GalleryFragment : Fragment() {
 
     private lateinit var binding: FragmentGalleryBinding
     private lateinit var pagingAdapter: PagingAdapter
-    private val viewModel: GalleryFragmentViewModel by viewModels()
+    private val viewModel: GalleryViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

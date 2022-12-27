@@ -23,7 +23,7 @@ object LocalModule {
             context,
             MovieDatabase::class.java,
             MOVIE_DATABASE_NAME
-        ).build()
+        ).fallbackToDestructiveMigration().build()
     }
 
     @Singleton

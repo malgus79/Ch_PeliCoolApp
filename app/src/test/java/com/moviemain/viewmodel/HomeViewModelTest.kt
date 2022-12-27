@@ -12,7 +12,7 @@ import org.junit.Rule
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
-internal class MovieListViewModelTest() {
+internal class HomeViewModelTest() {
     @get:Rule
     var testInstantTaskExecutorRule = InstantTaskExecutorRule()
 
@@ -90,19 +90,19 @@ internal class MovieListViewModelTest() {
         coEvery { repository.getNowPlayingMovies() } returns nowPlayingList
         coEvery { repository.getUpcomingMovies(currentPage) } returns upcomingList
 
-        val movieListViewModel = MovieListViewModel(repository)
+        val homeViewModel = HomeViewModel(repository)
 
         //Act
-        movieListViewModel.getPopularMovies()
-        movieListViewModel.getTopRatedMovies()
-        movieListViewModel.getNowPlayingMovies()
-        movieListViewModel.getUpcomingMovies()
+        homeViewModel.getPopularMovies()
+        homeViewModel.getTopRatedMovies()
+        homeViewModel.getNowPlayingMovies()
+        homeViewModel.getUpcomingMovies()
 
         //Assert
-        assert(movieListViewModel.popularList.value?.equals(null) == popularList.data.isNullOrEmpty())
-        assert(movieListViewModel.topRatedList.value?.equals(null) == topRatedList.data.isNullOrEmpty())
-        assert(movieListViewModel.nowPlayingList.value?.equals(null) == nowPlayingList.data.isNullOrEmpty())
-        assert(movieListViewModel.upcomingList.value?.equals(null) == upcomingList.data.isNullOrEmpty())
+        assert(homeViewModel.popularList.value?.equals(null) == popularList.data.isNullOrEmpty())
+        assert(homeViewModel.topRatedList.value?.equals(null) == topRatedList.data.isNullOrEmpty())
+        assert(homeViewModel.nowPlayingList.value?.equals(null) == nowPlayingList.data.isNullOrEmpty())
+        assert(homeViewModel.upcomingList.value?.equals(null) == upcomingList.data.isNullOrEmpty())
 
     }
 
@@ -129,7 +129,7 @@ internal class MovieListViewModelTest() {
 
         coEvery { repository.getPopularMovies() } returns popularList
 
-        val popularViewModel = MovieListViewModel(repository)
+        val popularViewModel = HomeViewModel(repository)
 
         //Act
         popularViewModel.getPopularMovies()
@@ -162,7 +162,7 @@ internal class MovieListViewModelTest() {
 
         coEvery { repository.getTopRatedMovies() } returns topRatedList
 
-        val topRatedViewModel = MovieListViewModel(repository)
+        val topRatedViewModel = HomeViewModel(repository)
 
         //Act
         topRatedViewModel.getTopRatedMovies()
@@ -195,7 +195,7 @@ internal class MovieListViewModelTest() {
 
         coEvery { repository.getNowPlayingMovies() } returns nowPlayingList
 
-        val nowPlayingViewModel = MovieListViewModel(repository)
+        val nowPlayingViewModel = HomeViewModel(repository)
 
         //Act
         nowPlayingViewModel.getNowPlayingMovies()
@@ -228,7 +228,7 @@ internal class MovieListViewModelTest() {
 
         coEvery { repository.getUpcomingMovies(currentPage) } returns upcomingList
 
-        val upcomingViewModel = MovieListViewModel(repository)
+        val upcomingViewModel = HomeViewModel(repository)
 
         //Act
         upcomingViewModel.getUpcomingMovies()
@@ -310,19 +310,19 @@ internal class MovieListViewModelTest() {
         coEvery { repository.getNowPlayingMovies() } returns nowPlayingList
         coEvery { repository.getUpcomingMovies(currentPage) } returns upcomingList
 
-        val movieListViewModel = MovieListViewModel(repository)
+        val homeViewModel = HomeViewModel(repository)
 
         //Act
-        movieListViewModel.getPopularMovies()
-        movieListViewModel.getTopRatedMovies()
-        movieListViewModel.getNowPlayingMovies()
-        movieListViewModel.getUpcomingMovies()
+        homeViewModel.getPopularMovies()
+        homeViewModel.getTopRatedMovies()
+        homeViewModel.getNowPlayingMovies()
+        homeViewModel.getUpcomingMovies()
 
         //Assert
-        assert(movieListViewModel.popularList.value?.equals(null) == popularList.data.isEmpty())
-        assert(movieListViewModel.topRatedList.value?.equals(null) == topRatedList.data.isEmpty())
-        assert(movieListViewModel.nowPlayingList.value?.equals(null) == nowPlayingList.data.isEmpty())
-        assert(movieListViewModel.upcomingList.value?.equals(null) == upcomingList.data.isEmpty())
+        assert(homeViewModel.popularList.value?.equals(null) == popularList.data.isEmpty())
+        assert(homeViewModel.topRatedList.value?.equals(null) == topRatedList.data.isEmpty())
+        assert(homeViewModel.nowPlayingList.value?.equals(null) == nowPlayingList.data.isEmpty())
+        assert(homeViewModel.upcomingList.value?.equals(null) == upcomingList.data.isEmpty())
 
     }
 
@@ -342,19 +342,19 @@ internal class MovieListViewModelTest() {
         coEvery { repository.getNowPlayingMovies() } returns nowPlayingList
         coEvery { repository.getUpcomingMovies(currentPage) } returns upcomingList
 
-        val movieListViewModel = MovieListViewModel(repository)
+        val homeViewModel = HomeViewModel(repository)
 
         //Act
-        movieListViewModel.getPopularMovies()
-        movieListViewModel.getTopRatedMovies()
-        movieListViewModel.getNowPlayingMovies()
-        movieListViewModel.getUpcomingMovies()
+        homeViewModel.getPopularMovies()
+        homeViewModel.getTopRatedMovies()
+        homeViewModel.getNowPlayingMovies()
+        homeViewModel.getUpcomingMovies()
 
         //Assert
-        assert(movieListViewModel.popularList.value?.equals(null) == false)
-        assert(movieListViewModel.topRatedList.value?.equals(null) == false)
-        assert(movieListViewModel.nowPlayingList.value?.equals(null) == false)
-        assert(movieListViewModel.upcomingList.value?.equals(null) == false)
+        assert(homeViewModel.popularList.value?.equals(null) == false)
+        assert(homeViewModel.topRatedList.value?.equals(null) == false)
+        assert(homeViewModel.nowPlayingList.value?.equals(null) == false)
+        assert(homeViewModel.upcomingList.value?.equals(null) == false)
 
     }
 
@@ -429,19 +429,19 @@ internal class MovieListViewModelTest() {
         coEvery { repository.getNowPlayingMovies() } returns nowPlayingList
         coEvery { repository.getUpcomingMovies(currentPage) } returns upcomingList
 
-        val movieListViewModel = MovieListViewModel(repository)
+        val homeViewModel = HomeViewModel(repository)
 
         //Act
-        movieListViewModel.getPopularMovies()
-        movieListViewModel.getTopRatedMovies()
-        movieListViewModel.getNowPlayingMovies()
-        movieListViewModel.getUpcomingMovies()
+        homeViewModel.getPopularMovies()
+        homeViewModel.getTopRatedMovies()
+        homeViewModel.getNowPlayingMovies()
+        homeViewModel.getUpcomingMovies()
 
         //Assert
-        assert(movieListViewModel.popularList.value?.equals(null) == popularList.data.isNullOrEmpty())
-        assert(movieListViewModel.topRatedList.value?.equals(null) == false)
-        assert(movieListViewModel.nowPlayingList.value?.equals(null) == false)
-        assert(movieListViewModel.upcomingList.value?.equals(null) == false)
+        assert(homeViewModel.popularList.value?.equals(null) == popularList.data.isNullOrEmpty())
+        assert(homeViewModel.topRatedList.value?.equals(null) == false)
+        assert(homeViewModel.nowPlayingList.value?.equals(null) == false)
+        assert(homeViewModel.upcomingList.value?.equals(null) == false)
 
     }
 
@@ -517,19 +517,19 @@ internal class MovieListViewModelTest() {
         coEvery { repository.getNowPlayingMovies() } returns nowPlayingList
         coEvery { repository.getUpcomingMovies(currentPage) } returns upcomingList
 
-        val movieListViewModel = MovieListViewModel(repository)
+        val homeViewModel = HomeViewModel(repository)
 
         //Act
-        movieListViewModel.getPopularMovies()
-        movieListViewModel.getTopRatedMovies()
-        movieListViewModel.getNowPlayingMovies()
-        movieListViewModel.getUpcomingMovies()
+        homeViewModel.getPopularMovies()
+        homeViewModel.getTopRatedMovies()
+        homeViewModel.getNowPlayingMovies()
+        homeViewModel.getUpcomingMovies()
 
         //Assert
-        assert(movieListViewModel.popularList.value?.equals(null) == false)
-        assert(movieListViewModel.topRatedList.value?.equals(null) == topRatedList.data.isNullOrEmpty())
-        assert(movieListViewModel.nowPlayingList.value?.equals(null) == nowPlayingList.data.isNullOrEmpty())
-        assert(movieListViewModel.upcomingList.value?.equals(null) == upcomingList.data.isNullOrEmpty())
+        assert(homeViewModel.popularList.value?.equals(null) == false)
+        assert(homeViewModel.topRatedList.value?.equals(null) == topRatedList.data.isNullOrEmpty())
+        assert(homeViewModel.nowPlayingList.value?.equals(null) == nowPlayingList.data.isNullOrEmpty())
+        assert(homeViewModel.upcomingList.value?.equals(null) == upcomingList.data.isNullOrEmpty())
 
     }
 

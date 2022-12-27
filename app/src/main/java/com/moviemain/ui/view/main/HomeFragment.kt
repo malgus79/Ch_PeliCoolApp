@@ -16,7 +16,7 @@ import com.moviemain.ui.adapters.MovieAdapter
 import com.moviemain.ui.adapters.concat.NowPlayingConcatAdapter
 import com.moviemain.ui.adapters.concat.PopularConcatAdapter
 import com.moviemain.ui.adapters.concat.TopRatedConcatAdapter
-import com.moviemain.viewmodel.MovieListViewModel
+import com.moviemain.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import org.imaginativeworld.whynotimagecarousel.ImageCarousel
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
@@ -27,7 +27,7 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private val list = mutableListOf<CarouselItem>()
     private lateinit var concatAdapter: ConcatAdapter
-    private val viewModel by viewModels<MovieListViewModel>()
+    private val viewModel by viewModels<HomeViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -1,6 +1,7 @@
 package com.moviemain.domain
 
 import com.moviemain.core.CheckInternet
+import com.moviemain.model.data.Movie
 import com.moviemain.model.data.MovieList
 import com.moviemain.model.local.LocalDataSource
 import com.moviemain.model.local.toMovieEntity
@@ -48,5 +49,17 @@ class RepositoryImpl @Inject constructor(
 
     override suspend fun getUpcomingMovies(currentPage: Int): Response<MovieList> {
         return remoteDataSource.getUpcomingMovies(currentPage)
+    }
+
+    override suspend fun isMovieFavorite(movie: Movie): Boolean {
+        return localDataSource.isMovieFavorite(movie)
+    }
+
+    override suspend fun deleteFavoriteMovie(movie: Movie) {
+        localDataSource.deleteMovie(movie)
+    }
+
+    override suspend fun saveFavoriteMovie(movie: Movie) {
+        localDataSource.saveFavoriteMovie(movie)
     }
 }
