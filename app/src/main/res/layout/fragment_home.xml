@@ -44,7 +44,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:autoPlay="true"
-                app:autoPlayDelay="3000"
+                android:visibility="gone"
+                app:autoPlayDelay="4000"
                 app:imageScaleType="centerCrop"
                 app:infiniteCarousel="true"
                 app:touchToPause="true" />

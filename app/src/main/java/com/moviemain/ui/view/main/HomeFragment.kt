@@ -46,11 +46,9 @@ class HomeFragment : Fragment() {
             when (it) {
                 is Resource.Loading -> {
                     binding.progressBar.show()
-                    binding.imgCarousel.hide()
                 }
                 is Resource.Success -> {
                     binding.progressBar.hide()
-                    binding.imgCarousel.show()
                     setupCarousel()
                     concatAdapter.apply {
                         addAdapter(0, PopularConcatAdapter(MovieAdapter(it.data.third.results)))
@@ -61,7 +59,7 @@ class HomeFragment : Fragment() {
                 }
                 is Resource.Failure -> {
                     binding.progressBar.hide()
-                    showToast("Ocurrió un error al traer los datos ${it.exception}")
+                    showToast("Ocurrió un error al obtener los datos ${it.exception}")
 
                     //showErrorDialog()
                 }
@@ -80,5 +78,6 @@ class HomeFragment : Fragment() {
         list.add(CarouselItem("https://image.tmdb.org/t/p/w500/uOnutpXJdDWyWzUCkApkahPSKuy.jpg"))
         list.add(CarouselItem("https://image.tmdb.org/t/p/w500/engWUYSxDogn8csr3wJOq4cOzna.jpg"))
         carousel.addData(list)
+        binding.carousel.show()
     }
 }

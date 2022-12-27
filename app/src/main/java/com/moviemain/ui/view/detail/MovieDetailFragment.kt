@@ -60,8 +60,8 @@ class MovieDetailFragment : Fragment(R.layout.fragment_movie_detail) {
 
             binding.fabBookmark.setImageResource(
                 when {
-                    isMovieFavorited!! -> R.drawable.ic_delete
-                    else -> R.drawable.ic_bookmark_added
+                    isMovieFavorited!! -> R.drawable.ic_check
+                    else -> R.drawable.ic_add
                 }
             )
         }

@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.moviemain.core.BaseViewHolder
-import com.moviemain.databinding.FavoritesRowBinding
+import com.moviemain.databinding.MovieItemBookmarkBinding
 import com.moviemain.model.data.Movie
 
 class FavoritesAdapter(
@@ -29,7 +29,7 @@ class FavoritesAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
-        val itemBinding = FavoritesRowBinding.inflate(LayoutInflater.from(context), parent, false)
+        val itemBinding = MovieItemBookmarkBinding.inflate(LayoutInflater.from(context), parent, false)
 //        return MainViewHolder(itemBinding)
 
         val holder = MainViewHolder(itemBinding)
@@ -61,7 +61,7 @@ class FavoritesAdapter(
         }
     }
 
-    private inner class MainViewHolder(private val binding: FavoritesRowBinding) :
+    private inner class MainViewHolder(private val binding: MovieItemBookmarkBinding) :
         BaseViewHolder<Movie>(binding.root) {
 
         override fun bind(item: Movie, position: Int) = with(binding) {
