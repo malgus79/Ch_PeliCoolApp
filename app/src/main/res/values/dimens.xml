@@ -23,6 +23,7 @@
     <!-- Dimens CornerRadius -->
     <dimen name="common_corner_min">8dp</dimen>
     <dimen name="common_corner_default">16dp</dimen>
+    <dimen name="home_image_size">80dp</dimen>
 
 
 </resources>
