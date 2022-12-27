@@ -81,10 +81,11 @@ class BookmarkFragment : Fragment(), FavoritesAdapter.OnMovieClickListener {
     }
 
     override fun onMovieClick(movie: Movie, position: Int) {
-        findNavController().navigate(BookmarkFragmentDirections.actionMenuBookmarkToMovieDetailFragment(
-            movie.poster_path, movie.title, movie.vote_average.toFloat(), movie.overview.toInt(),
-            movie.popularity.toString(), movie.original_title, movie.original_language, movie.release_date
-        ))
+        findNavController().navigate(
+            BookmarkFragmentDirections.actionMenuBookmarkToMovieDetailFragment(
+                movie
+            )
+        )
     }
 
     override fun onMovieLongClick(movie: Movie, position: Int) {

@@ -29,25 +29,31 @@ class MovieDetailFragment : Fragment(R.layout.fragment_movie_detail) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        requireArguments().let {
+            MovieDetailFragmentArgs.fromBundle(it).also { args ->
+                movie = args.movie
+            }
+        }
+
         binding = FragmentMovieDetailBinding.bind(view)
 
-        movie = Movie()
+//        movie = Movie()
 
         Glide.with(requireContext())
-            .load("https://image.tmdb.org/t/p/w500/${args.posterImageUrl}")
+            .load("https://image.tmdb.org/t/p/w500/${movie.poster_path}")
             .centerCrop()
             .into(binding.imgMovie)
 
         Glide.with(requireContext())
-            .load("https://image.tmdb.org/t/p/w500/${args.backgroundImageUrl}")
+            .load("https://image.tmdb.org/t/p/w500/${movie.backdrop_path}")
             .centerCrop()
             .into(binding.imgBackground)
 
-        binding.txtDescription.text = args.overview
-        binding.txtMovieTitle.text = args.title
-        binding.txtLanguage.text = "Language ${args.language}"
-        binding.txtRating.text = "${args.voteAverage} (${args.voteCount} Reviews)"
-        binding.txtReleased.text = "Released ${args.releaseDate}"
+        binding.txtDescription.text = movie.overview
+        binding.txtMovieTitle.text = movie.title
+        binding.txtLanguage.text = "Language ${movie.original_language}"
+        binding.txtRating.text = "${movie.vote_average} (${movie.vote_count} Reviews)"
+        binding.txtReleased.text = "Released ${movie.release_date}"
 
         fun updateButtonIcon() {
             isMovieFavorited = isMovieFavorited ?: return

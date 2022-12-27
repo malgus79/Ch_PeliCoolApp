@@ -57,14 +57,7 @@ class PagingAdapter : PagingDataAdapter<Movie,
 
                 setOnClickListener {
                     val action = GalleryFragmentDirections.actionGalleryFragmentToMovieDetailFragment(
-                        currMovie?.poster_path.toString(),
-                        currMovie?.backdrop_path.toString(),
-                        currMovie!!.vote_average.toFloat(),
-                        currMovie.vote_count,
-                        currMovie.overview,
-                        currMovie.title,
-                        currMovie.original_language,
-                        currMovie.release_date
+                        currMovie!!
                     )
                     this.findNavController().navigate(action)
                 }

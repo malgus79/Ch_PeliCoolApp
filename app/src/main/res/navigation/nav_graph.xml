@@ -38,30 +38,10 @@
         android:name="com.moviemain.ui.view.detail.MovieDetailFragment"
         android:label="@string/movie_detail"
         tools:layout="@layout/fragment_movie_detail">
+
         <argument
-            android:name="posterImageUrl"
-            app:argType="string" />
-        <argument
-            android:name="backgroundImageUrl"
-            app:argType="string" />
-        <argument
-            android:name="voteAverage"
-            app:argType="float" />
-        <argument
-            android:name="voteCount"
-            app:argType="integer" />
-        <argument
-            android:name="overview"
-            app:argType="string" />
-        <argument
-            android:name="title"
-            app:argType="string" />
-        <argument
-            android:name="language"
-            app:argType="string" />
-        <argument
-            android:name="releaseDate"
-            app:argType="string" />
+            android:name="movie"
+            app:argType="com.moviemain.model.data.Movie" />
     </fragment>
     <fragment
         android:id="@+id/menu_gallery"

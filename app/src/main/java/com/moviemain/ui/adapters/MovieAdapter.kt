@@ -28,14 +28,7 @@ class MovieAdapter(private var movieList: List<Movie>) :
 
             binding.cvImgMovie.setOnClickListener {
                 val action = HomeFragmentDirections.actionMovieFragmentToMovieDetailFragment(
-                    movie.poster_path,
-                    movie.backdrop_path,
-                    movie.vote_average.toFloat(),
-                    movie.vote_count,
-                    movie.overview,
-                    movie.title,
-                    movie.original_language,
-                    movie.release_date
+                    movie
                 )
                 this.itemView.findNavController().navigate(action)
             }
