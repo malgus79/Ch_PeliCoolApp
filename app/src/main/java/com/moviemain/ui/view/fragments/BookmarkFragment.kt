@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.moviemain.R
@@ -17,7 +16,6 @@ import com.moviemain.core.Resource
 import com.moviemain.databinding.FragmentBookmarkBinding
 import com.moviemain.model.data.Movie
 import com.moviemain.ui.adapters.FavoritesAdapter
-import com.moviemain.ui.view.detail.MovieDetailFragmentArgs
 import com.moviemain.viewmodel.BookmarkViewModel
 import dagger.hilt.android.AndroidEntryPoint
 

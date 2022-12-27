@@ -44,8 +44,13 @@
 
         <include
             android:id="@+id/empty_container"
+            layout="@layout/empty_container"
+            android:layout_width="match_parent"
             android:visibility="gone"
-            layout="@layout/empty_container"/>
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/common_margin_default"
+            android:layout_marginVertical="@dimen/common_margin_max"
+            app:layout_constraintTop_toBottomOf="@id/title_bookmark" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_movies_bookmark"
