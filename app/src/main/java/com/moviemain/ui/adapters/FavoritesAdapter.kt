@@ -12,19 +12,19 @@ import com.moviemain.model.data.Movie
 
 class FavoritesAdapter(
     private val context: Context,
-    private val itemClickListener: OnCocktailClickListener
+    private val itemClickListener: OnMovieClickListener
 ) :
     RecyclerView.Adapter<BaseViewHolder<*>>() {
 
-    private var cocktailList = listOf<Movie>()
+    private var movieList = listOf<Movie>()
 
-    interface OnCocktailClickListener {
-        fun onCocktailClick(cocktail: Movie, position: Int)
-        fun onCocktailLongClick(cocktail: Movie, position: Int)
+    interface OnMovieClickListener {
+        fun onMovieClick(movie: Movie, position: Int)
+        fun onMovieLongClick(movie: Movie, position: Int)
     }
 
-    fun setCocktailList(cocktailList: List<Movie>) {
-        this.cocktailList = cocktailList
+    fun setMovieList(movieList: List<Movie>) {
+        this.movieList = movieList
         notifyDataSetChanged()
     }
 
@@ -38,14 +38,14 @@ class FavoritesAdapter(
             val position = holder.adapterPosition.takeIf { it != DiffUtil.DiffResult.NO_POSITION }
                 ?: return@setOnClickListener
 
-            itemClickListener.onCocktailClick(cocktailList[position], position)
+            itemClickListener.onMovieClick(movieList[position], position)
         }
 
         holder.itemView.setOnLongClickListener {
             val position = holder.adapterPosition.takeIf { it != DiffUtil.DiffResult.NO_POSITION }
                 ?: return@setOnLongClickListener true
 
-            itemClickListener.onCocktailLongClick(cocktailList[position], position)
+            itemClickListener.onMovieLongClick(movieList[position], position)
 
             return@setOnLongClickListener true
         }
@@ -53,19 +53,25 @@ class FavoritesAdapter(
         return holder
     }
 
-    override fun getItemCount(): Int = cocktailList.size
+    override fun getItemCount(): Int = movieList.size
 
     override fun onBindViewHolder(holder: BaseViewHolder<*>, position: Int) {
         when (holder) {
-            is MainViewHolder -> holder.bind(cocktailList[position], position)
+            is MainViewHolder -> holder.bind(movieList[position], position)
         }
     }
 
     private inner class MainViewHolder(private val binding: FavoritesRowBinding) :
         BaseViewHolder<Movie>(binding.root) {
         override fun bind(item: Movie, position: Int) = with(binding) {
-            Glide.with(context).load(item.backdrop_path).centerCrop().into(imgCocktail)
+            Glide.with(context)
+                .load(item.backdrop_path)
+                .centerCrop()
+                .into(imgCocktail)
+
+
             txtTitulo.text = item.title
+
         }
     }
 }

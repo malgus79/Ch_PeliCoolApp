@@ -83,3 +83,23 @@ fun Movie.toMovieEntity(movieType: String): MovieEntity = MovieEntity(
     this.vote_count,
     movie_type = movieType
 )
+
+fun List<FavoritesEntity>.asMovieList(): List<Movie> =
+    this.map {
+        Movie(
+            it.adult,
+            it.backdrop_path,
+            it.id,
+            it.original_title,
+            it.original_language,
+            it.overview,
+            it.popularity,
+            it.poster_path,
+            it.release_date,
+            it.title,
+            it.video,
+            it.vote_average,
+            it.vote_count,
+            it.movie_type
+        )
+    }

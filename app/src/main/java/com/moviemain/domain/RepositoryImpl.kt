@@ -1,5 +1,6 @@
 package com.moviemain.domain
 
+import androidx.lifecycle.LiveData
 import com.moviemain.core.CheckInternet
 import com.moviemain.model.data.Movie
 import com.moviemain.model.data.MovieList
@@ -61,5 +62,9 @@ class RepositoryImpl @Inject constructor(
 
     override suspend fun saveFavoriteMovie(movie: Movie) {
         localDataSource.saveFavoriteMovie(movie)
+    }
+
+    override fun getFavoritesMovies(): LiveData<List<Movie>> {
+        return localDataSource.getFavoritesMovies()
     }
 }

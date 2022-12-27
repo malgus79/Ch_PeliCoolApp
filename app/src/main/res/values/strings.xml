@@ -22,4 +22,5 @@
     <string name="try_again">Try again</string>
     <string name="gallery">Gallery</string>
     <string name="movie_item">Movie_item</string>
+    <string name="search_no_results">No movie found</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.moviemain.model.local
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao
@@ -21,4 +22,7 @@ interface MovieDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveFavoriteMovie(movie: FavoritesEntity)
+
+    @Query("SELECT * FROM favorites_entity")
+    fun getAllFavoriteMoviesWithChanges(): LiveData<List<FavoritesEntity>>
 }
