@@ -35,14 +35,14 @@ class FavoritesAdapter(
         val holder = MainViewHolder(itemBinding)
 
         holder.itemView.setOnClickListener {
-            val position = holder.adapterPosition.takeIf { it != DiffUtil.DiffResult.NO_POSITION }
+            val position = holder.bindingAdapterPosition.takeIf { it != DiffUtil.DiffResult.NO_POSITION }
                 ?: return@setOnClickListener
 
             itemClickListener.onMovieClick(movieList[position], position)
         }
 
         holder.itemView.setOnLongClickListener {
-            val position = holder.adapterPosition.takeIf { it != DiffUtil.DiffResult.NO_POSITION }
+            val position = holder.bindingAdapterPosition.takeIf { it != DiffUtil.DiffResult.NO_POSITION }
                 ?: return@setOnLongClickListener true
 
             itemClickListener.onMovieLongClick(movieList[position], position)
@@ -63,12 +63,14 @@ class FavoritesAdapter(
 
     private inner class MainViewHolder(private val binding: FavoritesRowBinding) :
         BaseViewHolder<Movie>(binding.root) {
+
         override fun bind(item: Movie, position: Int) = with(binding) {
+            val imageUrl = "https://image.tmdb.org/t/p/w500"
+            val posterFormat = imageUrl + item.poster_path
             Glide.with(context)
-                .load(item.backdrop_path)
+                .load(posterFormat)
                 .centerCrop()
                 .into(imgCocktail)
-
 
             txtTitulo.text = item.title
 
