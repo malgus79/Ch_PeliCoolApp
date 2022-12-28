@@ -1,17 +1,20 @@
 package com.moviemain.ui.view.detail
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.moviemain.R
 import com.moviemain.databinding.FragmentMovieDetailBinding
 import com.moviemain.model.data.Movie
-import com.moviemain.viewmodel.HomeViewModel
+import com.moviemain.viewmodel.DetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -19,8 +22,7 @@ import kotlinx.coroutines.launch
 class MovieDetailFragment : Fragment(R.layout.fragment_movie_detail) {
 
     private lateinit var binding: FragmentMovieDetailBinding
-    private val args by navArgs<MovieDetailFragmentArgs>()
-    private val viewModel by viewModels<HomeViewModel>()
+    private val viewModel by viewModels<DetailViewModel>()
 
     private lateinit var movie: Movie
     private var isMovieFavorited: Boolean? = null
@@ -28,6 +30,7 @@ class MovieDetailFragment : Fragment(R.layout.fragment_movie_detail) {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding = FragmentMovieDetailBinding.bind(view)
 
         requireArguments().let {
             MovieDetailFragmentArgs.fromBundle(it).also { args ->
@@ -35,10 +38,15 @@ class MovieDetailFragment : Fragment(R.layout.fragment_movie_detail) {
             }
         }
 
-        binding = FragmentMovieDetailBinding.bind(view)
+        showDataDetails()
+        isMovieFavorited()
+        updateButtonIcon()
+        onClickShareMovie()
 
-//        movie = Movie()
+    }
 
+    @SuppressLint("SetTextI18n")
+    private fun showDataDetails() {
         Glide.with(requireContext())
             .load("https://image.tmdb.org/t/p/w500/${movie.poster_path}")
             .centerCrop()
@@ -55,17 +63,9 @@ class MovieDetailFragment : Fragment(R.layout.fragment_movie_detail) {
         binding.txtRating.text = "${movie.vote_average} (${movie.vote_count} Reviews)"
         binding.txtReleased.text = "Released ${movie.release_date}"
 
-        fun updateButtonIcon() {
-            isMovieFavorited = isMovieFavorited ?: return
+    }
 
-            binding.fabBookmark.setImageResource(
-                when {
-                    isMovieFavorited!! -> R.drawable.ic_check
-                    else -> R.drawable.ic_add
-                }
-            )
-        }
-
+    private fun isMovieFavorited() {
         binding.fabBookmark.setOnClickListener {
             val isMovieFavorited = isMovieFavorited ?: return@setOnClickListener
 
@@ -78,7 +78,32 @@ class MovieDetailFragment : Fragment(R.layout.fragment_movie_detail) {
             isMovieFavorited = viewModel.isMovieFavorite(movie)
             updateButtonIcon()
         }
+    }
 
+    private fun updateButtonIcon() {
+        isMovieFavorited = isMovieFavorited ?: return
 
+        binding.fabBookmark.setImageResource(
+            when {
+                isMovieFavorited!! -> R.drawable.ic_check
+                else -> R.drawable.ic_add
+            }
+        )
+    }
+
+    private fun onClickShareMovie() {
+        binding.fabShare.setOnClickListener {
+
+            val bitmapDrawable = binding.imgMovie.drawable as BitmapDrawable
+            val bitmap = bitmapDrawable.bitmap
+            val bitmapPath =
+                MediaStore.Images.Media.insertImage(context?.contentResolver, bitmap, "", null)
+            val bitmapUri = Uri.parse(bitmapPath.toString())
+            val intent = Intent(Intent.ACTION_SEND)
+            intent.type = "image/*"
+            intent.putExtra(Intent.EXTRA_STREAM, bitmapUri)
+            startActivity(Intent.createChooser(intent, "Peli Cool App"))
+        }
     }
 }
+

@@ -12,6 +12,7 @@
     <!-- Dimens Size -->
     <dimen name="common_size_min">5sp</dimen>
     <dimen name="common_size_middle">10sp</dimen>
+    <dimen name="common_size_detail_attributes">12sp</dimen>
     <dimen name="common_size_detail_movie">15sp</dimen>
     <dimen name="common_size_default">20sp</dimen>
     <dimen name="common_size_title">25sp</dimen>
