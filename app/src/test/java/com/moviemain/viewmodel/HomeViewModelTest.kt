@@ -3,7 +3,7 @@ package com.moviemain.viewmodel
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.moviemain.MainDispatcherRule
 import com.moviemain.model.data.*
-import com.moviemain.model.network.RemoteDataSource
+import com.moviemain.model.remote.RemoteDataSource
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi

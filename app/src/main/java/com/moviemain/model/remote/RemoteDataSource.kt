@@ -1,4 +1,4 @@
-package com.moviemain.model.network
+package com.moviemain.model.remote
 
 import com.moviemain.core.Constants.API_KEY
 import com.moviemain.core.Constants.LANGUAGE_es_ES

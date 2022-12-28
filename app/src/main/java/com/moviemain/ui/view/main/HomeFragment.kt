@@ -12,7 +12,7 @@ import com.moviemain.core.hide
 import com.moviemain.core.show
 import com.moviemain.core.showToast
 import com.moviemain.databinding.FragmentHomeBinding
-import com.moviemain.ui.adapters.MovieAdapter
+import com.moviemain.ui.adapters.HomeAdapter
 import com.moviemain.ui.adapters.concat.NowPlayingConcatAdapter
 import com.moviemain.ui.adapters.concat.PopularConcatAdapter
 import com.moviemain.ui.adapters.concat.TopRatedConcatAdapter
@@ -51,9 +51,9 @@ class HomeFragment : Fragment() {
                     binding.progressBar.hide()
                     setupCarousel()
                     concatAdapter.apply {
-                        addAdapter(0, PopularConcatAdapter(MovieAdapter(it.data.third.results)))
-                        addAdapter(1, TopRatedConcatAdapter(MovieAdapter(it.data.second.results)))
-                        addAdapter(2, NowPlayingConcatAdapter(MovieAdapter(it.data.first.results)))
+                        addAdapter(0, PopularConcatAdapter(HomeAdapter(it.data.third.results)))
+                        addAdapter(1, TopRatedConcatAdapter(HomeAdapter(it.data.second.results)))
+                        addAdapter(2, NowPlayingConcatAdapter(HomeAdapter(it.data.first.results)))
                     }
                     binding.rvMovies.adapter = concatAdapter
                 }

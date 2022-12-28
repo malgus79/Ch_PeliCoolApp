@@ -5,9 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.moviemain.core.BaseConcatHolder
 import com.moviemain.databinding.NowPlayingMovieRowBinding
-import com.moviemain.ui.adapters.MovieAdapter
+import com.moviemain.ui.adapters.HomeAdapter
 
-class NowPlayingConcatAdapter(private val moviesAdapter: MovieAdapter) :
+class NowPlayingConcatAdapter(private val moviesAdapter: HomeAdapter) :
     RecyclerView.Adapter<BaseConcatHolder<*>>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseConcatHolder<*> {
@@ -26,8 +26,8 @@ class NowPlayingConcatAdapter(private val moviesAdapter: MovieAdapter) :
     override fun getItemCount(): Int = 1
 
     private inner class ConcatViewHolder(val binding: NowPlayingMovieRowBinding) :
-        BaseConcatHolder<MovieAdapter>(binding.root) {
-        override fun bind(adapter: MovieAdapter) {
+        BaseConcatHolder<HomeAdapter>(binding.root) {
+        override fun bind(adapter: HomeAdapter) {
             binding.rvNowPlayingMovies.adapter = adapter
         }
     }

@@ -12,8 +12,8 @@ import com.moviemain.databinding.MovieItemGalleryBinding
 import com.moviemain.model.data.Movie
 import com.moviemain.ui.view.fragments.GalleryFragmentDirections
 
-class PagingAdapter : PagingDataAdapter<Movie,
-        PagingAdapter.ImageViewHolder>(diffCallback) {
+class GalleryAdapter : PagingDataAdapter<Movie,
+        GalleryAdapter.ImageViewHolder>(diffCallback) {
 
     inner class ImageViewHolder(
         val binding: MovieItemGalleryBinding,

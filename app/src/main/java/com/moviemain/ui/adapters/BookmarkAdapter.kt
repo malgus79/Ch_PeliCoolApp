@@ -10,7 +10,7 @@ import com.moviemain.core.BaseViewHolder
 import com.moviemain.databinding.MovieItemBookmarkBinding
 import com.moviemain.model.data.Movie
 
-class FavoritesAdapter(
+class BookmarkAdapter(
     private val context: Context,
     private val itemClickListener: OnMovieClickListener
 ) :

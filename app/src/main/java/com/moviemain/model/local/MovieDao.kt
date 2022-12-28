@@ -12,8 +12,6 @@ interface MovieDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveMovie(movie: MovieEntity)
 
-
-
     @Query("SELECT * FROM favorites_entity WHERE id = :movieId")
     suspend fun getMovieById(movieId: Int): FavoritesEntity?
 

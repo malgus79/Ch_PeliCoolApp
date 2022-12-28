@@ -19,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class MovieDetailFragment : Fragment(R.layout.fragment_movie_detail) {
+class DetailFragment : Fragment(R.layout.fragment_movie_detail) {
 
     private lateinit var binding: FragmentMovieDetailBinding
     private val viewModel by viewModels<DetailViewModel>()
@@ -33,7 +33,7 @@ class MovieDetailFragment : Fragment(R.layout.fragment_movie_detail) {
         binding = FragmentMovieDetailBinding.bind(view)
 
         requireArguments().let {
-            MovieDetailFragmentArgs.fromBundle(it).also { args ->
+            DetailFragmentArgs.fromBundle(it).also { args ->
                 movie = args.movie
             }
         }

@@ -6,14 +6,14 @@ import com.moviemain.model.data.Movie
 import com.moviemain.model.data.MovieList
 import com.moviemain.model.local.LocalDataSource
 import com.moviemain.model.local.toMovieEntity
-import com.moviemain.model.network.RemoteDataSource
+import com.moviemain.model.remote.RemoteDataSource
 import retrofit2.Response
 import javax.inject.Inject
 
 class RepositoryImpl @Inject constructor(
     private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource
-) : RepoMovie {
+) : RepositoryMovie {
 
     override suspend fun getPopularMovies(): MovieList {
         return if (CheckInternet.isNetworkAvailable()) {

@@ -5,7 +5,7 @@ import com.moviemain.model.data.Movie
 import com.moviemain.model.data.MovieList
 import retrofit2.Response
 
-interface RepoMovie {
+interface RepositoryMovie {
     suspend fun getPopularMovies(): MovieList
     suspend fun getTopRatedMovies(): MovieList
     suspend fun getNowPlayingMovies(): MovieList

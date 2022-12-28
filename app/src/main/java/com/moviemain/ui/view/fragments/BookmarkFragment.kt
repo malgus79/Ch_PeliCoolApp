@@ -15,20 +15,20 @@ import com.moviemain.R
 import com.moviemain.core.Resource
 import com.moviemain.databinding.FragmentBookmarkBinding
 import com.moviemain.model.data.Movie
-import com.moviemain.ui.adapters.FavoritesAdapter
+import com.moviemain.ui.adapters.BookmarkAdapter
 import com.moviemain.viewmodel.BookmarkViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class BookmarkFragment : Fragment(), FavoritesAdapter.OnMovieClickListener {
+class BookmarkFragment : Fragment(), BookmarkAdapter.OnMovieClickListener {
 
     private lateinit var binding: FragmentBookmarkBinding
-    private lateinit var favoritesAdapter: FavoritesAdapter
+    private lateinit var bookmarkAdapter: BookmarkAdapter
     private val viewModel: BookmarkViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        favoritesAdapter = FavoritesAdapter(requireContext(),this)
+        bookmarkAdapter = BookmarkAdapter(requireContext(),this)
     }
 
     override fun onCreateView(
@@ -56,7 +56,7 @@ class BookmarkFragment : Fragment(), FavoritesAdapter.OnMovieClickListener {
                         binding.emptyContainer.root.visibility = View.VISIBLE
                         return@Observer
                     }
-                    favoritesAdapter.setMovieList(result.data)
+                    bookmarkAdapter.setMovieList(result.data)
                 }
                 is Resource.Failure -> {
                     Toast.makeText(
@@ -77,7 +77,7 @@ class BookmarkFragment : Fragment(), FavoritesAdapter.OnMovieClickListener {
                 DividerItemDecoration.HORIZONTAL
             )
         )
-        binding.rvMoviesBookmark.adapter = favoritesAdapter
+        binding.rvMoviesBookmark.adapter = bookmarkAdapter
     }
 
     override fun onMovieClick(movie: Movie, position: Int) {

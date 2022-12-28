@@ -1,4 +1,4 @@
-package com.moviemain.model.network
+package com.moviemain.model.remote
 
 import com.moviemain.model.data.MovieList
 import retrofit2.Response

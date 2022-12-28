@@ -1,7 +1,7 @@
 package com.moviemain.di
 
 import com.moviemain.core.Constants.BASE_URL
-import com.moviemain.model.network.ApiService
+import com.moviemain.model.remote.ApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

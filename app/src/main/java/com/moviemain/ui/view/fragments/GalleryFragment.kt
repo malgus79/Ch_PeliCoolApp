@@ -16,7 +16,7 @@ import com.moviemain.core.ResourcePaging
 import com.moviemain.core.hide
 import com.moviemain.databinding.FragmentGalleryBinding
 import com.moviemain.model.data.MovieList
-import com.moviemain.ui.adapters.PagingAdapter
+import com.moviemain.ui.adapters.GalleryAdapter
 import com.moviemain.viewmodel.GalleryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -26,7 +26,7 @@ import retrofit2.Response
 class GalleryFragment : Fragment() {
 
     private lateinit var binding: FragmentGalleryBinding
-    private lateinit var pagingAdapter: PagingAdapter
+    private lateinit var galleryAdapter: GalleryAdapter
     private val viewModel: GalleryViewModel by viewModels()
 
     override fun onCreateView(
@@ -61,10 +61,10 @@ class GalleryFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        pagingAdapter = PagingAdapter()
+        galleryAdapter = GalleryAdapter()
 
         binding.rvMoviesUpComing.apply {
-            adapter = pagingAdapter
+            adapter = galleryAdapter
             layoutManager = StaggeredGridLayoutManager(
                 resources.getInteger(R.integer.main_columns),
                 StaggeredGridLayoutManager.VERTICAL
@@ -77,7 +77,7 @@ class GalleryFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.listData.collect {
                 Log.d("aaa", "load: $it")
-                pagingAdapter.submitData(it)
+                galleryAdapter.submitData(it)
             }
         }
     }
@@ -85,7 +85,7 @@ class GalleryFragment : Fragment() {
     private fun setMovie(movieList: Response<MovieList>) {
         if (movieList.body()?.results.isNullOrEmpty()) {
             showSpinnerLoading(false)
-            binding.rvMoviesUpComing.adapter = PagingAdapter()
+            binding.rvMoviesUpComing.adapter = GalleryAdapter()
         }
     }
 

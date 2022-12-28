@@ -3,7 +3,6 @@ package com.moviemain.core
 import com.moviemain.model.data.MovieList
 import retrofit2.Response
 
-
 sealed class Resource<out T>() {
     object Loading : Resource<Nothing>()
     class Success<out T>(val data: T) : Resource<T>()
