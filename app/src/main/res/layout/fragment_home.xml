@@ -45,10 +45,14 @@
                 android:layout_height="match_parent"
                 app:autoPlay="true"
                 android:visibility="gone"
+                tools:visibility="visible"
                 app:autoPlayDelay="4000"
                 app:imageScaleType="centerCrop"
                 app:infiniteCarousel="true"
-                app:touchToPause="true" />
+                app:touchToPause="true"
+                app:carouselBackground="@color/black"
+                app:imagePlaceholder="@drawable/ic_home"
+                app:carouselGravity="CENTER"/>
 
         </LinearLayout>
 

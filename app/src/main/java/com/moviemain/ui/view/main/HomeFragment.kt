@@ -69,14 +69,14 @@ class HomeFragment : Fragment() {
 
     private fun setupCarousel() {
         val carousel: ImageCarousel = binding.carousel
-        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/ehSQcx7fYCRe92FPRdOjVjlgM3W.jpg"))
-        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/zBk0guZ6NI2aHclb4sbrQdrrnOC.jpg"))
-        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/sXeWfpT1EhG7f4uBouqraOhmouH.jpg"))
-        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/q5v13A4zZ0ffXqDQMfxKcNu1xzQ.jpg"))
-        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/1D2R2wIgbTyXTPzmyJIKSbVN9wG.jpg"))
-        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/bPIm1SXYp5RQ3c4wP91JQRewIb8.jpg"))
-        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/uOnutpXJdDWyWzUCkApkahPSKuy.jpg"))
-        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/engWUYSxDogn8csr3wJOq4cOzna.jpg"))
+        carousel.registerLifecycle(lifecycle)
+        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/rHyB15bJiZKZUR6ZNgvcUxy9pVq.jpg"))
+        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/jny1jvCkgpzc3C0axQsX9ADYcAl.jpg"))
+        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/gBBCBMXKzWRADtliUYfV69aVIcz.jpg"))
+        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/mYpT2R7639KvKZ668uoQGS2QNFp.jpg"))
+        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/oJJWjiMKExSi241NpKUqVIxWfH6.jpg"))
+        list.add(CarouselItem("https://image.tmdb.org/t/p/w500/9ftcHkD55IEWgolXWhpQHwoFTsV.jpg"))
+        //carousel.setData(list)
         carousel.addData(list)
         binding.carousel.show()
     }
