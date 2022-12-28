@@ -6,6 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.moviemain.R
 import com.moviemain.core.BaseViewHolder
 import com.moviemain.databinding.MovieItemBookmarkBinding
 import com.moviemain.model.data.Movie
@@ -69,6 +72,9 @@ class BookmarkAdapter(
             val posterFormat = imageUrl + item.poster_path
             Glide.with(context)
                 .load(posterFormat)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .error(R.drawable.gradient)
                 .centerCrop()
                 .into(imgCocktail)
 

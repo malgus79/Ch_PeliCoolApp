@@ -7,7 +7,9 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.moviemain.R
 import com.moviemain.databinding.MovieItemGalleryBinding
 import com.moviemain.model.data.Movie
 import com.moviemain.ui.view.fragments.GalleryFragmentDirections
@@ -53,6 +55,9 @@ class GalleryAdapter : PagingDataAdapter<Movie,
                 Glide.with(this)
                     .load(posterFormat)
                     .transition(DrawableTransitionOptions.withCrossFade())
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .error(R.drawable.gradient)
+                    .centerCrop()
                     .into(imgMovie)
 
                 setOnClickListener {

@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.moviemain.R
 import com.moviemain.databinding.MovieItemRowBinding
@@ -22,8 +23,10 @@ class HomeAdapter(private var movieList: List<Movie>) :
             val posterFormat = imageUrl + movie.poster_path
             Glide.with(binding.root.context)
                 .load(posterFormat)
-                .error(R.drawable.gradient)
                 .transition(DrawableTransitionOptions.withCrossFade())
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .error(R.drawable.gradient)
+                .centerCrop()
                 .into(binding.imgMovie)
 
             binding.cvImgMovie.setOnClickListener {

@@ -34,6 +34,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+        concatAdapter = ConcatAdapter()
 
         setupMainMovies()
 
@@ -41,27 +42,26 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupMainMovies() {
-        concatAdapter = ConcatAdapter()
         viewModel.fetchMainMovies().observe(viewLifecycleOwner) {
-            when (it) {
-                is Resource.Loading -> {
-                    binding.progressBar.show()
-                }
-                is Resource.Success -> {
-                    binding.progressBar.hide()
-                    setupCarousel()
-                    concatAdapter.apply {
-                        addAdapter(0, PopularConcatAdapter(HomeAdapter(it.data.third.results)))
-                        addAdapter(1, TopRatedConcatAdapter(HomeAdapter(it.data.second.results)))
-                        addAdapter(2, NowPlayingConcatAdapter(HomeAdapter(it.data.first.results)))
+            with(binding) {
+                when (it) {
+                    is Resource.Loading -> {
+                        progressBar.show()
                     }
-                    binding.rvMovies.adapter = concatAdapter
-                }
-                is Resource.Failure -> {
-                    binding.progressBar.hide()
-                    showToast("Ocurrió un error al obtener los datos ${it.exception}")
-
-                    //showErrorDialog()
+                    is Resource.Success -> {
+                        progressBar.hide()
+                        setupCarousel()
+                        concatAdapter.apply {
+                            addAdapter(0, PopularConcatAdapter(HomeAdapter(it.data.third.results)))
+                            addAdapter(1, TopRatedConcatAdapter(HomeAdapter(it.data.second.results)))
+                            addAdapter(2, NowPlayingConcatAdapter(HomeAdapter(it.data.first.results)))
+                        }
+                        rvMovies.adapter = concatAdapter
+                    }
+                    is Resource.Failure -> {
+                        progressBar.hide()
+                        showToast("Ocurrió un error al obtener los datos ${it.exception}")
+                    }
                 }
             }
         }

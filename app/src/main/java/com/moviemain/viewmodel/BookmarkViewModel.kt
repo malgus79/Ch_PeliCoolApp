@@ -15,15 +15,14 @@ import javax.inject.Inject
 @HiltViewModel
 class BookmarkViewModel @Inject constructor(private val repository: RepositoryImpl) : ViewModel() {
 
-    fun getFavoriteMovies() =
-        liveData<Resource<List<Movie>>>(viewModelScope.coroutineContext + Dispatchers.IO) {
-            emit(Resource.Loading)
-            try {
-                emitSource(repository.getFavoritesMovies().map { Resource.Success(it) })
-            } catch (e:Exception) {
-                emit(Resource.Failure(e))
-            }
+    fun fetchFavoriteMovies() = liveData(viewModelScope.coroutineContext + Dispatchers.IO) {
+        emit(Resource.Loading)
+        try {
+            emitSource(repository.getFavoritesMovies().map { Resource.Success(it) })
+        } catch (e: Exception) {
+            emit(Resource.Failure(e))
         }
+    }
 
     fun deleteFavoriteMovie(movie: Movie) {
         viewModelScope.launch {
