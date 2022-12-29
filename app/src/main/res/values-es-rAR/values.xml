@@ -24,4 +24,7 @@
     <string name="home">Inicio</string>
     <string name="gallery">Próximamente</string>
     <string name="search">Buscar</string>
+
+    <string name="search_no_results">No se encontraron películas</string>
+    <string name="helper_search">Buscar una película</string>
 </resources>

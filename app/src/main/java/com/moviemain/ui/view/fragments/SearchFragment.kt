@@ -10,7 +10,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.moviemain.core.*
+import com.moviemain.core.Resource
+import com.moviemain.core.hide
+import com.moviemain.core.show
+import com.moviemain.core.showToast
 import com.moviemain.databinding.FragmentSearchBinding
 import com.moviemain.model.data.Movie
 import com.moviemain.ui.adapters.BookmarkAdapter
@@ -34,6 +37,7 @@ class SearchFragment : Fragment(), BookmarkAdapter.OnMovieClickListener {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSearchBinding.inflate(layoutInflater, container, false)
+        binding.searchView
 
         setupRecyclerView()
         setupSearView()
@@ -62,7 +66,7 @@ class SearchFragment : Fragment(), BookmarkAdapter.OnMovieClickListener {
                 }
                 is Resource.Failure -> {
                     binding.progressBar.hide()
-                    //showToast("Ocurrió un error al traer los datos ${it.exception}")
+                    showToast("Ocurrió un error al traer los datos ${it.exception}")
                 }
             }
         })
@@ -73,11 +77,19 @@ class SearchFragment : Fragment(), BookmarkAdapter.OnMovieClickListener {
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
 
             override fun onQueryTextSubmit(query: String?): Boolean {
-                viewModel.setMovieSearched(query!!)
+                if (!query.isNullOrEmpty()) {
+                    viewModel.setMovieSearched(query)
+                }
                 return false
             }
-            override fun onQueryTextChange(newText: String?): Boolean {
-                return false
+            override fun onQueryTextChange(query: String?): Boolean {
+                if (query!!.isNotEmpty()) {
+                    viewModel.setMovieSearched(query)
+                }
+                else {
+                    binding.rvMoviesSearch.hide()
+                }
+                return true
             }
         })
     }

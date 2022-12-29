@@ -33,6 +33,10 @@ interface ApiService {
         @Query("page") page: Int,
     ): Response<MovieList>
 
-    @GET("popular")
-    suspend fun getMovieByName(@Query(value = "") movieSearched: String): MovieList?
+    @GET("now_playing")
+    suspend fun getMovieByName(
+        @Query(value = "") movieSearched: String,
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String,
+    ): MovieList?
 }

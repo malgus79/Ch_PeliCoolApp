@@ -33,7 +33,7 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
         callbackFlow {
             trySend(
                 Resource.Success(
-                    apiService.getMovieByName(movieSearched)?.results ?: listOf()
+                    apiService.getMovieByName(movieSearched, API_KEY, LANGUAGE_es_ES)?.results ?: listOf()
                 )
             )
             awaitClose { close() }
