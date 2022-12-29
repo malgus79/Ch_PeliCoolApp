@@ -2,6 +2,7 @@ package com.moviemain.model.local
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
+import com.moviemain.core.Resource
 import com.moviemain.model.data.Movie
 import com.moviemain.model.data.MovieList
 import com.moviemain.model.data.asFavoriteEntity
@@ -40,5 +41,9 @@ class LocalDataSource @Inject constructor(private val movieDao: MovieDao) {
 
     fun getFavoritesMovies(): LiveData<List<Movie>> {
         return movieDao.getAllFavoriteMoviesWithChanges().map {it.asMovieList() }
+    }
+
+    suspend fun getCachedMovies(movieSearched: String?): Resource<List<Movie>> {
+        return Resource.Success(movieDao.getMovies(movieSearched).asMovieList())
     }
 }

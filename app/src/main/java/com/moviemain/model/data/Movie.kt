@@ -2,6 +2,7 @@ package com.moviemain.model.data
 
 import android.os.Parcelable
 import com.moviemain.model.local.FavoritesEntity
+import com.moviemain.model.local.MovieEntity
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -25,20 +26,36 @@ data class Movie(
 data class MovieList(val results: List<Movie> = listOf())
 
 
-fun Movie.asFavoriteEntity(): FavoritesEntity =
-    FavoritesEntity(
-        this.id,
-        this.adult,
-        this.backdrop_path,
-        this.title,
-        this.original_language,
-        this.overview,
-        this.popularity,
-        this.poster_path,
-        this.release_date,
-        this.original_title,
-        this.video,
-        this.vote_average,
-        this.vote_count,
-        this.movie_type,
-    )
+fun Movie.asFavoriteEntity(): FavoritesEntity = FavoritesEntity(
+    this.id,
+    this.adult,
+    this.backdrop_path,
+    this.title,
+    this.original_language,
+    this.overview,
+    this.popularity,
+    this.poster_path,
+    this.release_date,
+    this.original_title,
+    this.video,
+    this.vote_average,
+    this.vote_count,
+    this.movie_type,
+)
+
+fun Movie.asMovieEntity(): MovieEntity = MovieEntity(
+    this.id,
+    this.adult,
+    this.backdrop_path,
+    this.title,
+    this.original_language,
+    this.overview,
+    this.popularity,
+    this.poster_path,
+    this.release_date,
+    this.original_title,
+    this.video,
+    this.vote_average,
+    this.vote_count,
+    this.movie_type,
+)

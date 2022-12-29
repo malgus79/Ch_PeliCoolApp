@@ -23,4 +23,8 @@ interface MovieDao {
 
     @Query("SELECT * FROM favorites_entity")
     fun getAllFavoriteMoviesWithChanges(): LiveData<List<FavoritesEntity>>
+
+    @Query("SELECT * FROM movie_entity WHERE original_title LIKE '%' || :movieSearched || '%'") // This Like operator is needed due that the API returns blank spaces in the name
+    suspend fun getMovies(movieSearched: String?): List<MovieEntity>
+
 }

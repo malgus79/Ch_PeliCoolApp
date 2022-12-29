@@ -2,11 +2,19 @@ package com.moviemain.domain
 
 import androidx.lifecycle.LiveData
 import com.moviemain.core.CheckInternet
+import com.moviemain.core.Resource
 import com.moviemain.model.data.Movie
 import com.moviemain.model.data.MovieList
+import com.moviemain.model.data.asMovieEntity
 import com.moviemain.model.local.LocalDataSource
+import com.moviemain.model.local.MovieEntity
 import com.moviemain.model.local.toMovieEntity
 import com.moviemain.model.remote.RemoteDataSource
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.collectLatest
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -66,5 +74,34 @@ class RepositoryImpl @Inject constructor(
 
     override fun getFavoritesMovies(): LiveData<List<Movie>> {
         return localDataSource.getFavoritesMovies()
+    }
+
+    override suspend fun getMovieByName(movieSearched: String?): Flow<Resource<List<Movie>>> =
+        callbackFlow {
+            trySend(getCachedMovies(movieSearched))
+
+            remoteDataSource.getMovieByName(movieSearched.toString()).collectLatest {
+                when (it) {
+                    is Resource.Success -> {
+                        for (movie in it.data) {
+                            saveMovie(movie.asMovieEntity())
+                        }
+                        trySend(getCachedMovies(movieSearched))
+                    }
+                    is Resource.Failure -> {
+                        trySend(getCachedMovies(movieSearched))
+                    }
+                    else -> {}
+                }
+            }
+            awaitClose { cancel() }
+        }
+
+    override suspend fun getCachedMovies(movieSearched: String?): Resource<List<Movie>> {
+        return localDataSource.getCachedMovies(movieSearched)
+    }
+
+    override suspend fun saveMovie(movie: MovieEntity) {
+        localDataSource.saveMovie(movie)
     }
 }
