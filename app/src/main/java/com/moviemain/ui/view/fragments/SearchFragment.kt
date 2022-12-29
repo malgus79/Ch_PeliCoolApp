@@ -35,7 +35,7 @@ class SearchFragment : Fragment(), BookmarkAdapter.OnMovieClickListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentSearchBinding.inflate(layoutInflater, container, false)
         binding.searchView
 
@@ -47,26 +47,27 @@ class SearchFragment : Fragment(), BookmarkAdapter.OnMovieClickListener {
     }
 
     private fun setupSearchMovies() {
-        viewModel.fetchMovieList.observe(viewLifecycleOwner, Observer{
-            when (it) {
-                is Resource.Loading -> {
-                    binding.emptyContainer.root.hide()
-                    binding.progressBar.show()
-                }
-                is Resource.Success -> {
-                    binding.progressBar.hide()
-                    if (it.data.isEmpty()) {
-                        binding.rvMoviesSearch.hide()
-                        binding.emptyContainer.root.show()
-                        return@Observer
+        viewModel.fetchMovieList.observe(viewLifecycleOwner, Observer {
+            with(binding) {
+                when (it) {
+                    is Resource.Loading -> {
+                        emptyContainer.root.hide()
+                        progressBar.show()
                     }
-                    binding.rvMoviesSearch.show()
-                    searchAdapter.setMovieList(it.data)
-                    binding.emptyContainer.root.hide()
-                }
-                is Resource.Failure -> {
-                    binding.progressBar.hide()
-                    showToast("Ocurrió un error al traer los datos ${it.exception}")
+                    is Resource.Success -> {
+                        progressBar.hide()
+                        if (it.data.isEmpty()) {
+                            rvMoviesSearch.hide()
+                            emptyContainer.root.show()
+                            return@Observer
+                        }
+                        rvMoviesSearch.show()
+                        searchAdapter.setMovieList(it.data)
+                    }
+                    is Resource.Failure -> {
+                        progressBar.hide()
+                        showToast("Ocurrió un error al traer los datos ${it.exception}")
+                    }
                 }
             }
         })
@@ -104,6 +105,6 @@ class SearchFragment : Fragment(), BookmarkAdapter.OnMovieClickListener {
     }
 
     override fun onMovieLongClick(movie: Movie, position: Int) {
-        //TODO
+
     }
 }
