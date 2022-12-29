@@ -52,7 +52,8 @@
                 app:touchToPause="true"
                 app:carouselBackground="@color/black"
                 app:imagePlaceholder="@drawable/ic_home"
-                app:carouselGravity="CENTER"/>
+                app:carouselGravity="CENTER"
+                app:showIndicator="false" />
 
         </LinearLayout>
 

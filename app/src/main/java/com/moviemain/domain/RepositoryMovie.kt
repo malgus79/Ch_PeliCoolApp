@@ -17,7 +17,7 @@ interface RepositoryMovie {
     suspend fun isMovieFavorite(movie: Movie): Boolean
     suspend fun deleteFavoriteMovie(movie: Movie)
     suspend fun saveFavoriteMovie(movie: Movie)
-    fun getFavoritesMovies(): LiveData<List<Movie>>  //TODO LiveData<Resource<List<Movie>>>
+    fun getFavoritesMovies(): LiveData<List<Movie>>
 
     suspend fun getMovieByName(movieSearched: String?): Flow<Resource<List<Movie>>>
     suspend fun getCachedMovies(movieSearched: String?): Resource<List<Movie>>

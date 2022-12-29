@@ -47,6 +47,8 @@ class RepositoryImpl @Inject constructor(
 
     override suspend fun getNowPlayingMovies(): MovieList {
         return if (CheckInternet.isNetworkAvailable()) {
+            localDataSource.deleteCachedMovie()  //delete the database at the beginning of the request only in this order because of the concatAdapter
+
             remoteDataSource.getNowPlayingMovies().results.forEach {
                 localDataSource.saveMovie(it.toMovieEntity("now_playing"))
             }

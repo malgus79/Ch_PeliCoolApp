@@ -40,10 +40,14 @@ class LocalDataSource @Inject constructor(private val movieDao: MovieDao) {
     }
 
     fun getFavoritesMovies(): LiveData<List<Movie>> {
-        return movieDao.getAllFavoriteMoviesWithChanges().map {it.asMovieList() }
+        return movieDao.getAllFavoriteMoviesWithChanges().map { it.asMovieList() }
     }
 
     suspend fun getCachedMovies(movieSearched: String?): Resource<List<Movie>> {
         return Resource.Success(movieDao.getMovies(movieSearched).asMovieList())
+    }
+
+    suspend fun deleteCachedMovie() {
+        return movieDao.deleteCachedMovie()
     }
 }

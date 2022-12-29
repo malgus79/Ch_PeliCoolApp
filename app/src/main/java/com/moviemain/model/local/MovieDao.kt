@@ -27,4 +27,6 @@ interface MovieDao {
     @Query("SELECT * FROM movie_entity WHERE original_title LIKE '%' || :movieSearched || '%'") // This Like operator is needed due that the API returns blank spaces in the name
     suspend fun getMovies(movieSearched: String?): List<MovieEntity>
 
+    @Query("DELETE FROM movie_entity")
+    suspend fun deleteCachedMovie()
 }

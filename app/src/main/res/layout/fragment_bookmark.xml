@@ -1,70 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black">
+    android:background="@color/black"
+    tools:context=".ui.MainActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/container_bookmark"
+    <RelativeLayout
+        android:id="@+id/progress_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black"
-        tools:context=".ui.MainActivity">
+        android:padding="300dp"
+        android:visibility="gone">
 
-        <RelativeLayout
-            android:id="@+id/progress_bar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="300dp"
-            android:visibility="gone">
-
-            <ProgressBar
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginTop="@dimen/common_margin_max" />
-
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/title_bookmark"
-            android:layout_width="match_parent"
+        <ProgressBar
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/common_margin_min"
-            android:layout_marginTop="@dimen/common_margin_min"
-            android:text="@string/bookmark"
-            android:gravity="center"
-            android:textColor="@color/yellow"
-            android:textSize="@dimen/common_size_default"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/common_margin_max" />
 
-        <include
-            android:id="@+id/empty_container"
-            layout="@layout/empty_container"
-            android:layout_width="match_parent"
-            android:visibility="gone"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/common_margin_default"
-            android:layout_marginVertical="@dimen/common_margin_max"
-            app:layout_constraintTop_toBottomOf="@id/title_bookmark" />
+    </RelativeLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_movies_bookmark"
-            android:layout_width="match_parent"
-            android:layout_height="750dp"
-            android:layout_marginTop="@dimen/common_margin_min"
-            android:orientation="vertical"
-            android:layout_marginHorizontal="@dimen/common_margin_min"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title_bookmark" />
+    <TextView
+        android:id="@+id/title_bookmark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/common_margin_min"
+        android:layout_marginTop="@dimen/common_margin_min"
+        android:gravity="center"
+        android:text="@string/bookmark"
+        android:textColor="@color/yellow"
+        android:textSize="@dimen/common_size_default"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <include
+        android:id="@+id/empty_container"
+        layout="@layout/empty_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/common_margin_default"
+        android:layout_marginVertical="@dimen/common_margin_max"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/title_bookmark" />
 
-</androidx.core.widget.NestedScrollView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_movies_bookmark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/common_margin_min"
+        android:layout_marginTop="@dimen/common_margin_min"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_bookmark" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

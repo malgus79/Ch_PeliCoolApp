@@ -27,17 +27,12 @@ class SearchFragment : Fragment(), BookmarkAdapter.OnMovieClickListener {
     private lateinit var searchAdapter: BookmarkAdapter  //uses the same adapter as BookmarFragment
     private val viewModel by viewModels<SearchViewModel>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        searchAdapter = BookmarkAdapter(requireContext(), this)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentSearchBinding.inflate(layoutInflater, container, false)
-        binding.searchView
+        searchAdapter = BookmarkAdapter(requireContext(), this)
 
         setupRecyclerView()
         setupSearView()

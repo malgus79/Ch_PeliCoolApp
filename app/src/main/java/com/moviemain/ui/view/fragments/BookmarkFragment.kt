@@ -10,7 +10,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.moviemain.R
 import com.moviemain.core.Resource
 import com.moviemain.core.hide
 import com.moviemain.core.show
@@ -32,16 +31,13 @@ class BookmarkFragment : Fragment(), BookmarkAdapter.OnMovieClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-//        binding = FragmentBookmarkBinding.inflate(layoutInflater, container, false)
-        return inflater.inflate(R.layout.fragment_bookmark, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding = FragmentBookmarkBinding.bind(view)
+        binding = FragmentBookmarkBinding.inflate(layoutInflater, container, false)
         bookmarkAdapter = BookmarkAdapter(requireContext(), this)
 
+        setupRecyclerView()
         setupBookmarkMovies()
+
+        return binding.root
     }
 
     private fun setupBookmarkMovies() {
@@ -55,8 +51,6 @@ class BookmarkFragment : Fragment(), BookmarkAdapter.OnMovieClickListener {
                             return@Observer
                         }
                         bookmarkAdapter.setMovieList(it.data)
-                        rvMoviesBookmark.layoutManager = LinearLayoutManager(requireContext())
-                        rvMoviesBookmark.adapter = bookmarkAdapter
                     }
                     is Resource.Failure -> {
                         progressBar.hide()
@@ -65,6 +59,12 @@ class BookmarkFragment : Fragment(), BookmarkAdapter.OnMovieClickListener {
                 }
             }
         })
+    }
+
+    private fun setupRecyclerView() {
+        binding.rvMoviesBookmark.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvMoviesBookmark.adapter = bookmarkAdapter
+        binding.rvMoviesBookmark.setHasFixedSize(true)
     }
 
     override fun onMovieClick(movie: Movie, position: Int) {
