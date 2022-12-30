@@ -24,4 +24,6 @@
     <string name="movie_item">Movie_item</string>
     <string name="search_no_results">No movies found</string>
     <string name="helper_search">Search a movie</string>
+    <string name="peli_cool_app">Peli Cool App</string>
+    <string name="logo_splash">Logo splash</string>
 </resources>

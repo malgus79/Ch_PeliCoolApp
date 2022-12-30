@@ -27,4 +27,7 @@
 
     <string name="search_no_results">No se encontraron películas</string>
     <string name="helper_search">Buscar una película</string>
+
+    <string name="peli_cool_app">Peli Cool App</string>
+    <string name="logo_splash">Logo splash</string>
 </resources>
