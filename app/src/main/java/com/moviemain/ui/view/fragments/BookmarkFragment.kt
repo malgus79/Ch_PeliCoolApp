@@ -69,10 +69,7 @@ class BookmarkFragment : Fragment(), BookmarkAdapter.OnMovieClickListener {
 
     override fun onMovieClick(movie: Movie, position: Int) {
         findNavController().navigate(
-            BookmarkFragmentDirections.actionMenuBookmarkToMovieDetailFragment(
-                movie
-            )
-        )
+            BookmarkFragmentDirections.actionMenuBookmarkToMovieDetailFragment(movie))
     }
 
     override fun onMovieLongClick(movie: Movie, position: Int) {
