@@ -30,4 +30,7 @@
 
     <string name="peli_cool_app">Peli Cool App</string>
     <string name="logo_splash">Logo splash</string>
+
+    <string name="removed_movie">Se eliminó de MI LISTA</string>
+    <string name="added_movie">Agregada a MI LISTA</string>
 </resources>

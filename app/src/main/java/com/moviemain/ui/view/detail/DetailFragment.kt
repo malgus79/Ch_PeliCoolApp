@@ -12,6 +12,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.moviemain.R
+import com.moviemain.core.Constants.POSTER_PATH_URL
+import com.moviemain.core.showToast
 import com.moviemain.databinding.FragmentMovieDetailBinding
 import com.moviemain.model.data.Movie
 import com.moviemain.viewmodel.DetailViewModel
@@ -48,12 +50,12 @@ class DetailFragment : Fragment(R.layout.fragment_movie_detail) {
     @SuppressLint("SetTextI18n")
     private fun showDataDetails() {
         Glide.with(requireContext())
-            .load("https://image.tmdb.org/t/p/w500/${movie.poster_path}")
+            .load(POSTER_PATH_URL + movie.poster_path)
             .centerCrop()
             .into(binding.imgMovie)
 
         Glide.with(requireContext())
-            .load("https://image.tmdb.org/t/p/w500/${movie.backdrop_path}")
+            .load(POSTER_PATH_URL + movie.backdrop_path)
             .centerCrop()
             .into(binding.imgBackground)
 
@@ -68,6 +70,12 @@ class DetailFragment : Fragment(R.layout.fragment_movie_detail) {
     private fun isMovieFavorited() {
         binding.fabBookmark.setOnClickListener {
             val isMovieFavorited = isMovieFavorited ?: return@setOnClickListener
+
+         if (isMovieFavorited) {
+             showToast(getString(R.string.removed_movie))
+         } else  {
+             showToast(getString(R.string.added_movie))
+         }
 
             viewModel.saveOrDeleteFavoriteMovie(movie)
             this.isMovieFavorited = !isMovieFavorited

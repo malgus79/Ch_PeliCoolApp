@@ -1,6 +1,8 @@
 package com.moviemain.domain
 
 import androidx.lifecycle.LiveData
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
 import com.moviemain.core.CheckInternet
 import com.moviemain.core.Resource
 import com.moviemain.model.data.Movie
@@ -9,6 +11,7 @@ import com.moviemain.model.data.asMovieEntity
 import com.moviemain.model.local.LocalDataSource
 import com.moviemain.model.local.MovieEntity
 import com.moviemain.model.local.toMovieEntity
+import com.moviemain.model.paging.DataPagingSource
 import com.moviemain.model.remote.RemoteDataSource
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.awaitClose
@@ -22,6 +25,11 @@ class RepositoryImpl @Inject constructor(
     private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource
 ) : RepositoryMovie {
+
+    val listDataRepository = Pager(config = PagingConfig(1),
+    ) {
+        DataPagingSource(repository = RepositoryImpl(localDataSource, remoteDataSource))
+    }.flow
 
     override suspend fun getPopularMovies(): MovieList {
         return if (CheckInternet.isNetworkAvailable()) {

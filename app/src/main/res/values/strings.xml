@@ -26,4 +26,6 @@
     <string name="helper_search">Search a movie</string>
     <string name="peli_cool_app">Peli Cool App</string>
     <string name="logo_splash">Logo splash</string>
+    <string name="removed_movie">Removed from MY LIST</string>
+    <string name="added_movie">Added to MY LIST</string>
 </resources>
