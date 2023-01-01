@@ -13,7 +13,7 @@ interface MovieDao {
     suspend fun saveMovie(movie: MovieEntity)
 
     @Query("SELECT * FROM favorites_entity WHERE id = :movieId")
-    suspend fun getMovieById(movieId: Int): FavoritesEntity?
+    suspend fun getMovieById(movieId: Int?): FavoritesEntity?
 
     @Delete
     suspend fun deleteFavoriteMovie(favorites: FavoritesEntity)
