@@ -16,7 +16,7 @@ import com.moviemain.ui.adapters.HomeAdapter
 import com.moviemain.ui.adapters.concat.NowPlayingConcatAdapter
 import com.moviemain.ui.adapters.concat.PopularConcatAdapter
 import com.moviemain.ui.adapters.concat.TopRatedConcatAdapter
-import com.moviemain.viewmodel.HomeViewModel
+import com.moviemain.viewmodel.main.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import org.imaginativeworld.whynotimagecarousel.ImageCarousel
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem

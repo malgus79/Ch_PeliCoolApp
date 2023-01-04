@@ -1,4 +1,4 @@
-package com.moviemain.core
+package com.moviemain.core.holder
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

@@ -1,6 +1,6 @@
 package com.moviemain.di
 
-import com.moviemain.core.Constants.BASE_URL
+import com.moviemain.core.common.Constants.BASE_URL
 import com.moviemain.model.remote.ApiService
 import dagger.Module
 import dagger.Provides

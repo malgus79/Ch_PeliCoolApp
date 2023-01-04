@@ -2,7 +2,7 @@ package com.moviemain.model.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.moviemain.core.Constants.PAGE_INDEX
+import com.moviemain.core.common.Constants.PAGE_INDEX
 import com.moviemain.domain.RepositoryImpl
 import com.moviemain.model.data.Movie
 import retrofit2.HttpException

@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.moviemain.MainDispatcherRule
 import com.moviemain.model.data.*
 import com.moviemain.model.remote.RemoteDataSource
+import com.moviemain.viewmodel.main.HomeViewModel
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi

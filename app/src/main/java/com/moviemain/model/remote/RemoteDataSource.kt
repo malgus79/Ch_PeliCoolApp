@@ -1,14 +1,13 @@
 package com.moviemain.model.remote
 
-import com.moviemain.core.Constants.API_KEY
-import com.moviemain.core.Constants.LANGUAGE_es_ES
+import com.moviemain.core.common.Constants.API_KEY
+import com.moviemain.core.common.Constants.LANGUAGE_es_ES
 import com.moviemain.core.Resource
 import com.moviemain.model.data.Movie
 import com.moviemain.model.data.MovieList
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
 import retrofit2.Response
-import java.util.concurrent.Flow
 import javax.inject.Inject
 
 class RemoteDataSource @Inject constructor(private val apiService: ApiService) {

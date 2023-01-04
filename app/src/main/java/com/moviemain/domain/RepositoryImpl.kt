@@ -3,7 +3,7 @@ package com.moviemain.domain
 import androidx.lifecycle.LiveData
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import com.moviemain.core.CheckInternet
+import com.moviemain.core.connectivity.CheckInternet
 import com.moviemain.core.Resource
 import com.moviemain.model.data.Movie
 import com.moviemain.model.data.MovieList

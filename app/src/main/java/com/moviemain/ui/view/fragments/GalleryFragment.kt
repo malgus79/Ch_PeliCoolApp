@@ -16,7 +16,7 @@ import com.moviemain.core.show
 import com.moviemain.core.showToast
 import com.moviemain.databinding.FragmentGalleryBinding
 import com.moviemain.ui.adapters.GalleryAdapter
-import com.moviemain.viewmodel.GalleryViewModel
+import com.moviemain.viewmodel.fragments.GalleryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

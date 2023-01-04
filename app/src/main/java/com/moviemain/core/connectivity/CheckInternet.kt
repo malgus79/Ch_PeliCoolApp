@@ -1,4 +1,4 @@
-package com.moviemain.core
+package com.moviemain.core.connectivity
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope

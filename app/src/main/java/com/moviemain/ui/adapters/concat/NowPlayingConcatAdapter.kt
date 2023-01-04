@@ -3,7 +3,7 @@ package com.moviemain.ui.adapters.concat
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.moviemain.core.BaseConcatHolder
+import com.moviemain.core.holder.BaseConcatHolder
 import com.moviemain.databinding.NowPlayingMovieRowBinding
 import com.moviemain.ui.adapters.HomeAdapter
 

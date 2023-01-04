@@ -17,7 +17,7 @@ import com.moviemain.core.showToast
 import com.moviemain.databinding.FragmentSearchBinding
 import com.moviemain.model.data.Movie
 import com.moviemain.ui.adapters.BookmarkAdapter
-import com.moviemain.viewmodel.SearchViewModel
+import com.moviemain.viewmodel.fragments.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

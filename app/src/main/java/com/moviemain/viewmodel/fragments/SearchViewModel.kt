@@ -1,4 +1,4 @@
-package com.moviemain.viewmodel
+package com.moviemain.viewmodel.fragments
 
 import androidx.lifecycle.*
 import com.moviemain.core.Resource
