@@ -28,4 +28,6 @@
     <string name="logo_splash">Logo splash</string>
     <string name="removed_movie">Removed from MY LIST</string>
     <string name="added_movie">Added to MY LIST</string>
+    <string name="connection_restored">Connection has been restored</string>
+    <string name="no_connection">No internet connection</string>
 </resources>

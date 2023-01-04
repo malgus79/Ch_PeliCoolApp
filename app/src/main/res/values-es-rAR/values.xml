@@ -33,4 +33,7 @@
 
     <string name="removed_movie">Se eliminó de MI LISTA</string>
     <string name="added_movie">Agregada a MI LISTA</string>
+
+    <string name="connection_restored">Se restableció la conexión</string>
+    <string name="no_connection">Sin conexión a Internet</string>
 </resources>

@@ -1,26 +1,40 @@
 package com.moviemain.ui
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.snackbar.Snackbar
 import com.moviemain.R
 import com.moviemain.databinding.ActivityMainBinding
+import com.moviemain.viewmodel.MainActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
+    private var booleanState: Boolean? = null
+
+    private val viewModel by viewModels<MainActivityViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setupNavigation()
+        checkNetworkConnection()
+
+    }
+
+    private fun setupNavigation() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.findNavController()
@@ -31,9 +45,33 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
+
     }
+
+    private fun checkNetworkConnection() {
+        lifecycleScope.launchWhenCreated {
+            viewModel.isConnected.collectLatest { isConnected ->
+
+                if (booleanState == null && isConnected) {
+                    booleanState = false
+                }
+
+                if (booleanState == false && !isConnected) {
+                    Snackbar.make(binding.root, R.string.no_connection, Snackbar.LENGTH_INDEFINITE)
+                        .setAction("Descartar") {}
+                        .setAnchorView(binding.bottomNavigationView)
+                        .show()
+                    booleanState = true
+                }
+
+                if (booleanState == true && isConnected) {
+                    Snackbar.make(binding.root, R.string.connection_restored, Snackbar.LENGTH_SHORT)
+                        .setAnchorView(binding.bottomNavigationView)
+                        .show()
+                    booleanState = false
+                }
+            }
+        }
+    }
+
 }
-
-
-
-
