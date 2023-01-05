@@ -46,10 +46,10 @@ class HomeFragment : Fragment() {
             with(binding) {
                 when (it) {
                     is Resource.Loading -> {
-                        progressBar.show()
+                        containerLoading.root.show()
                     }
                     is Resource.Success -> {
-                        progressBar.hide()
+                        containerLoading.root.hide()
                         setupCarousel()
                         concatAdapter.apply {
                             addAdapter(0, PopularConcatAdapter(HomeAdapter(it.data.third.results)))
@@ -57,9 +57,11 @@ class HomeFragment : Fragment() {
                             addAdapter(2, NowPlayingConcatAdapter(HomeAdapter(it.data.first.results)))
                         }
                         rvMovies.adapter = concatAdapter
+                        imgCarousel.show()
+                        rvMovies.show()
                     }
                     is Resource.Failure -> {
-                        progressBar.hide()
+                        containerLoading.root.hide()
                         showToast("Ocurrió un error al obtener los datos ${it.exception}")
                     }
                 }

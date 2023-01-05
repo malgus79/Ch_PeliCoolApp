@@ -11,6 +11,7 @@
     <color name="black_dense">#0E0E0E</color>
     <color name="grey_loading">#c8c8c9</color>
     <color name="grey_light">#A0A0A1</color>
+    <color name="grey_dark">#474747</color>
     <color name="yellow">#FFFB00</color>
     <color name="yellow_dense">#C7A501</color>
 

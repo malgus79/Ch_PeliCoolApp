@@ -21,6 +21,7 @@
     <!-- Dimens Padding -->
     <dimen name="common_padding_min">8dp</dimen>
     <dimen name="common_padding_default">16dp</dimen>
+    <dimen name="common_padding_24">24dp</dimen>
 
     <!-- Dimens CornerRadius -->
     <dimen name="common_corner_min">8dp</dimen>

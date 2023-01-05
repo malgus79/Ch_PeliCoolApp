@@ -35,6 +35,7 @@
             android:layout_marginHorizontal="80dp"
             android:layout_marginTop="@dimen/common_margin_min"
             android:orientation="vertical"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -62,84 +63,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:visibility="gone"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@id/img_carousel"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent" />
 
 
-        <!--        <TextView-->
-<!--            android:id="@+id/title_popular"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="@dimen/common_margin_min"-->
-<!--            android:layout_marginTop="@dimen/common_margin_default"-->
-<!--            android:fontFamily="@font/poppins_regular"-->
-<!--            android:text="@string/popular"-->
-<!--            android:textColor="@color/yellow"-->
-<!--            android:textSize="@dimen/common_size_default"-->
-<!--            android:textStyle="bold"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/img_carousel" />-->
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shimmer_auto_start="true">
 
-<!--        <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:id="@+id/rv_movies_popular"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="170dp"-->
-<!--            android:layout_marginTop="@dimen/common_margin_header"-->
-<!--            android:orientation="horizontal"-->
-<!--            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/title_popular" />-->
+            <include
+                android:id="@+id/container_loading"
+                layout="@layout/fragment_home_loading" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/title_top_rated"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="@dimen/common_margin_min"-->
-<!--            android:layout_marginTop="@dimen/common_margin_default"-->
-<!--            android:fontFamily="@font/poppins_regular"-->
-<!--            android:text="@string/top_rated"-->
-<!--            android:textColor="@color/yellow"-->
-<!--            android:textSize="@dimen/common_size_default"-->
-<!--            android:textStyle="bold"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/rv_movies_popular" />-->
-
-<!--        <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:id="@+id/rv_movies_top_rated"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="170dp"-->
-<!--            android:layout_marginTop="@dimen/common_margin_header"-->
-<!--            android:orientation="horizontal"-->
-<!--            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/title_top_rated"-->
-<!--            tools:layout_editor_absoluteX="16dp" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/title_now_playing"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="@dimen/common_margin_min"-->
-<!--            android:layout_marginTop="@dimen/common_margin_default"-->
-<!--            android:fontFamily="@font/poppins_regular"-->
-<!--            android:text="@string/now_playing"-->
-<!--            android:textColor="@color/yellow"-->
-<!--            android:textSize="@dimen/common_size_default"-->
-<!--            android:textStyle="bold"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/rv_movies_top_rated" />-->
-
-<!--        <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:id="@+id/rv_movies_now_playing"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="170dp"-->
-<!--            android:layout_marginTop="@dimen/common_margin_header"-->
-<!--            android:orientation="horizontal"-->
-<!--            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/title_now_playing"-->
-<!--            tools:layout_editor_absoluteX="16dp"-->
-<!--            android:layout_marginBottom="@dimen/common_margin_middle"/>-->
+        </com.facebook.shimmer.ShimmerFrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

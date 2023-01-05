@@ -44,20 +44,20 @@ class GalleryFragment : Fragment() {
             with(binding) {
                 when (it) {
                     is ResourcePaging.LoadingPaging -> {
-                        progressBar.show()
+                        containerLoading.root.show()
                     }
                     is ResourcePaging.SuccessPaging<*> -> {
                         if (it.data.body()?.results.isNullOrEmpty()) {
-                            progressBar.show()
+                            containerLoading.root.show()
                             return@observe
                         }
-                        progressBar.hide()
+                        containerLoading.root.hide()
                         rvMoviesUpComing.adapter = galleryAdapter
                         setupGalleryRecyclerView()
                         loadData()
                     }
                     is ResourcePaging.FailurePaging -> {
-                        progressBar.hide()
+                        containerLoading.root.show()
                         showToast("Ocurrió un error al obtener los datos ${it.exception}")
                     }
                 }
@@ -70,7 +70,9 @@ class GalleryFragment : Fragment() {
             adapter = galleryAdapter
             layoutManager = StaggeredGridLayoutManager(resources.getInteger(R.integer.main_columns), StaggeredGridLayoutManager.VERTICAL)
             setHasFixedSize(true)
+            show()
         }
+        binding.titleUpcoming.show()
     }
 
     private fun loadData() {
