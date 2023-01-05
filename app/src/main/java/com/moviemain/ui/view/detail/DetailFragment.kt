@@ -14,16 +14,16 @@ import com.bumptech.glide.Glide
 import com.moviemain.R
 import com.moviemain.core.common.Constants.POSTER_PATH_URL
 import com.moviemain.core.showToast
-import com.moviemain.databinding.FragmentMovieDetailBinding
+import com.moviemain.databinding.FragmentDetailBinding
 import com.moviemain.model.data.Movie
 import com.moviemain.viewmodel.detail.DetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class DetailFragment : Fragment(R.layout.fragment_movie_detail) {
+class DetailFragment : Fragment(R.layout.fragment_detail) {
 
-    private lateinit var binding: FragmentMovieDetailBinding
+    private lateinit var binding: FragmentDetailBinding
     private val viewModel by viewModels<DetailViewModel>()
 
     private lateinit var movie: Movie
@@ -32,7 +32,7 @@ class DetailFragment : Fragment(R.layout.fragment_movie_detail) {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentMovieDetailBinding.bind(view)
+        binding = FragmentDetailBinding.bind(view)
 
         requireArguments().let {
             DetailFragmentArgs.fromBundle(it).also { args ->

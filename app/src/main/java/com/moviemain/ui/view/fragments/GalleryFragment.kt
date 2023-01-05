@@ -53,7 +53,7 @@ class GalleryFragment : Fragment() {
                         }
                         progressBar.hide()
                         rvMoviesUpComing.adapter = galleryAdapter
-                        setupRecyclerView()
+                        setupGalleryRecyclerView()
                         loadData()
                     }
                     is ResourcePaging.FailurePaging -> {
@@ -65,13 +65,10 @@ class GalleryFragment : Fragment() {
         }
     }
 
-    private fun setupRecyclerView() {
+    private fun setupGalleryRecyclerView() {
         binding.rvMoviesUpComing.apply {
             adapter = galleryAdapter
-            layoutManager = StaggeredGridLayoutManager(
-                resources.getInteger(R.integer.main_columns),
-                StaggeredGridLayoutManager.VERTICAL
-            )
+            layoutManager = StaggeredGridLayoutManager(resources.getInteger(R.integer.main_columns), StaggeredGridLayoutManager.VERTICAL)
             setHasFixedSize(true)
         }
     }

@@ -15,17 +15,18 @@
         android:layout_height="match_parent">
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/mcv_cocktail"
+            android:id="@+id/mcv_movie"
             android:layout_width="100dp"
             android:layout_height="130dp"
             android:layout_margin="@dimen/common_margin_min"
             app:cardCornerRadius="@dimen/common_corner_default"
+            android:backgroundTint="@color/black_dense"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/img_cocktail"
+                android:id="@+id/img_movie"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@mipmap/ic_launcher"
@@ -43,13 +44,11 @@
             android:textColor="@color/white"
             android:textStyle="bold"
             android:ellipsize="end"
-            app:layout_constraintBottom_toBottomOf="@id/mcv_cocktail"
+            app:layout_constraintBottom_toBottomOf="@id/mcv_movie"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/mcv_cocktail"
-            app:layout_constraintTop_toTopOf="@+id/mcv_cocktail"
+            app:layout_constraintStart_toEndOf="@+id/mcv_movie"
+            app:layout_constraintTop_toTopOf="@+id/mcv_movie"
             tools:text="Peli Cool App" />
-
-       - />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

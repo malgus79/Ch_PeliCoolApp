@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.moviemain.R
 import com.moviemain.core.Resource
 import com.moviemain.core.hide
@@ -35,7 +35,6 @@ class BookmarkFragment : Fragment(), BookmarkAdapter.OnMovieClickListener {
         binding = FragmentBookmarkBinding.inflate(layoutInflater, container, false)
         bookmarkAdapter = BookmarkAdapter(requireContext(), this)
 
-        setupRecyclerView()
         setupBookmarkMovies()
 
         return binding.root
@@ -54,6 +53,7 @@ class BookmarkFragment : Fragment(), BookmarkAdapter.OnMovieClickListener {
                             return@Observer
                         }
                         bookmarkAdapter.setMovieList(it.data)
+                        setupBookmarkRecyclerView()
                     }
                     is Resource.Failure -> {
                         progressBar.hide()
@@ -64,10 +64,12 @@ class BookmarkFragment : Fragment(), BookmarkAdapter.OnMovieClickListener {
         })
     }
 
-    private fun setupRecyclerView() {
-        binding.rvMoviesBookmark.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvMoviesBookmark.adapter = bookmarkAdapter
-        binding.rvMoviesBookmark.setHasFixedSize(true)
+    private fun setupBookmarkRecyclerView() {
+        binding.rvMoviesBookmark.apply {
+            adapter = bookmarkAdapter
+            layoutManager = StaggeredGridLayoutManager(resources.getInteger(R.integer.main_columns), StaggeredGridLayoutManager.VERTICAL)
+            setHasFixedSize(true)
+        }
     }
 
     override fun onMovieClick(movie: Movie, position: Int) {

@@ -10,10 +10,10 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.moviemain.R
 import com.moviemain.core.holder.BaseViewHolder
-import com.moviemain.databinding.ItemMovieBookmarkBinding
+import com.moviemain.databinding.ItemMovieSearchBinding
 import com.moviemain.model.data.Movie
 
-class BookmarkAdapter(
+class SearchAdapter(
     private val context: Context,
     private val itemClickListener: OnMovieClickListener
 ) :
@@ -32,7 +32,7 @@ class BookmarkAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
-        val itemBinding = ItemMovieBookmarkBinding.inflate(LayoutInflater.from(context), parent, false)
+        val itemBinding = ItemMovieSearchBinding.inflate(LayoutInflater.from(context), parent, false)
 //        return MainViewHolder(itemBinding)
 
         val holder = MainViewHolder(itemBinding)
@@ -64,10 +64,10 @@ class BookmarkAdapter(
         }
     }
 
-    private inner class MainViewHolder(private val binding: ItemMovieBookmarkBinding) :
+    private inner class MainViewHolder(private val binding: ItemMovieSearchBinding) :
         BaseViewHolder<Movie>(binding.root) {
 
-        override fun bind(item: Movie, position: Int): Unit = with(binding) {
+        override fun bind(item: Movie, position: Int) = with(binding) {
             val imageUrl = "https://image.tmdb.org/t/p/w500"
             val posterFormat = imageUrl + item.poster_path
             Glide.with(context)
@@ -77,6 +77,9 @@ class BookmarkAdapter(
                 .error(R.drawable.gradient)
                 .centerCrop()
                 .into(imgMovie)
+
+            txtTitulo.text = item.title
+
         }
     }
 }

@@ -44,7 +44,7 @@
         android:id="@+id/movieDetailFragment"
         android:name="com.moviemain.ui.view.detail.DetailFragment"
         android:label="@string/movie_detail"
-        tools:layout="@layout/fragment_movie_detail">
+        tools:layout="@layout/fragment_detail">
 
         <argument
             android:name="movie"

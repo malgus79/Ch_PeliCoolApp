@@ -10,17 +10,17 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/now_playing"
+        android:text="@string/popular"
         android:textStyle="bold"
         android:textSize="@dimen/common_size_default"
         android:textColor="@color/yellow"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_now_playing_movies"
+        android:id="@+id/rv_popular_movies"
         android:layout_width="match_parent"
         android:layout_height="160dp"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/movie_item_row"/>
+        tools:listitem="@layout/item_movie_row"/>
 
 </LinearLayout>

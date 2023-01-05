@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.moviemain.core.holder.BaseConcatHolder
-import com.moviemain.databinding.PopularMoviesRowBinding
+import com.moviemain.databinding.RowPopularMoviesBinding
 import com.moviemain.ui.adapters.HomeAdapter
 
 class PopularConcatAdapter(private val moviesAdapter: HomeAdapter) :
@@ -12,7 +12,7 @@ class PopularConcatAdapter(private val moviesAdapter: HomeAdapter) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseConcatHolder<*> {
         val itemBinding =
-            PopularMoviesRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            RowPopularMoviesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ConcatViewHolder(itemBinding)
     }
 
@@ -25,7 +25,7 @@ class PopularConcatAdapter(private val moviesAdapter: HomeAdapter) :
 
     override fun getItemCount(): Int = 1
 
-    private inner class ConcatViewHolder(val binding: PopularMoviesRowBinding) :
+    private inner class ConcatViewHolder(val binding: RowPopularMoviesBinding) :
         BaseConcatHolder<HomeAdapter>(binding.root) {
         override fun bind(adapter: HomeAdapter) {
             binding.rvPopularMovies.adapter = adapter

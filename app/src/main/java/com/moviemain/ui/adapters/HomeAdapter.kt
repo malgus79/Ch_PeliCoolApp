@@ -8,14 +8,14 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.moviemain.R
-import com.moviemain.databinding.MovieItemRowBinding
+import com.moviemain.databinding.ItemMovieRowBinding
 import com.moviemain.model.data.Movie
 import com.moviemain.ui.view.main.HomeFragmentDirections
 
 class HomeAdapter(private var movieList: List<Movie>) :
     RecyclerView.Adapter<HomeAdapter.MovieViewHolder>() {
 
-    class MovieViewHolder(private val binding: MovieItemRowBinding) :
+    class MovieViewHolder(private val binding: ItemMovieRowBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun setData(movie: Movie) {
@@ -39,7 +39,7 @@ class HomeAdapter(private var movieList: List<Movie>) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val binding = MovieItemRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemMovieRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MovieViewHolder(binding)
     }
 

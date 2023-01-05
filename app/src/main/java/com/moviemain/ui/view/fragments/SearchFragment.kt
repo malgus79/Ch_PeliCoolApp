@@ -16,15 +16,15 @@ import com.moviemain.core.show
 import com.moviemain.core.showToast
 import com.moviemain.databinding.FragmentSearchBinding
 import com.moviemain.model.data.Movie
-import com.moviemain.ui.adapters.BookmarkAdapter
+import com.moviemain.ui.adapters.SearchAdapter
 import com.moviemain.viewmodel.fragments.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SearchFragment : Fragment(), BookmarkAdapter.OnMovieClickListener {
+class SearchFragment : Fragment(), SearchAdapter.OnMovieClickListener {
 
     private lateinit var binding: FragmentSearchBinding
-    private lateinit var searchAdapter: BookmarkAdapter  //uses the same adapter as BookmarFragment
+    private lateinit var searchAdapter: SearchAdapter
     private val viewModel by viewModels<SearchViewModel>()
 
     override fun onCreateView(
@@ -32,9 +32,8 @@ class SearchFragment : Fragment(), BookmarkAdapter.OnMovieClickListener {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentSearchBinding.inflate(layoutInflater, container, false)
-        searchAdapter = BookmarkAdapter(requireContext(), this)
+        searchAdapter = SearchAdapter(requireContext(), this)
 
-        setupRecyclerView()
         setupSearView()
         setupSearchMovies()
 
@@ -56,7 +55,8 @@ class SearchFragment : Fragment(), BookmarkAdapter.OnMovieClickListener {
                             emptyContainer.root.show()
                             return@Observer
                         }
-                        rvMoviesSearch.show()
+                        //rvMoviesSearch.show()
+                        setupSearchRecyclerView()
                         searchAdapter.setMovieList(it.data)
                     }
                     is Resource.Failure -> {
@@ -90,9 +90,12 @@ class SearchFragment : Fragment(), BookmarkAdapter.OnMovieClickListener {
         })
     }
 
-    private fun setupRecyclerView() {
-        binding.rvMoviesSearch.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvMoviesSearch.adapter = searchAdapter
+    private fun setupSearchRecyclerView() {
+        binding.rvMoviesSearch.apply {
+            adapter = searchAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+            setHasFixedSize(true)
+        }
     }
 
     override fun onMovieClick(movie: Movie, position: Int) {
