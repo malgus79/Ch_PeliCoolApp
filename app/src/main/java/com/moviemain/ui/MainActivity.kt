@@ -3,6 +3,7 @@ package com.moviemain.ui
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -60,6 +61,12 @@ class MainActivity : AppCompatActivity() {
                     Snackbar.make(binding.root, R.string.no_connection, Snackbar.LENGTH_INDEFINITE)
                         .setAction("Descartar") {}
                         .setAnchorView(binding.bottomNavigationView)
+                        .setBackgroundTint(
+                            ContextCompat.getColor(
+                                this@MainActivity,
+                                R.color.rojo_theme
+                            )
+                        )
                         .show()
                     booleanState = true
                 }
@@ -67,11 +74,16 @@ class MainActivity : AppCompatActivity() {
                 if (booleanState == true && isConnected) {
                     Snackbar.make(binding.root, R.string.connection_restored, Snackbar.LENGTH_SHORT)
                         .setAnchorView(binding.bottomNavigationView)
+                        .setBackgroundTint(
+                            ContextCompat.getColor(
+                                this@MainActivity,
+                                R.color.green_dark_theme
+                            )
+                        )
                         .show()
                     booleanState = false
                 }
             }
         }
     }
-
 }

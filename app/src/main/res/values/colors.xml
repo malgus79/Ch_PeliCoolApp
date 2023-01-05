@@ -22,5 +22,6 @@
     <color name="purple_theme">#7000E0</color>
     <color name="blue_dark_theme">#5F6BFA</color>
     <color name="blue_light_theme">#059AF0</color>
+    <color name="green_dark_theme">#00681A</color>
 
 </resources>
