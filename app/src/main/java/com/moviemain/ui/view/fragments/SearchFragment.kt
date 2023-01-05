@@ -95,6 +95,7 @@ class SearchFragment : Fragment(), SearchAdapter.OnMovieClickListener {
             adapter = searchAdapter
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
+            show()
         }
     }
 

@@ -50,15 +50,16 @@ class HomeFragment : Fragment() {
                     }
                     is Resource.Success -> {
                         containerLoading.root.hide()
-                        setupCarousel()
                         concatAdapter.apply {
                             addAdapter(0, PopularConcatAdapter(HomeAdapter(it.data.third.results)))
                             addAdapter(1, TopRatedConcatAdapter(HomeAdapter(it.data.second.results)))
                             addAdapter(2, NowPlayingConcatAdapter(HomeAdapter(it.data.first.results)))
                         }
-                        rvMovies.adapter = concatAdapter
-                        imgCarousel.show()
-                        rvMovies.show()
+                        rvMovies.apply {
+                            adapter = concatAdapter
+                            show()
+                        }
+                        setupCarousel()
                     }
                     is Resource.Failure -> {
                         containerLoading.root.hide()
@@ -81,5 +82,6 @@ class HomeFragment : Fragment() {
         //carousel.setData(list)
         carousel.addData(list)
         binding.carousel.show()
+        binding.imgCarousel.show()
     }
 }
