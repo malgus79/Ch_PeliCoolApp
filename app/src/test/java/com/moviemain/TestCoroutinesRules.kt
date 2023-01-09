@@ -1,6 +1,7 @@
 package com.moviemain
 
 //import kotlinx.coroutines.Dispatchers
+//import kotlinx.coroutines.ExperimentalCoroutinesApi
 //import kotlinx.coroutines.test.TestDispatcher
 //import kotlinx.coroutines.test.UnconfinedTestDispatcher
 //import kotlinx.coroutines.test.resetMain
@@ -8,6 +9,7 @@ package com.moviemain
 //import org.junit.rules.TestWatcher
 //import org.junit.runner.Description
 //
+//@ExperimentalCoroutinesApi
 //class MainDispatcherRule(
 //    val testDispatcher: TestDispatcher = UnconfinedTestDispatcher(),
 //) : TestWatcher() {

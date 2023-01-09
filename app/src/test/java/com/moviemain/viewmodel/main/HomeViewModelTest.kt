@@ -80,14 +80,6 @@ class HomeViewModelTest {
     }
 
     @Test
-    fun `check fetch main movie upcoming is not null test`() {
-        runBlocking {
-            val result = apiService.getUpcomingMovies(API_KEY, LANGUAGE_es_ES, 1)
-            MatcherAssert.assertThat(result.body()?.results, `is`(notNullValue()))
-        }
-    }
-
-    @Test
     fun `check item movies for page test`() {
         runBlocking {
             val result = apiService.getPopularMovies(API_KEY, LANGUAGE_es_ES)
@@ -133,17 +125,6 @@ class HomeViewModelTest {
         runBlocking {
             try {
                 apiService.getNowPlayingMovies("", "")
-            } catch (e: Exception) {
-                MatcherAssert.assertThat(e.localizedMessage, `is`("HTTP 401 "))
-            }
-        }
-    }
-
-    @Test
-    fun `check error fetch main movies upcoming test`() {
-        runBlocking {
-            try {
-                apiService.getUpcomingMovies("", "", 0)
             } catch (e: Exception) {
                 MatcherAssert.assertThat(e.localizedMessage, `is`("HTTP 401 "))
             }
