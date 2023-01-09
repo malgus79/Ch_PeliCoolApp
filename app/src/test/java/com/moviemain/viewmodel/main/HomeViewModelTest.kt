@@ -1,6 +1,8 @@
 package com.moviemain.viewmodel.main
 
 import com.moviemain.core.common.Constants
+import com.moviemain.core.common.Constants.API_KEY
+import com.moviemain.core.common.Constants.LANGUAGE_es_ES
 import com.moviemain.dataaccess.JSONFileLoader
 import com.moviemain.model.data.Movie
 import com.moviemain.model.remote.ApiService
@@ -29,8 +31,6 @@ class HomeViewModelTest {
     private lateinit var apiService: ApiService
 
     companion object {
-        const val API_KEY = "5ab6b649a24299a96dc96faa2c825afa"
-        const val LANGUAGE_es_ES = "es-ES"
         private lateinit var retrofit: Retrofit
 
         @BeforeClass
@@ -56,7 +56,7 @@ class HomeViewModelTest {
     }
 
     @Test
-    fun `check fetch main movie popular is not null test`() {
+    fun `check fetch movie popular is not null test`() {
         runBlocking {
             val result = apiService.getPopularMovies(API_KEY, LANGUAGE_es_ES)
             MatcherAssert.assertThat(result.results, `is`(notNullValue()))
@@ -64,7 +64,7 @@ class HomeViewModelTest {
     }
 
     @Test
-    fun `check fetch main movie top rated is not null test`() {
+    fun `check fetch movie top rated is not null test`() {
         runBlocking {
             val result = apiService.getTopRatedMovies(API_KEY, LANGUAGE_es_ES)
             MatcherAssert.assertThat(result.results, `is`(notNullValue()))
@@ -72,7 +72,7 @@ class HomeViewModelTest {
     }
 
     @Test
-    fun `check fetch main movie now playing is not null test`() {
+    fun `check fetch movie now playing is not null test`() {
         runBlocking {
             val result = apiService.getNowPlayingMovies(API_KEY, LANGUAGE_es_ES)
             MatcherAssert.assertThat(result.results, `is`(notNullValue()))
@@ -99,7 +99,7 @@ class HomeViewModelTest {
     }
 
     @Test
-    fun `check error fetch main movies popular test`() {
+    fun `check error fetch movies popular test`() {
         runBlocking {
             try {
                 apiService.getPopularMovies("", "")
@@ -110,7 +110,7 @@ class HomeViewModelTest {
     }
 
     @Test
-    fun `check error fetch main movies top rated test`() {
+    fun `check error fetch movies top rated test`() {
         runBlocking {
             try {
                 apiService.getTopRatedMovies("", "")
@@ -121,7 +121,7 @@ class HomeViewModelTest {
     }
 
     @Test
-    fun `check error fetch main movies now playing test`() {
+    fun `check error fetch movies now playing test`() {
         runBlocking {
             try {
                 apiService.getNowPlayingMovies("", "")

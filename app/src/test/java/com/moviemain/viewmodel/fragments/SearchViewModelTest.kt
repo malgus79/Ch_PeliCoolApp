@@ -3,7 +3,6 @@ package com.moviemain.viewmodel.fragments
 import com.moviemain.core.common.Constants
 import com.moviemain.core.common.Constants.API_KEY
 import com.moviemain.core.common.Constants.LANGUAGE_es_ES
-import com.moviemain.core.common.Constants.PAGE_INDEX
 import com.moviemain.dataaccess.JSONFileLoader
 import com.moviemain.model.data.Movie
 import com.moviemain.model.remote.ApiService
@@ -19,7 +18,7 @@ import org.junit.Test
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class GalleryViewModelTest {
+class SearchViewModelTest {
 
     private lateinit var apiService: ApiService
 
@@ -49,37 +48,37 @@ class GalleryViewModelTest {
     }
 
     @Test
-    fun `check fetch movie upcoming is not null test`() {
+    fun `check fetch movie searched is not null test`() {
         runBlocking {
-            val result = apiService.getUpcomingMovies(API_KEY, LANGUAGE_es_ES, PAGE_INDEX)
-            assertThat(result.body()?.results, `is`(notNullValue()))
+            val result = apiService.getMovieByName("", API_KEY, LANGUAGE_es_ES)
+            assertThat(result?.results, `is`(notNullValue()))
         }
     }
 
     @Test
-    fun `check item movies upcoming for page test`() {
+    fun `check item movies searched for page test`() {
         runBlocking {
-            val result = apiService.getUpcomingMovies(API_KEY, LANGUAGE_es_ES, PAGE_INDEX)
-            assertThat(result.body()?.results?.size, `is`(20))
+            val result = apiService.getMovieByName("", API_KEY, LANGUAGE_es_ES)
+            assertThat(result?.results?.size, `is`(20))
         }
     }
 
     @Test
-    fun `check item movies upcoming adult test`() {
+    fun `check item movies searched adult test`() {
         runBlocking {
-            val result = apiService.getUpcomingMovies(API_KEY, LANGUAGE_es_ES, PAGE_INDEX)
+            val result = apiService.getMovieByName("", API_KEY, LANGUAGE_es_ES)
             assertThat(
-                result.body()?.results?.filter { Movie().adult == true },
+                result?.results?.filter { Movie().adult == true },
                 `is`(emptyList())
             )
         }
     }
 
     @Test
-    fun `check error fetch movies upcoming test`() {
+    fun `check error fetch movies test`() {
         runBlocking {
             try {
-                apiService.getUpcomingMovies("", "", 0)
+                apiService.getMovieByName("", API_KEY, LANGUAGE_es_ES)
             } catch (e: Exception) {
                 assertThat(e.localizedMessage, `is`("HTTP 401 "))
             }
@@ -87,29 +86,29 @@ class GalleryViewModelTest {
     }
 
     @Test
-    fun `check movies upcoming remote with local test`() {
+    fun `check movies searched remote with local test`() {
         runBlocking {
-            val remoteResult = apiService.getUpcomingMovies(API_KEY, LANGUAGE_es_ES, PAGE_INDEX)
+            val remoteResult = apiService.getMovieByName("", API_KEY, LANGUAGE_es_ES)
             val localResult = JSONFileLoader().loadMovieList("movie_response_success")
 
             assertThat(
                 localResult?.results?.size,
-                `is`(remoteResult.body()?.results?.size)
+                `is`(remoteResult?.results?.size)
             )
 
             assertThat(
                 localResult?.results.isNullOrEmpty(),
-                `is`(remoteResult.body()?.results?.isEmpty())
+                `is`(remoteResult?.results?.isEmpty())
             )
 
             assertThat(
                 localResult?.results?.contains(Movie()),
-                `is`(remoteResult.body()?.results?.contains(Movie()))
+                `is`(remoteResult?.results?.contains(Movie()))
             )
 
             assertThat(
                 localResult?.results?.indices,
-                `is`(remoteResult.body()?.results?.indices)
+                `is`(remoteResult?.results?.indices)
             )
         }
     }
