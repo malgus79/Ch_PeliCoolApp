@@ -1,13 +1,15 @@
 package com.moviemain.viewmodel.main
 
 import com.moviemain.core.common.Constants
+import com.moviemain.dataaccess.JSONFileLoader
 import com.moviemain.model.data.Movie
 import com.moviemain.model.remote.ApiService
 import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.hamcrest.Matchers.*
-import org.junit.Assert.assertThat
+import org.hamcrest.MatcherAssert
+import org.hamcrest.Matchers.`is`
+import org.hamcrest.Matchers.notNullValue
 import org.junit.Before
 import org.junit.BeforeClass
 import org.junit.Test
@@ -15,7 +17,15 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class HomeViewModelTest {
-    private lateinit var homeViewModel: HomeViewModel
+
+//    @get:Rule
+//    val instantExcecutorRule = InstantTaskExecutorRule()
+//
+//    @ExperimentalCoroutinesApi
+//    @get:Rule
+//    val mainCoroutinesRule = MainCoroutineRule()
+
+//    private lateinit var homeViewModel: HomeViewModel
     private lateinit var apiService: ApiService
 
     companion object {
@@ -46,61 +56,125 @@ class HomeViewModelTest {
     }
 
     @Test
-    fun checkFetchMainMoviesPopularIsNotNullTest() {
+    fun `check fetch main movie popular is not null test`() {
         runBlocking {
             val result = apiService.getPopularMovies(API_KEY, LANGUAGE_es_ES)
-            assertThat(result.results, `is`(notNullValue()))
+            MatcherAssert.assertThat(result.results, `is`(notNullValue()))
         }
     }
 
     @Test
-    fun checkFetchMainMoviesTopRatedIsNotNullTest() {
+    fun `check fetch main movie top rated is not null test`() {
         runBlocking {
             val result = apiService.getTopRatedMovies(API_KEY, LANGUAGE_es_ES)
-            assertThat(result.results, `is`(notNullValue()))
+            MatcherAssert.assertThat(result.results, `is`(notNullValue()))
         }
     }
 
     @Test
-    fun checkFetchMainMoviesNowPlayingIsNotNullTest() {
+    fun `check fetch main movie now playing is not null test`() {
         runBlocking {
             val result = apiService.getNowPlayingMovies(API_KEY, LANGUAGE_es_ES)
-            assertThat(result.results, `is`(notNullValue()))
+            MatcherAssert.assertThat(result.results, `is`(notNullValue()))
         }
     }
 
     @Test
-    fun checkFetchMainMovieUpcomingIsNotNullTest() {
+    fun `check fetch main movie upcoming is not null test`() {
         runBlocking {
-            val result = apiService.getNowPlayingMovies(API_KEY, LANGUAGE_es_ES)
-            assertThat(result.results, `is`(notNullValue()))
+            val result = apiService.getUpcomingMovies(API_KEY, LANGUAGE_es_ES, 1)
+            MatcherAssert.assertThat(result.body()?.results, `is`(notNullValue()))
         }
     }
 
     @Test
-    fun checkItemMoviesForPageTest() {
-        runBlocking {
-            val result = apiService.getPopularMovies(API_KEY, LANGUAGE_es_ES)
-            assertThat(result.results.size, `is`(20))
-        }
-    }
-
-    @Test
-    fun checkItemMoviesAdultTest() {
+    fun `check item movies for page test`() {
         runBlocking {
             val result = apiService.getPopularMovies(API_KEY, LANGUAGE_es_ES)
-            assertThat(result.results.filter { Movie().adult == true }, `is`(emptyList()))
+            MatcherAssert.assertThat(result.results.size, `is`(20))
         }
     }
 
     @Test
-    fun checkErrorFetchMainMoviesTest() {
+    fun `check item movies adult test`() {
+        runBlocking {
+            val result = apiService.getPopularMovies(API_KEY, LANGUAGE_es_ES)
+            MatcherAssert.assertThat(
+                result.results.filter { Movie().adult == true },
+                `is`(emptyList())
+            )
+        }
+    }
+
+    @Test
+    fun `check error fetch main movies popular test`() {
         runBlocking {
             try {
                 apiService.getPopularMovies("", "")
             } catch (e: Exception) {
-                assertThat(e.localizedMessage,`is`("HTTP 401 "))
+                MatcherAssert.assertThat(e.localizedMessage, `is`("HTTP 401 "))
             }
+        }
+    }
+
+    @Test
+    fun `check error fetch main movies top rated test`() {
+        runBlocking {
+            try {
+                apiService.getTopRatedMovies("", "")
+            } catch (e: Exception) {
+                MatcherAssert.assertThat(e.localizedMessage, `is`("HTTP 401 "))
+            }
+        }
+    }
+
+    @Test
+    fun `check error fetch main movies now playing test`() {
+        runBlocking {
+            try {
+                apiService.getNowPlayingMovies("", "")
+            } catch (e: Exception) {
+                MatcherAssert.assertThat(e.localizedMessage, `is`("HTTP 401 "))
+            }
+        }
+    }
+
+    @Test
+    fun `check error fetch main movies upcoming test`() {
+        runBlocking {
+            try {
+                apiService.getUpcomingMovies("", "", 0)
+            } catch (e: Exception) {
+                MatcherAssert.assertThat(e.localizedMessage, `is`("HTTP 401 "))
+            }
+        }
+    }
+
+    @Test
+    fun `check remote with local test`() {
+        runBlocking {
+            val remoteResult = apiService.getPopularMovies(API_KEY, LANGUAGE_es_ES)
+            val localResult = JSONFileLoader().loadMovieList("movie_response_success")
+
+            MatcherAssert.assertThat(
+                localResult?.results?.size,
+                `is`(remoteResult.results.size)
+            )
+
+            MatcherAssert.assertThat(
+                localResult?.results.isNullOrEmpty(),
+                `is`(remoteResult.results.isEmpty())
+            )
+
+            MatcherAssert.assertThat(
+                localResult?.results?.contains(Movie()),
+                `is`(remoteResult.results.contains(Movie()))
+            )
+
+            MatcherAssert.assertThat(
+                localResult?.results?.indices,
+                `is`(remoteResult.results.indices)
+            )
         }
     }
 }
