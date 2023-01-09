@@ -1,19 +1,13 @@
 package com.moviemain.viewmodel.main
 
 import com.moviemain.core.common.Constants
-import com.moviemain.domain.RepositoryImpl
 import com.moviemain.model.data.Movie
-import com.moviemain.model.local.LocalDataSource
-import com.moviemain.model.local.MovieDao
 import com.moviemain.model.remote.ApiService
-import com.moviemain.model.remote.RemoteDataSource
 import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.hamcrest.Matchers
-import org.hamcrest.Matchers.`is`
-import org.hamcrest.Matchers.notNullValue
-import org.junit.Assert.*
+import org.hamcrest.Matchers.*
+import org.junit.Assert.assertThat
 import org.junit.Before
 import org.junit.BeforeClass
 import org.junit.Test
@@ -91,4 +85,22 @@ class HomeViewModelTest {
         }
     }
 
+    @Test
+    fun checkItemMoviesAdultTest() {
+        runBlocking {
+            val result = apiService.getPopularMovies(API_KEY, LANGUAGE_es_ES)
+            assertThat(result.results.filter { Movie().adult == true }, `is`(emptyList()))
+        }
+    }
+
+    @Test
+    fun checkErrorFetchMainMoviesTest() {
+        runBlocking {
+            try {
+                apiService.getPopularMovies("", "")
+            } catch (e: Exception) {
+                assertThat(e.localizedMessage,`is`("HTTP 401 "))
+            }
+        }
+    }
 }
