@@ -27,7 +27,7 @@ class SearchViewModelTest {
 
         @BeforeClass
         @JvmStatic
-        fun setupCommin() {
+        fun setupCommon() {
             val loggingInterceptor = HttpLoggingInterceptor()
                 .setLevel(HttpLoggingInterceptor.Level.BODY)
 

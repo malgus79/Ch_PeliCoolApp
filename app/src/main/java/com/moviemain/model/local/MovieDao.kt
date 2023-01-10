@@ -29,4 +29,7 @@ interface MovieDao {
 
     @Query("DELETE FROM movie_entity")
     suspend fun deleteCachedMovie()
+
+    @Query("SELECT * FROM favorites_entity")
+    suspend fun getAllFavoriteMovies() : List<FavoritesEntity>
 }

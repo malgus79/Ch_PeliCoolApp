@@ -1,11 +1,13 @@
 package com.moviemain.viewmodel.main
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.moviemain.core.common.Constants
 import com.moviemain.core.common.Constants.API_KEY
 import com.moviemain.core.common.Constants.LANGUAGE_es_ES
 import com.moviemain.dataaccess.JSONFileLoader
 import com.moviemain.model.data.Movie
 import com.moviemain.model.remote.ApiService
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -14,20 +16,20 @@ import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.notNullValue
 import org.junit.Before
 import org.junit.BeforeClass
+import org.junit.Rule
 import org.junit.Test
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class HomeViewModelTest {
 
-//    @get:Rule
-//    val instantExcecutorRule = InstantTaskExecutorRule()
-//
-//    @ExperimentalCoroutinesApi
-//    @get:Rule
-//    val mainCoroutinesRule = MainCoroutineRule()
+    @get:Rule
+    val instantExcecutorRule = InstantTaskExecutorRule()
 
-//    private lateinit var homeViewModel: HomeViewModel
+    @ExperimentalCoroutinesApi
+    @get:Rule
+    val mainCoroutinesRule = MainCoroutineRule()
+
     private lateinit var apiService: ApiService
 
     companion object {
@@ -35,7 +37,7 @@ class HomeViewModelTest {
 
         @BeforeClass
         @JvmStatic
-        fun setupCommin() {
+        fun setupCommon() {
             val loggingInterceptor = HttpLoggingInterceptor()
                 .setLevel(HttpLoggingInterceptor.Level.BODY)
 
