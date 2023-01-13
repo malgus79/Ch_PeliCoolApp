@@ -27,7 +27,7 @@
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             android:src="@mipmap/ic_launcher"
-            android:contentDescription="@string/gallery"/>
+            android:contentDescription="@string/bookmark"/>
 
     </androidx.cardview.widget.CardView>
 

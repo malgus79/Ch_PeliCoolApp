@@ -105,7 +105,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             val bitmapDrawable = binding.imgMovie.drawable as BitmapDrawable
             val bitmap = bitmapDrawable.bitmap
             val bitmapPath =
-                MediaStore.Images.Media.insertImage(context?.contentResolver, bitmap, "", null)
+                MediaStore.Images.Media.insertImage(context?.contentResolver, bitmap, "IMAGE" + System.currentTimeMillis(), null)
             val bitmapUri = Uri.parse(bitmapPath.toString())
             val intent = Intent(Intent.ACTION_SEND)
             intent.type = "image/*"
