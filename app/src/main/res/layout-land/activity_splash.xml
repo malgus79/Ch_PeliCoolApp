@@ -12,12 +12,12 @@
         android:layout_width="300dp"
         android:layout_height="200dp"
         android:src="@drawable/logo_splash"
+        android:layout_marginStart="@dimen/common_margin_middle"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.35"
+        app:layout_constraintVertical_bias="0.5"
+
         android:contentDescription="@string/logo_splash" />
 
     <TextView
@@ -25,15 +25,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_regular"
+        android:layout_marginEnd="@dimen/common_margin_middle"
         android:text="@string/peli_cool_app"
         android:textColor="@color/yellow"
         android:textSize="50sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/splash_screen_image"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.6" />
+        app:layout_constraintVertical_bias="0.5" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

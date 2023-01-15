@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        tools:context=".ui.view.main.HomeFragment">
+
+        <LinearLayout
+            android:id="@+id/img_carousel"
+            android:layout_width="250dp"
+            android:layout_height="350dp"
+            android:layout_marginStart="@dimen/common_margin_middle"
+            android:layout_marginTop="@dimen/common_margin_min"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" >
+
+            <org.imaginativeworld.whynotimagecarousel.ImageCarousel
+                android:id="@+id/carousel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                app:autoPlay="true"
+                app:autoPlayDelay="4000"
+                app:carouselBackground="@color/black"
+                app:carouselGravity="CENTER"
+                app:imagePlaceholder="@drawable/ic_home"
+                app:imageScaleType="centerCrop"
+                app:infiniteCarousel="true"
+                app:showIndicator="false"
+                app:touchToPause="true"
+                tools:visibility="visible" />
+
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="@dimen/common_margin_middle"
+            app:layout_constraintStart_toEndOf="@id/img_carousel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/img_carousel" >
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_movies"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        </ScrollView>
+
+        <ImageView
+            android:id="@+id/splash_screen_image"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/logo_splash"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/peli_cool_app"
+            app:layout_constraintStart_toStartOf="@id/img_carousel"
+            app:layout_constraintEnd_toEndOf="@id/img_carousel"
+            app:layout_constraintTop_toBottomOf="@id/img_carousel"
+            android:contentDescription="@string/logo_splash" />
+
+        <TextView
+            android:id="@+id/peli_cool_app"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_regular"
+            android:visibility="gone"
+            android:text="@string/peli_cool_app"
+            android:textColor="@color/yellow"
+            android:textSize="@dimen/common_size_default"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/splash_screen_image"
+            app:layout_constraintEnd_toEndOf="@id/splash_screen_image"
+            app:layout_constraintTop_toBottomOf="@id/splash_screen_image"
+            app:layout_constraintVertical_bias="0.6" />
+
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shimmer_auto_start="true">
+
+            <include
+                android:id="@+id/container_loading"
+                layout="@layout/fragment_home_loading" />
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

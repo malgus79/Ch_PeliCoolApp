@@ -52,8 +52,14 @@ class HomeFragment : Fragment() {
                         containerLoading.root.hide()
                         concatAdapter.apply {
                             addAdapter(0, PopularConcatAdapter(HomeAdapter(it.data.third.results)))
-                            addAdapter(1, TopRatedConcatAdapter(HomeAdapter(it.data.second.results)))
-                            addAdapter(2, NowPlayingConcatAdapter(HomeAdapter(it.data.first.results)))
+                            addAdapter(
+                                1,
+                                TopRatedConcatAdapter(HomeAdapter(it.data.second.results))
+                            )
+                            addAdapter(
+                                2,
+                                NowPlayingConcatAdapter(HomeAdapter(it.data.first.results))
+                            )
                         }
                         rvMovies.apply {
                             adapter = concatAdapter
@@ -81,7 +87,11 @@ class HomeFragment : Fragment() {
         list.add(CarouselItem("https://image.tmdb.org/t/p/w500/9ftcHkD55IEWgolXWhpQHwoFTsV.jpg"))
         //carousel.setData(list)
         carousel.addData(list)
-        binding.carousel.show()
-        binding.imgCarousel.show()
+        with(binding) {
+            carousel.show()
+            imgCarousel.show()
+            splashScreenImage?.show()
+            peliCoolApp?.show()
+        }
     }
 }
