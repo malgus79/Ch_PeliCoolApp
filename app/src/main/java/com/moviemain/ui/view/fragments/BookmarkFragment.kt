@@ -57,7 +57,7 @@ class BookmarkFragment : Fragment(), BookmarkAdapter.OnMovieClickListener {
                     }
                     is Resource.Failure -> {
                         progressBar.hide()
-                        showToast("Ocurrió un error al obtener los datos ${it.exception}")
+                        showToast(getString(R.string.error_dialog_detail) + it.exception)
                     }
                 }
             }

@@ -5,6 +5,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.moviemain.core.connectivity.CheckInternet
 import com.moviemain.core.Resource
+import com.moviemain.core.common.Constants.PAGE_INDEX
 import com.moviemain.model.data.Movie
 import com.moviemain.model.data.MovieList
 import com.moviemain.model.data.asMovieEntity
@@ -26,7 +27,7 @@ class RepositoryImpl @Inject constructor(
     private val remoteDataSource: RemoteDataSource
 ) : RepositoryMovie {
 
-    val listDataRepository = Pager(config = PagingConfig(1),
+    val listDataRepository = Pager(config = PagingConfig(PAGE_INDEX),
     ) {
         DataPagingSource(repository = RepositoryImpl(localDataSource, remoteDataSource))
     }.flow

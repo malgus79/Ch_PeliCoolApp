@@ -1,5 +1,9 @@
 package com.moviemain.model.remote
 
+import com.moviemain.core.common.Constants.NOW_PLAYING
+import com.moviemain.core.common.Constants.POPULAR
+import com.moviemain.core.common.Constants.TOP_RATED
+import com.moviemain.core.common.Constants.UPCOMING
 import com.moviemain.model.data.MovieList
 import retrofit2.Response
 import retrofit2.http.GET
@@ -8,32 +12,32 @@ import retrofit2.http.Query
 
 interface ApiService {
 
-    @GET("popular")
+    @GET(POPULAR)
     suspend fun getPopularMovies(
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
     ): MovieList
 
-    @GET("top_rated")
+    @GET(TOP_RATED)
     suspend fun getTopRatedMovies(
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
     ): MovieList
 
-    @GET("now_playing")
+    @GET(NOW_PLAYING)
     suspend fun getNowPlayingMovies(
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
     ): MovieList
 
-    @GET("upcoming")
+    @GET(UPCOMING)
     suspend fun getUpcomingMovies(
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
         @Query("page") page: Int,
     ): Response<MovieList>
 
-    @GET("popular")
+    @GET(POPULAR)
     suspend fun getMovieByName(
         @Query(value = "") movieSearched: String,
         @Query("api_key") apiKey: String,

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ConcatAdapter
+import com.moviemain.R
 import com.moviemain.core.Resource
 import com.moviemain.core.hide
 import com.moviemain.core.show
@@ -52,14 +53,8 @@ class HomeFragment : Fragment() {
                         containerLoading.root.hide()
                         concatAdapter.apply {
                             addAdapter(0, PopularConcatAdapter(HomeAdapter(it.data.third.results)))
-                            addAdapter(
-                                1,
-                                TopRatedConcatAdapter(HomeAdapter(it.data.second.results))
-                            )
-                            addAdapter(
-                                2,
-                                NowPlayingConcatAdapter(HomeAdapter(it.data.first.results))
-                            )
+                            addAdapter(1, TopRatedConcatAdapter(HomeAdapter(it.data.second.results)))
+                            addAdapter(2, NowPlayingConcatAdapter(HomeAdapter(it.data.first.results)))
                         }
                         rvMovies.apply {
                             adapter = concatAdapter
@@ -69,7 +64,7 @@ class HomeFragment : Fragment() {
                     }
                     is Resource.Failure -> {
                         containerLoading.root.hide()
-                        showToast("Ocurrió un error al obtener los datos ${it.exception}")
+                        showToast(getString(R.string.error_dialog_detail) + it.exception)
                     }
                 }
             }

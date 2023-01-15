@@ -30,6 +30,7 @@ interface MovieDao {
     @Query("DELETE FROM movie_entity")
     suspend fun deleteCachedMovie()
 
+    //for androidTest in MovieDaoTest
     @Query("SELECT * FROM favorites_entity")
     suspend fun getAllFavoriteMovies() : List<FavoritesEntity>
 }

@@ -52,13 +52,12 @@ class GalleryFragment : Fragment() {
                             return@observe
                         }
                         containerLoading.root.hide()
-                        rvMoviesUpComing.adapter = galleryAdapter
                         setupGalleryRecyclerView()
                         loadData()
                     }
                     is ResourcePaging.FailurePaging -> {
                         containerLoading.root.show()
-                        showToast("Ocurrió un error al obtener los datos ${it.exception}")
+                        showToast(getString(R.string.error_dialog_detail) + it.exception)
                     }
                 }
             }

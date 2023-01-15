@@ -19,11 +19,9 @@ object LocalModule {
     @Singleton
     @Provides
     fun providesRoom(@ApplicationContext context: Context): MovieDatabase {
-        return Room.databaseBuilder(
-            context,
-            MovieDatabase::class.java,
-            MOVIE_DATABASE_NAME
-        ).fallbackToDestructiveMigration().build()
+        return Room.databaseBuilder(context, MovieDatabase::class.java, MOVIE_DATABASE_NAME)
+            .fallbackToDestructiveMigration()
+            .build()
     }
 
     @Singleton

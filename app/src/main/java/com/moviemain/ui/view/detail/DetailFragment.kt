@@ -59,11 +59,15 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             .centerCrop()
             .into(binding.imgBackground)
 
-        binding.txtDescription.text = movie.overview
-        binding.txtMovieTitle.text = movie.title
-        binding.txtLanguage.text = "Language ${movie.original_language}"
-        binding.txtRating.text = "${movie.vote_average} (${movie.vote_count} Reviews)"
-        binding.txtReleased.text = "Released ${movie.release_date}"
+        with (binding) {
+            txtDescription.text = movie.overview
+            txtMovieTitle.text = movie.title
+            txtRating.text =
+                movie.vote_average.toString() + " " + "(" + movie.vote_count.toString() + " " +
+                        getString(R.string.reviews) + ")"
+            txtReleased.text = getString(R.string.released) + " " + movie.release_date
+            txtLanguage.text = getString(R.string.language) + " " + movie.original_language
+        }
 
     }
 
@@ -71,11 +75,11 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         binding.fabBookmark.setOnClickListener {
             val isMovieFavorited = isMovieFavorited ?: return@setOnClickListener
 
-         if (isMovieFavorited) {
-             showToast(getString(R.string.removed_movie))
-         } else  {
-             showToast(getString(R.string.added_movie))
-         }
+            if (isMovieFavorited) {
+                showToast(getString(R.string.removed_movie))
+            } else {
+                showToast(getString(R.string.added_movie))
+            }
 
             viewModel.saveOrDeleteFavoriteMovie(movie)
             this.isMovieFavorited = !isMovieFavorited
@@ -105,7 +109,12 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             val bitmapDrawable = binding.imgMovie.drawable as BitmapDrawable
             val bitmap = bitmapDrawable.bitmap
             val bitmapPath =
-                MediaStore.Images.Media.insertImage(context?.contentResolver, bitmap, "IMAGE" + System.currentTimeMillis(), null)
+                MediaStore.Images.Media.insertImage(
+                    context?.contentResolver,
+                    bitmap,
+                    "IMAGE" + System.currentTimeMillis(),
+                    null
+                )
             val bitmapUri = Uri.parse(bitmapPath.toString())
             val intent = Intent(Intent.ACTION_SEND)
             intent.type = "image/*"

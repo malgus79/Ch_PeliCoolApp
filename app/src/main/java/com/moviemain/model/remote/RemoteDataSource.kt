@@ -6,6 +6,7 @@ import com.moviemain.core.Resource
 import com.moviemain.model.data.Movie
 import com.moviemain.model.data.MovieList
 import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import retrofit2.Response
 import javax.inject.Inject
@@ -28,7 +29,7 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
         return apiService.getUpcomingMovies(API_KEY, LANGUAGE_es_ES, currentPage)
     }
 
-    suspend fun getMovieByName(movieSearched: String): kotlinx.coroutines.flow.Flow<Resource<List<Movie>>> =
+    suspend fun getMovieByName(movieSearched: String): Flow<Resource<List<Movie>>> =
         callbackFlow {
             trySend(
                 Resource.Success(

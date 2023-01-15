@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.moviemain.R
 import com.moviemain.core.Resource
 import com.moviemain.core.hide
 import com.moviemain.core.show
@@ -61,7 +62,7 @@ class SearchFragment : Fragment(), SearchAdapter.OnMovieClickListener {
                     }
                     is Resource.Failure -> {
                         progressBar.hide()
-                        showToast("Ocurrió un error al traer los datos ${it.exception}")
+                        showToast(getString(R.string.error_dialog_detail) + it.exception)
                     }
                 }
             }
