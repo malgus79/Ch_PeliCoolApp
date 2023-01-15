@@ -58,32 +58,33 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 if (booleanState == false && !isConnected) {
-                    Snackbar.make(binding.root, R.string.no_connection, Snackbar.LENGTH_INDEFINITE)
-                        .setAction("Descartar") {}
-                        .setAnchorView(binding.bottomNavigationView)
-                        .setBackgroundTint(
-                            ContextCompat.getColor(
-                                this@MainActivity,
-                                R.color.rojo_theme
-                            )
-                        )
-                        .show()
+                    snackBarConnectivityOff()
                     booleanState = true
                 }
 
                 if (booleanState == true && isConnected) {
-                    Snackbar.make(binding.root, R.string.connection_restored, Snackbar.LENGTH_SHORT)
-                        .setAnchorView(binding.bottomNavigationView)
-                        .setBackgroundTint(
-                            ContextCompat.getColor(
-                                this@MainActivity,
-                                R.color.green_dark_theme
-                            )
-                        )
-                        .show()
+                    snackBarConnectivityOn()
                     booleanState = false
                 }
             }
         }
+    }
+
+    private fun snackBarConnectivityOff() {
+        Snackbar.make(binding.root, R.string.no_connection, Snackbar.LENGTH_INDEFINITE)
+            .setAction(getString(R.string.rule_out)) {}
+            .setAnchorView(binding.bottomNavigationView)
+            .setBackgroundTint(
+                ContextCompat.getColor(this@MainActivity, R.color.red_theme))
+            .show()
+    }
+
+    private fun snackBarConnectivityOn() {
+        Snackbar.make(binding.root, R.string.connection_restored, Snackbar.LENGTH_SHORT)
+            .setAnchorView(binding.bottomNavigationView)
+            .setBackgroundTint(
+                ContextCompat.getColor(this@MainActivity, R.color.green_dark_theme)
+            )
+            .show()
     }
 }

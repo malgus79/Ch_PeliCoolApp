@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:text="@string/search_no_results"
         android:textSize="@dimen/text_size_normal"
-        android:textColor="@color/rojo_theme"
+        android:textColor="@color/red_theme"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
