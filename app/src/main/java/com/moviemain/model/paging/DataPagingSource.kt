@@ -21,7 +21,7 @@ class DataPagingSource(private val repository: RepositoryImpl) :
             val currentPage = params.key ?: PAGE_INDEX
             val response = repository.getUpcomingMovies(currentPage)
             val responseData = mutableListOf<Movie>()
-            val data = response.body()?.results ?: emptyList()
+            val data = response.results
             responseData.addAll(data)
 
             LoadResult.Page(

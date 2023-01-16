@@ -22,6 +22,10 @@ class LocalDataSource @Inject constructor(private val movieDao: MovieDao) {
         return movieDao.getAllMovies().filter { it.movie_type == "now_playing" }.toMovieList()
     }
 
+    suspend fun getUpcomingMovies() : MovieList {
+        return movieDao.getAllMovies().filter { it.movie_type == "upcoming" }.toMovieList()
+    }
+
     suspend fun saveMovie(movie: MovieEntity) {
         movieDao.saveMovie(movie)
     }

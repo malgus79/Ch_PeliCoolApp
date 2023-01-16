@@ -1,5 +1,6 @@
 package com.moviemain.ui.view.fragments
 
+import android.content.ContentValues
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -47,7 +48,7 @@ class GalleryFragment : Fragment() {
                         containerLoading.root.show()
                     }
                     is ResourcePaging.SuccessPaging<*> -> {
-                        if (it.data.body()?.results.isNullOrEmpty()) {
+                        if (it.data.results.isEmpty()) {
                             containerLoading.root.show()
                             return@observe
                         }
@@ -58,6 +59,7 @@ class GalleryFragment : Fragment() {
                     is ResourcePaging.FailurePaging -> {
                         containerLoading.root.show()
                         showToast(getString(R.string.error_dialog_detail) + it.exception)
+                        Log.d(ContentValues.TAG, "Error: " + it.exception)
                     }
                 }
             }

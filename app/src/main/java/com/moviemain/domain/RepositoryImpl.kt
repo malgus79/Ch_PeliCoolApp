@@ -3,9 +3,9 @@ package com.moviemain.domain
 import androidx.lifecycle.LiveData
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import com.moviemain.core.connectivity.CheckInternet
 import com.moviemain.core.Resource
 import com.moviemain.core.common.Constants.PAGE_INDEX
+import com.moviemain.core.connectivity.CheckInternet
 import com.moviemain.model.data.Movie
 import com.moviemain.model.data.MovieList
 import com.moviemain.model.data.asMovieEntity
@@ -19,7 +19,6 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.collectLatest
-import retrofit2.Response
 import javax.inject.Inject
 
 class RepositoryImpl @Inject constructor(
@@ -27,7 +26,8 @@ class RepositoryImpl @Inject constructor(
     private val remoteDataSource: RemoteDataSource
 ) : RepositoryMovie {
 
-    val listDataRepository = Pager(config = PagingConfig(PAGE_INDEX),
+    val listDataRepository = Pager(
+        config = PagingConfig(PAGE_INDEX),
     ) {
         DataPagingSource(repository = RepositoryImpl(localDataSource, remoteDataSource))
     }.flow
@@ -67,8 +67,15 @@ class RepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getUpcomingMovies(currentPage: Int): Response<MovieList> {
-        return remoteDataSource.getUpcomingMovies(currentPage)
+    override suspend fun getUpcomingMovies(currentPage: Int): MovieList {
+        return if (CheckInternet.isNetworkAvailable()) {
+            remoteDataSource.getUpcomingMovies(currentPage).body()?.results?.forEach {
+                localDataSource.saveMovie(it.toMovieEntity("upcoming"))
+            }
+            localDataSource.getUpcomingMovies()
+        } else {
+            localDataSource.getUpcomingMovies()
+        }
     }
 
     override suspend fun isMovieFavorite(movie: Movie): Boolean {

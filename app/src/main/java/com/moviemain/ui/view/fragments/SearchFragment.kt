@@ -1,6 +1,8 @@
 package com.moviemain.ui.view.fragments
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -62,7 +64,7 @@ class SearchFragment : Fragment(), SearchAdapter.OnMovieClickListener {
                     }
                     is Resource.Failure -> {
                         progressBar.hide()
-                        showToast(getString(R.string.error_dialog_detail) + it.exception)
+                        Log.d(TAG, "Error: " + it.exception)
                     }
                 }
             }
@@ -79,11 +81,11 @@ class SearchFragment : Fragment(), SearchAdapter.OnMovieClickListener {
                 }
                 return false
             }
+
             override fun onQueryTextChange(query: String?): Boolean {
                 if (query!!.isNotEmpty()) {
                     viewModel.setMovieSearched(query)
-                }
-                else {
+                } else {
                     binding.rvMoviesSearch.hide()
                 }
                 return true
@@ -101,7 +103,11 @@ class SearchFragment : Fragment(), SearchAdapter.OnMovieClickListener {
     }
 
     override fun onMovieClick(movie: Movie, position: Int) {
-        findNavController().navigate(SearchFragmentDirections.actionMenuSearchToMovieDetailFragment(movie))
+        findNavController().navigate(
+            SearchFragmentDirections.actionMenuSearchToMovieDetailFragment(
+                movie
+            )
+        )
     }
 
     override fun onMovieLongClick(movie: Movie, position: Int) {

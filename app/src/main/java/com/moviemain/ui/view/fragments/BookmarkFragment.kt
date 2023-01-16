@@ -1,6 +1,8 @@
 package com.moviemain.ui.view.fragments
 
+import android.content.ContentValues
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -58,6 +60,7 @@ class BookmarkFragment : Fragment(), BookmarkAdapter.OnMovieClickListener {
                     is Resource.Failure -> {
                         progressBar.hide()
                         showToast(getString(R.string.error_dialog_detail) + it.exception)
+                        Log.d(ContentValues.TAG, "Error: " + it.exception)
                     }
                 }
             }

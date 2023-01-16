@@ -11,6 +11,6 @@ sealed class Resource<out T>() {
 
 sealed class ResourcePaging<out T>() {
     object LoadingPaging : ResourcePaging<Nothing>()
-    class SuccessPaging<out T>(val data: Response<MovieList>) : ResourcePaging<T>()
+    class SuccessPaging<out T>(val data: MovieList) : ResourcePaging<T>()
     class FailurePaging(val exception: Exception) : ResourcePaging<Nothing>()
 }
