@@ -14,40 +14,36 @@ Herramientas utilizadas:
 - Linear Layout, Constraint Layout, FrameLayout, NestedScrollView, Recycler Views, CardViews. 
 - Material Design y Material Components
 - AppBarLayout, ToolBar
-- Adapters
+- Adapters, ConcatAdapter
 - Shapes
+- Shimmer
 - Image Carousel
 - Android JetPack y AndroidX
+- Paging
 - Coroutines
+- LiveData
+- Flow
 - Room
-- Llamadas al servidor con Retrofit
+- Retrofit
 - Dagger Hilt
 - Mockito
+- Mockk
+- Hamcrest
 - Arquitectura MVVM
 - Clean Architecture
 
 
  
  
-Logo:
 
 ![image](https://user-images.githubusercontent.com/101361708/179371518-7e9f9fc2-05d2-474e-b076-1c368168a06c.png)
+![image](https://user-images.githubusercontent.com/101361708/212721187-e8e4778c-5ea7-4ceb-bab0-f5945d5d6608.png)
+![image](https://user-images.githubusercontent.com/101361708/212721363-b762cf6b-6be0-48dc-ad73-7a0c4d30f7b0.png)
+![image](https://user-images.githubusercontent.com/101361708/212721628-5395f93b-9c2e-4a5c-9dc3-17d976beef36.png)
+![image](https://user-images.githubusercontent.com/101361708/212721485-4b9c09d0-be47-4d86-b337-d45766609af7.png)
 
-Home:
 
-![image](https://user-images.githubusercontent.com/101361708/179369676-d7fa630d-f0a1-4e28-a0e8-3006647816e9.png)
 
-Soporta los idiomas Español e Inglés:
-
-![image](https://user-images.githubusercontent.com/101361708/179369689-cb86e9a0-2bd6-4c8f-8999-0d1b19ae0e41.png)
-
-Dialog:
-
-![image](https://user-images.githubusercontent.com/101361708/179374032-ae5e7be1-7f2e-4589-af2a-a23e17b4ab30.png)
-
-Testing:
-
-![image](https://user-images.githubusercontent.com/101361708/179374260-55090b44-d9b0-4701-ad19-e24f680ef128.png)
 
 
 
