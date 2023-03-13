@@ -2,6 +2,7 @@ package com.moviemain.model.remote
 
 import com.moviemain.core.common.Constants.NOW_PLAYING
 import com.moviemain.core.common.Constants.POPULAR
+import com.moviemain.core.common.Constants.SEARCH
 import com.moviemain.core.common.Constants.TOP_RATED
 import com.moviemain.core.common.Constants.UPCOMING
 import com.moviemain.model.data.MovieList
@@ -37,7 +38,7 @@ interface ApiService {
         @Query("page") page: Int,
     ): Response<MovieList>
 
-    @GET(POPULAR)
+    @GET(SEARCH)
     suspend fun getMovieByName(
         @Query(value = "") movieSearched: String,
         @Query("api_key") apiKey: String,

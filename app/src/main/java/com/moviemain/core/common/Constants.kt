@@ -1,13 +1,14 @@
 package com.moviemain.core.common
 
 object Constants {
-    const val BASE_URL = "https://api.themoviedb.org/3/movie/"
+    const val BASE_URL = "https://api.themoviedb.org/3/"
     const val POSTER_PATH_URL = "https://image.tmdb.org/t/p/w500/"
 
-    const val POPULAR = "popular"
-    const val TOP_RATED = "top_rated"
-    const val NOW_PLAYING = "now_playing"
-    const val UPCOMING = "upcoming"
+    const val POPULAR = "movie/popular"
+    const val TOP_RATED = "movie/top_rated"
+    const val NOW_PLAYING = "movie/now_playing"
+    const val UPCOMING = "movie/upcoming"
+    const val SEARCH = "search/movie"
 
     const val API_KEY = "5ab6b649a24299a96dc96faa2c825afa"
     const val LANGUAGE_es_ES = "es-ES"
