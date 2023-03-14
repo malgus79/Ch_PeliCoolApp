@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="navTextInactive">
+        <item name="android:textSize">11sp</item>
+    </style>
+
+    <style name="navTextActive">
+        <item name="android:textSize">12sp</item>
+    </style>
+</resources>

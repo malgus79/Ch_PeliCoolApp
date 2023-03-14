@@ -41,4 +41,6 @@
     <string name="connection_restored">Se restableció la conexión</string>
     <string name="no_connection">Sin conexión a Internet</string>
     <string name="rule_out">Descartar</string>
+
+    <string name="exit">Salir</string>
 </resources>
