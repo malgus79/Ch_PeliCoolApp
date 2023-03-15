@@ -70,7 +70,7 @@ class BookmarkFragment : Fragment(), BookmarkAdapter.OnMovieClickListener {
     private fun setupBookmarkRecyclerView() {
         binding.rvMoviesBookmark.apply {
             adapter = bookmarkAdapter
-            layoutManager = StaggeredGridLayoutManager(resources.getInteger(R.integer.main_columns), StaggeredGridLayoutManager.VERTICAL)
+            layoutManager = StaggeredGridLayoutManager(resources.getInteger(R.integer.columns_bookmark), StaggeredGridLayoutManager.VERTICAL)
             setHasFixedSize(true)
         }
     }

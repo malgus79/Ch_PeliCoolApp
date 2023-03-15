@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/common_margin_default"
             android:maxLines="3"
-            android:textSize="@dimen/common_size_detail_movie"
+            android:textSize="@dimen/common_size_title_bookmark"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:ellipsize="end"
