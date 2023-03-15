@@ -88,27 +88,34 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                 txtLanguage.text = getString(R.string.language) + " " + movie.original_language
             }
 
-            showBtnHomepage(movie.id!!)
-            showBtnWatchTrailer(movie.id!!)
+            showBtnHomepageAndWatchTrailer(movie.id!!)
 
         } catch (e: Exception) {
             showToast("${e.message}")
         }
     }
 
-    private fun showBtnHomepage(id: Int) {
-        viewModel.fetchHomepage(id).observe(viewLifecycleOwner) {
+    private fun showBtnHomepageAndWatchTrailer(id: Int) {
+        viewModel.fetchHomepageAndTrailerMovie(id).observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Loading -> {}
                 is Resource.Success -> {
-                    if (it.data.homepage?.isEmpty()!!) {
+                    if (it.data.first.homepage?.isEmpty()!!) {
                         binding.btnHomePage.hide()
                         binding.mcvHomePage.hide()
-                        return@observe
+                    } else {
+                        binding.btnHomePage.show()
+                        binding.mcvHomePage.show()
+                        goToHomepage(it.data.first.homepage.toString())
                     }
-                    binding.btnHomePage.show()
-                    binding.mcvHomePage.show()
-                    goToHomepage(it.data.homepage)
+                    if (it.data.second.results.isEmpty()) {
+                        binding.mcvWatchTrailer.hide()
+                        binding.btnWatchTrailer.hide()
+                    } else {
+                        binding.mcvWatchTrailer.show()
+                        binding.btnWatchTrailer.show()
+                        goToWatchTrailer((it.data.second.results.last().key.toString()))
+                    }
                 }
                 is Resource.Failure -> {
                     showToast(getString(R.string.error_dialog_detail))
@@ -127,27 +134,6 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(homepage)))
             } catch (e: Exception) {
                 showToast("${e.message}")
-            }
-        }
-    }
-
-    private fun showBtnWatchTrailer(id: Int) {
-        viewModel.fetchTrailerMovie(id).observe(viewLifecycleOwner) {
-            when (it) {
-                is Resource.Loading -> {}
-                is Resource.Success -> {
-                    if (it.data.results.isEmpty()) {
-                        binding.mcvWatchTrailer.hide()
-                        binding.btnWatchTrailer.hide()
-                        return@observe
-                    }
-                    binding.mcvWatchTrailer.show()
-                    binding.btnWatchTrailer.show()
-                    goToWatchTrailer((it.data.results.last().key.toString()))
-                }
-                is Resource.Failure -> {
-                    showToast(getString(R.string.error_dialog_detail))
-                }
             }
         }
     }

@@ -27,25 +27,20 @@ class DetailViewModel @Inject constructor(private val repository: RepositoryImpl
     suspend fun isMovieFavorite(movie: Movie): Boolean =
         repository.isMovieFavorite(movie)
 
-    fun fetchHomepage(id: Int) = liveData(viewModelScope.coroutineContext + Dispatchers.IO) {
-        emit(Resource.Loading)
-        try {
-            emit(
-                Resource.Success(repository.getHomepage(id))
-            )
-        } catch (e: Exception) {
-            emit(Resource.Failure(e))
+    fun fetchHomepageAndTrailerMovie(id: Int) =
+        liveData(viewModelScope.coroutineContext + Dispatchers.IO) {
+            emit(Resource.Loading)
+            try {
+                emit(
+                    Resource.Success(
+                        Pair(
+                            repository.getHomepage(id),
+                            repository.getTrailerMovie(id)
+                        )
+                    )
+                )
+            } catch (e: Exception) {
+                emit(Resource.Failure(e))
+            }
         }
-    }
-
-    fun fetchTrailerMovie(id: Int) = liveData(viewModelScope.coroutineContext + Dispatchers.IO) {
-        emit(Resource.Loading)
-        try {
-            emit(
-                Resource.Success(repository.getTrailerMovie(id))
-            )
-        } catch (e: Exception) {
-            emit(Resource.Failure(e))
-        }
-    }
 }
