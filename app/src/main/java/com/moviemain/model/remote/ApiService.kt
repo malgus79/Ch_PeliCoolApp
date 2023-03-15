@@ -7,11 +7,11 @@ import com.moviemain.core.common.Constants.TOP_RATED
 import com.moviemain.core.common.Constants.UPCOMING
 import com.moviemain.model.data.Details
 import com.moviemain.model.data.MovieList
+import com.moviemain.model.data.VideosList
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
-
 
 interface ApiService {
 
@@ -53,4 +53,11 @@ interface ApiService {
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
     ): Details
+
+    @GET("movie/{movie_id}/videos")
+    suspend fun getTrailerMovie(
+        @Path(value = "movie_id") movie_id: Int,
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String,
+    ): VideosList
 }

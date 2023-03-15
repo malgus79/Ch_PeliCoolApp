@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide
 import com.moviemain.R
 import com.moviemain.core.Resource
 import com.moviemain.core.common.Constants.POSTER_PATH_URL
+import com.moviemain.core.common.Constants.YOUTUBE_BASE_URL
 import com.moviemain.core.hide
 import com.moviemain.core.show
 import com.moviemain.core.showToast
@@ -35,9 +36,14 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     private val viewModel by viewModels<DetailViewModel>()
 
     private lateinit var movie: Movie
+
     private var isMovieFavorited: Boolean? = null
+
     private var btnHomepage: Button? = null
     private var btnHomepageAnim: Animation? = null
+
+    private var btnWatchTrailer: Button? = null
+    private var btnWatchTrailerAnim: Animation? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -81,7 +87,10 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                 txtReleased.text = getString(R.string.released) + " " + movie.release_date
                 txtLanguage.text = getString(R.string.language) + " " + movie.original_language
             }
+
             showBtnHomepage(movie.id!!)
+            showBtnWatchTrailer(movie.id!!)
+
         } catch (e: Exception) {
             showToast("${e.message}")
         }
@@ -94,11 +103,11 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                 is Resource.Success -> {
                     if (it.data.homepage?.isEmpty()!!) {
                         binding.btnHomePage.hide()
-                        binding.imgHomePage.hide()
+                        binding.mcvHomePage.hide()
                         return@observe
                     }
                     binding.btnHomePage.show()
-                    binding.imgHomePage.show()
+                    binding.mcvHomePage.show()
                     goToHomepage(it.data.homepage)
                 }
                 is Resource.Failure -> {
@@ -116,6 +125,43 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             btnHomepage!!.startAnimation(btnHomepageAnim)
             try {
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(homepage)))
+            } catch (e: Exception) {
+                showToast("${e.message}")
+            }
+        }
+    }
+
+    private fun showBtnWatchTrailer(id: Int) {
+        viewModel.fetchTrailerMovie(id).observe(viewLifecycleOwner) {
+            when (it) {
+                is Resource.Loading -> {}
+                is Resource.Success -> {
+                    if (it.data.results.isEmpty()) {
+                        binding.mcvWatchTrailer.hide()
+                        binding.btnWatchTrailer.hide()
+                        return@observe
+                    }
+                    binding.mcvWatchTrailer.show()
+                    binding.btnWatchTrailer.show()
+                    goToWatchTrailer((it.data.results.last().key.toString()))
+                }
+                is Resource.Failure -> {
+                    showToast(getString(R.string.error_dialog_detail))
+                }
+            }
+        }
+    }
+
+    private fun goToWatchTrailer(key: String) {
+        btnWatchTrailer = binding.btnWatchTrailer
+        btnWatchTrailerAnim = AnimationUtils.loadAnimation(context, R.anim.btn_anim)
+
+        val youtubeUrl = YOUTUBE_BASE_URL + key
+
+        binding.btnWatchTrailer.setOnClickListener {
+            btnWatchTrailer!!.startAnimation(btnWatchTrailerAnim)
+            try {
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(youtubeUrl)))
             } catch (e: Exception) {
                 showToast("${e.message}")
             }

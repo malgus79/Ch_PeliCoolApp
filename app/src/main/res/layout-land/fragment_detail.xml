@@ -228,7 +228,7 @@
             tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/img_home_page"
+            android:id="@+id/mcv_home_page"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/common_margin_default"
@@ -238,8 +238,8 @@
             app:cardElevation="@dimen/common_margin_min"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/mcv_watch_trailer"
+            app:layout_constraintStart_toEndOf="@id/cardView"
             app:layout_constraintTop_toBottomOf="@id/txt_description">
 
             <Button
@@ -247,11 +247,39 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/common_margin_min"
-                android:text="@string/Homepage"
+                android:text="@string/homepage"
                 android:visibility="gone"
                 android:background="@drawable/rounded_corners"
                 android:textAlignment="center"
                 android:textSize="@dimen/common_size_detail_attributes"/>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/mcv_watch_trailer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/common_margin_default"
+            android:layout_marginVertical="@dimen/common_margin_default"
+            android:backgroundTint="@color/green_met"
+            android:visibility="gone"
+            app:cardCornerRadius="@dimen/common_corner_middle"
+            app:cardElevation="@dimen/common_margin_min"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/mcv_home_page"
+            app:layout_constraintTop_toBottomOf="@id/txt_description">
+
+            <Button
+                android:id="@+id/btn_watch_trailer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/common_margin_min"
+                android:background="@drawable/rounded_corners"
+                android:text="@string/watch_trailer"
+                android:textAlignment="center"
+                android:textSize="@dimen/common_size_detail_attributes"
+                android:visibility="gone" />
 
         </com.google.android.material.card.MaterialCardView>
 

@@ -44,5 +44,6 @@
 
     <string name="exit">Salir</string>
 
-    <string name="Homepage">Página web</string>
+    <string name="homepage">Página web</string>
+    <string name="watch_trailer">Ver trailer</string>
 </resources>
