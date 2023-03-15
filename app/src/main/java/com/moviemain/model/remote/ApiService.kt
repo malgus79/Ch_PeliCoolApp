@@ -5,9 +5,11 @@ import com.moviemain.core.common.Constants.POPULAR
 import com.moviemain.core.common.Constants.SEARCH
 import com.moviemain.core.common.Constants.TOP_RATED
 import com.moviemain.core.common.Constants.UPCOMING
+import com.moviemain.model.data.Details
 import com.moviemain.model.data.MovieList
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 
@@ -44,4 +46,11 @@ interface ApiService {
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
     ): MovieList?
+
+    @GET("movie/{movie_id}")
+    suspend fun getHomepage(
+        @Path(value = "movie_id") movie_id: Int,
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String,
+    ): Details
 }

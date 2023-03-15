@@ -2,6 +2,7 @@ package com.moviemain.domain
 
 import androidx.lifecycle.LiveData
 import com.moviemain.core.Resource
+import com.moviemain.model.data.Details
 import com.moviemain.model.data.Movie
 import com.moviemain.model.data.MovieList
 import com.moviemain.model.local.MovieEntity
@@ -22,4 +23,5 @@ interface RepositoryMovie {
     suspend fun getMovieByName(movieSearched: String?): Flow<Resource<List<Movie>>>
     suspend fun getCachedMovies(movieSearched: String?): Resource<List<Movie>>
     suspend fun saveMovie(movie: MovieEntity)
+    suspend fun getHomepage(id: Int): Details
 }

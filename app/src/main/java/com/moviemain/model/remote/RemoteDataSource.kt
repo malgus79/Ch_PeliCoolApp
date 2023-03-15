@@ -3,6 +3,7 @@ package com.moviemain.model.remote
 import com.moviemain.core.common.Constants.API_KEY
 import com.moviemain.core.common.Constants.LANGUAGE_es_ES
 import com.moviemain.core.Resource
+import com.moviemain.model.data.Details
 import com.moviemain.model.data.Movie
 import com.moviemain.model.data.MovieList
 import kotlinx.coroutines.channels.awaitClose
@@ -38,4 +39,8 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
             )
             awaitClose { close() }
         }
+
+    suspend fun getHomepage(id: Int): Details {
+        return apiService.getHomepage(id, API_KEY, LANGUAGE_es_ES)
+    }
 }

@@ -79,7 +79,7 @@
     <fragment
         android:id="@+id/menu_search"
         android:name="com.moviemain.ui.view.fragments.SearchFragment"
-        android:label="fragment_search"
+        android:label="@string/search"
         tools:layout="@layout/fragment_search" >
         <action
             android:id="@+id/action_menu_search_to_movieDetailFragment"

@@ -6,6 +6,7 @@ import androidx.paging.PagingConfig
 import com.moviemain.core.Resource
 import com.moviemain.core.common.Constants.PAGE_INDEX
 import com.moviemain.core.connectivity.CheckInternet
+import com.moviemain.model.data.Details
 import com.moviemain.model.data.Movie
 import com.moviemain.model.data.MovieList
 import com.moviemain.model.data.asMovieEntity
@@ -121,5 +122,9 @@ class RepositoryImpl @Inject constructor(
 
     override suspend fun saveMovie(movie: MovieEntity) {
         localDataSource.saveMovie(movie)
+    }
+
+    override suspend fun getHomepage(id: Int): Details {
+        return remoteDataSource.getHomepage(id)
     }
 }

@@ -7,18 +7,26 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.widget.Button
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.moviemain.R
+import com.moviemain.core.Resource
 import com.moviemain.core.common.Constants.POSTER_PATH_URL
+import com.moviemain.core.hide
+import com.moviemain.core.show
 import com.moviemain.core.showToast
 import com.moviemain.databinding.FragmentDetailBinding
 import com.moviemain.model.data.Movie
 import com.moviemain.viewmodel.detail.DetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+
 
 @AndroidEntryPoint
 class DetailFragment : Fragment(R.layout.fragment_detail) {
@@ -28,8 +36,9 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     private lateinit var movie: Movie
     private var isMovieFavorited: Boolean? = null
+    private var btnHomepage: Button? = null
+    private var btnHomepageAnim: Animation? = null
 
-    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentDetailBinding.bind(view)
@@ -40,6 +49,8 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             }
         }
 
+        isLoading(true)
+
         showDataDetails()
         isMovieFavorited()
         updateButtonIcon()
@@ -49,26 +60,79 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     @SuppressLint("SetTextI18n")
     private fun showDataDetails() {
-        Glide.with(requireContext())
-            .load(POSTER_PATH_URL + movie.poster_path)
-            .centerCrop()
-            .into(binding.imgMovie)
+        try {
+            isLoading(false)
+            Glide.with(requireContext())
+                .load(POSTER_PATH_URL + movie.poster_path)
+                .centerCrop()
+                .into(binding.imgMovie)
 
-        Glide.with(requireContext())
-            .load(POSTER_PATH_URL + movie.backdrop_path)
-            .centerCrop()
-            .into(binding.imgBackground)
+            Glide.with(requireContext())
+                .load(POSTER_PATH_URL + movie.backdrop_path)
+                .centerCrop()
+                .into(binding.imgBackground)
 
-        with (binding) {
-            txtDescription.text = movie.overview
-            txtMovieTitle.text = movie.title
-            txtRating.text =
-                movie.vote_average.toString() + " " + "(" + movie.vote_count.toString() + " " +
-                        getString(R.string.reviews) + ")"
-            txtReleased.text = getString(R.string.released) + " " + movie.release_date
-            txtLanguage.text = getString(R.string.language) + " " + movie.original_language
+            with(binding) {
+                txtDescription.text = movie.overview
+                txtMovieTitle.text = movie.title
+                txtRating.text =
+                    movie.vote_average.toString() + " " + "(" + movie.vote_count.toString() + " " +
+                            getString(R.string.reviews) + ")"
+                txtReleased.text = getString(R.string.released) + " " + movie.release_date
+                txtLanguage.text = getString(R.string.language) + " " + movie.original_language
+            }
+            showBtnHomepage(movie.id!!)
+        } catch (e: Exception) {
+            showToast("${e.message}")
         }
+    }
 
+    private fun showBtnHomepage(id: Int) {
+        viewModel.fetchHomepage(id).observe(viewLifecycleOwner) {
+            when (it) {
+                is Resource.Loading -> {}
+                is Resource.Success -> {
+                    if (it.data.homepage?.isEmpty()!!) {
+                        binding.btnHomePage.hide()
+                        binding.imgHomePage.hide()
+                        return@observe
+                    }
+                    binding.btnHomePage.show()
+                    binding.imgHomePage.show()
+                    goToHomepage(it.data.homepage)
+                }
+                is Resource.Failure -> {
+                    showToast(getString(R.string.error_dialog_detail))
+                }
+            }
+        }
+    }
+
+    private fun goToHomepage(homepage: String) {
+        btnHomepage = binding.btnHomePage
+        btnHomepageAnim = AnimationUtils.loadAnimation(context, R.anim.btn_anim)
+
+        binding.btnHomePage.setOnClickListener {
+            btnHomepage!!.startAnimation(btnHomepageAnim)
+            try {
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(homepage)))
+            } catch (e: Exception) {
+                showToast("${e.message}")
+            }
+        }
+    }
+
+    private fun isLoading(loading: Boolean) {
+        binding.progressBar.isVisible = loading
+        binding.imgBackground.isVisible = !loading
+        binding.linearBookmark.isVisible = !loading
+        binding.linearShare.isVisible = !loading
+        binding.txtRating.isVisible = !loading
+        binding.txtReleased.isVisible = !loading
+        binding.txtLanguage.isVisible = !loading
+        binding.dividerLine.isVisible = !loading
+        binding.txtTitleOverview.isVisible = !loading
+        binding.txtDescription.isVisible = !loading
     }
 
     private fun isMovieFavorited() {
