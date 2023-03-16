@@ -128,4 +128,8 @@ class RepositoryImpl @Inject constructor(
     override suspend fun getTrailerMovie(id: Int): VideosList {
         return remoteDataSource.getTrailerMovie(id)
     }
+
+    override suspend fun getSimilarMovie(id: Int): SimilarList {
+        return remoteDataSource.getSimilarMovie(id)
+    }
 }

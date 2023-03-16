@@ -14,16 +14,17 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bumptech.glide.Glide
 import com.moviemain.R
 import com.moviemain.core.Resource
 import com.moviemain.core.common.Constants.POSTER_PATH_URL
 import com.moviemain.core.common.Constants.YOUTUBE_BASE_URL
-import com.moviemain.core.hide
 import com.moviemain.core.show
 import com.moviemain.core.showToast
 import com.moviemain.databinding.FragmentDetailBinding
 import com.moviemain.model.data.Movie
+import com.moviemain.ui.adapters.SimilarAdapter
 import com.moviemain.viewmodel.detail.DetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -33,6 +34,7 @@ import kotlinx.coroutines.launch
 class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     private lateinit var binding: FragmentDetailBinding
+    private val similarAdapter: SimilarAdapter = SimilarAdapter()
     private val viewModel by viewModels<DetailViewModel>()
 
     private lateinit var movie: Movie
@@ -55,7 +57,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             }
         }
 
-        isLoading(true)
+        isLoadingScreen(true)
 
         showDataDetails()
         isMovieFavorited()
@@ -67,7 +69,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     @SuppressLint("SetTextI18n")
     private fun showDataDetails() {
         try {
-            isLoading(false)
+            isLoadingScreen(false)
             Glide.with(requireContext())
                 .load(POSTER_PATH_URL + movie.poster_path)
                 .centerCrop()
@@ -89,6 +91,10 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             }
 
             showBtnHomepageAndWatchTrailer(movie.id!!)
+            showSimilarMovies(movie.id!!)
+
+            loadOverview()
+            loadSimilar()
 
         } catch (e: Exception) {
             showToast("${e.message}")
@@ -101,19 +107,15 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                 is Resource.Loading -> {}
                 is Resource.Success -> {
                     if (it.data.first.homepage?.isEmpty()!!) {
-                        binding.btnHomePage.hide()
-                        binding.mcvHomePage.hide()
+                        isLoadingBtnHomePage(false)
                     } else {
-                        binding.btnHomePage.show()
-                        binding.mcvHomePage.show()
+                        isLoadingBtnHomePage(true)
                         goToHomepage(it.data.first.homepage.toString())
                     }
                     if (it.data.second.results.isEmpty()) {
-                        binding.mcvWatchTrailer.hide()
-                        binding.btnWatchTrailer.hide()
+                        isLoadingBtnWatchTrailer(false)
                     } else {
-                        binding.mcvWatchTrailer.show()
-                        binding.btnWatchTrailer.show()
+                        isLoadingBtnWatchTrailer(true)
                         goToWatchTrailer((it.data.second.results.last().key.toString()))
                     }
                 }
@@ -154,17 +156,86 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         }
     }
 
-    private fun isLoading(loading: Boolean) {
-        binding.progressBar.isVisible = loading
-        binding.imgBackground.isVisible = !loading
-        binding.linearBookmark.isVisible = !loading
-        binding.linearShare.isVisible = !loading
-        binding.txtRating.isVisible = !loading
-        binding.txtReleased.isVisible = !loading
-        binding.txtLanguage.isVisible = !loading
-        binding.dividerLine.isVisible = !loading
-        binding.txtTitleOverview.isVisible = !loading
-        binding.txtDescription.isVisible = !loading
+    private fun showSimilarMovies(id: Int) {
+        viewModel.fetchSimilarMovies(id).observe(viewLifecycleOwner) {
+            when (it) {
+                is Resource.Loading -> {}
+                is Resource.Success -> {
+                    if (it.data.results.isEmpty()) {
+                        showToast(getString(R.string.no_data))
+                        return@observe
+                    }
+                    similarAdapter.setSimilarMovieList(it.data.results)
+                }
+                is Resource.Failure -> {
+                    showToast(getString(R.string.error_dialog_detail))
+                }
+            }
+        }
+    }
+
+    private fun setupSimilarRecyclerView() {
+        binding.rvMoviesSimilar?.apply {
+            adapter = similarAdapter
+            layoutManager = StaggeredGridLayoutManager(
+                resources.getInteger(R.integer.columns_similar),
+                StaggeredGridLayoutManager.VERTICAL
+            )
+            setHasFixedSize(true)
+            show()
+        }
+    }
+
+    private fun loadOverview() {
+        binding.txtTitleOverview.setOnClickListener {
+            isLoadingOverviewOrSimilar(true)
+            showDataDetails()
+        }
+    }
+
+    private fun loadSimilar() {
+        binding.txtTitleSimilar?.setOnClickListener {
+            isLoadingOverviewOrSimilar(false)
+            isLoadingBtnHomePage(false)
+            isLoadingBtnWatchTrailer(false)
+            setupSimilarRecyclerView()
+        }
+    }
+
+    private fun isLoadingScreen(loading: Boolean) {
+        with(binding) {
+            progressBar.isVisible = loading
+            imgBackground.isVisible = !loading
+            linearBookmark.isVisible = !loading
+            linearShare.isVisible = !loading
+            txtRating.isVisible = !loading
+            txtReleased.isVisible = !loading
+            txtLanguage.isVisible = !loading
+            dividerLine.isVisible = !loading
+            txtTitleOverview.isVisible = !loading
+            txtDescription.isVisible = !loading
+        }
+    }
+
+    private fun isLoadingBtnHomePage(loading: Boolean) {
+        with(binding) {
+            btnHomePage.isVisible = loading
+            mcvHomePage.isVisible = loading
+        }
+    }
+
+    private fun isLoadingBtnWatchTrailer(loading: Boolean) {
+        with(binding) {
+            btnWatchTrailer.isVisible = loading
+            mcvWatchTrailer.isVisible = loading
+        }
+    }
+
+    private fun isLoadingOverviewOrSimilar(loading: Boolean) {
+        with(binding) {
+            txtDescription.isVisible = loading
+            rvMoviesSimilar?.isVisible = !loading
+        }
     }
 
     private fun isMovieFavorited() {

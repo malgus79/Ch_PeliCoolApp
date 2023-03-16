@@ -227,21 +227,55 @@
             app:layout_constraintTop_toBottomOf="@id/cardView"
             tools:ignore="MissingConstraints" />
 
-        <TextView
-            android:id="@+id/txt_title_overview"
+        <LinearLayout
+            android:id="@+id/linear_option"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/common_margin_min"
-            android:fontFamily="@font/poppins_regular"
+            android:background="@color/black_dense"
             android:gravity="center"
-            android:padding="@dimen/common_padding_default"
-            android:text="@string/overview"
-            android:textColor="@color/white"
-            android:textSize="@dimen/common_size_default"
-            android:textStyle="bold"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline" />
+            app:layout_constraintTop_toTopOf="@+id/guideline">
+
+            <TextView
+                android:id="@+id/txt_title_overview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/common_margin_min"
+                android:layout_weight=".5"
+                android:background="@color/black_dense"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:onClick="loadOverview"
+                android:padding="@dimen/common_padding_default"
+                android:text="@string/overview"
+                android:textColor="@color/white"
+                android:textSize="@dimen/common_size_default"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+            <TextView
+                android:id="@+id/txt_title_similar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/common_margin_min"
+                android:layout_weight=".5"
+                android:background="@color/black_dense"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:onClick="loadSimilar"
+                android:padding="@dimen/common_padding_default"
+                android:text="@string/similar"
+                android:textColor="@color/white"
+                android:textSize="@dimen/common_size_default"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/txt_description"
@@ -255,8 +289,20 @@
             android:textSize="@dimen/common_size_detail_movie"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_title_overview"
+            app:layout_constraintTop_toBottomOf="@+id/linear_option"
             tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_movies_similar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linear_option"
+            tools:listitem="@layout/item_movie_row" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline2"
