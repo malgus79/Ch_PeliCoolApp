@@ -2,16 +2,13 @@ package com.moviemain.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.moviemain.R
 import com.moviemain.databinding.ItemMovieRowBinding
-import com.moviemain.model.data.Movie
 import com.moviemain.model.data.Similar
-import com.moviemain.ui.view.main.HomeFragmentDirections
 
 class SimilarAdapter : RecyclerView.Adapter<SimilarAdapter.VieHolder>() {
 
@@ -31,7 +28,7 @@ class SimilarAdapter : RecyclerView.Adapter<SimilarAdapter.VieHolder>() {
         holder.setData(similarMovieList[position])
     }
 
-    override fun getItemCount(): Int = 12
+    override fun getItemCount(): Int = similarMovieList.size - 8
 
     inner class VieHolder(private val binding: ItemMovieRowBinding) :
         RecyclerView.ViewHolder(binding.root) {

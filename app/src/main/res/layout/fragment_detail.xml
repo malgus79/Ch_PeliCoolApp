@@ -247,7 +247,6 @@
                 android:background="@color/black_dense"
                 android:fontFamily="@font/poppins_regular"
                 android:gravity="center"
-                android:onClick="loadOverview"
                 android:padding="@dimen/common_padding_default"
                 android:text="@string/overview"
                 android:textColor="@color/white"
@@ -266,10 +265,9 @@
                 android:background="@color/black_dense"
                 android:fontFamily="@font/poppins_regular"
                 android:gravity="center"
-                android:onClick="loadSimilar"
                 android:padding="@dimen/common_padding_default"
                 android:text="@string/similar"
-                android:textColor="@color/white"
+                android:textColor="@color/grey_dark"
                 android:textSize="@dimen/common_size_default"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -277,12 +275,32 @@
                 app:layout_constraintTop_toTopOf="@+id/guideline" />
         </LinearLayout>
 
+        <View
+            android:id="@+id/divider_line_2"
+            android:layout_width="0dp"
+            android:layout_height="4dp"
+            android:background="@color/white"
+            app:layout_constraintEnd_toStartOf="@id/divider_line_3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/linear_option"
+            tools:ignore="MissingConstraints" />
+
+        <View
+            android:id="@+id/divider_line_3"
+            android:layout_width="0dp"
+            android:layout_height="4dp"
+            android:background="@color/grey_dark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/divider_line_2"
+            app:layout_constraintTop_toBottomOf="@id/linear_option"
+            tools:ignore="MissingConstraints" />
+
         <TextView
             android:id="@+id/txt_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/common_margin_default"
-            android:layout_marginEnd="@dimen/common_margin_default"
+            android:layout_marginHorizontal="@dimen/common_margin_default"
+            android:layout_marginVertical="@dimen/common_margin_default"
             android:fontFamily="@font/poppins_regular"
             android:gravity="center"
             android:textColor="@color/white"
@@ -296,6 +314,8 @@
             android:id="@+id/rv_movies_similar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/common_margin_default"
+            android:layout_marginTop="@dimen/common_margin_default"
             android:orientation="vertical"
             android:visibility="gone"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

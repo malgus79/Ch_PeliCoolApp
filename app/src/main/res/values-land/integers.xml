@@ -2,4 +2,5 @@
 <resources>
     <integer name="main_columns">4</integer>
     <integer name="columns_bookmark">2</integer>
+    <integer name="columns_similar">6</integer>
 </resources>

@@ -2,6 +2,7 @@ package com.moviemain.ui.view.detail
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
@@ -10,6 +11,7 @@ import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Button
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -20,6 +22,7 @@ import com.moviemain.R
 import com.moviemain.core.Resource
 import com.moviemain.core.common.Constants.POSTER_PATH_URL
 import com.moviemain.core.common.Constants.YOUTUBE_BASE_URL
+import com.moviemain.core.hide
 import com.moviemain.core.show
 import com.moviemain.core.showToast
 import com.moviemain.databinding.FragmentDetailBinding
@@ -28,7 +31,6 @@ import com.moviemain.ui.adapters.SimilarAdapter
 import com.moviemain.viewmodel.detail.DetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-
 
 @AndroidEntryPoint
 class DetailFragment : Fragment(R.layout.fragment_detail) {
@@ -161,7 +163,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             when (it) {
                 is Resource.Loading -> {}
                 is Resource.Success -> {
-                    if (it.data.results.isEmpty()) {
+                    if (it.data.results?.isEmpty()!! && !binding.txtDescription.isVisible) {
                         showToast(getString(R.string.no_data))
                         return@observe
                     }
@@ -175,7 +177,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     }
 
     private fun setupSimilarRecyclerView() {
-        binding.rvMoviesSimilar?.apply {
+        binding.rvMoviesSimilar.apply {
             adapter = similarAdapter
             layoutManager = StaggeredGridLayoutManager(
                 resources.getInteger(R.integer.columns_similar),
@@ -190,15 +192,49 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         binding.txtTitleOverview.setOnClickListener {
             isLoadingOverviewOrSimilar(true)
             showDataDetails()
+            if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                binding.cardView.show()
+            }
+            with(binding) {
+                txtTitleOverview.setTextColor(
+                    ContextCompat.getColor(requireContext(), R.color.white)
+                )
+                txtTitleSimilar.setTextColor(
+                    ContextCompat.getColor(requireContext(), R.color.grey_dark)
+                )
+                dividerLine3.setBackgroundColor(
+                    ContextCompat.getColor(requireContext(), R.color.grey_dark)
+                )
+                dividerLine2.setBackgroundColor(
+                    ContextCompat.getColor(requireContext(), R.color.white)
+                )
+            }
         }
     }
 
     private fun loadSimilar() {
-        binding.txtTitleSimilar?.setOnClickListener {
+        binding.txtTitleSimilar.setOnClickListener {
             isLoadingOverviewOrSimilar(false)
             isLoadingBtnHomePage(false)
             isLoadingBtnWatchTrailer(false)
             setupSimilarRecyclerView()
+            if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                binding.cardView.hide()
+            }
+            with(binding) {
+                txtTitleOverview.setTextColor(
+                    ContextCompat.getColor(requireContext(), R.color.grey_dark)
+                )
+                txtTitleSimilar.setTextColor(
+                    ContextCompat.getColor(requireContext(), R.color.white)
+                )
+                dividerLine3.setBackgroundColor(
+                    ContextCompat.getColor(requireContext(), R.color.white)
+                )
+                dividerLine2.setBackgroundColor(
+                    ContextCompat.getColor(requireContext(), R.color.grey_dark)
+                )
+            }
         }
     }
 
@@ -234,7 +270,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     private fun isLoadingOverviewOrSimilar(loading: Boolean) {
         with(binding) {
             txtDescription.isVisible = loading
-            rvMoviesSimilar?.isVisible = !loading
+            rvMoviesSimilar.isVisible = !loading
         }
     }
 

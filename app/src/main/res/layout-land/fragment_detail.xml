@@ -174,33 +174,84 @@
             app:layout_constraintTop_toBottomOf="@id/frameLayout"
             tools:ignore="MissingConstraints" />
 
-        <TextView
-            android:id="@+id/txt_title_overview"
+        <LinearLayout
+            android:id="@+id/linear_option"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/common_margin_default"
-            android:fontFamily="@font/poppins_regular"
+            android:background="@color/black_dense"
             android:gravity="center"
-            android:padding="@dimen/common_padding_min"
-            android:text="@string/overview"
-            android:textColor="@color/white"
-            android:textSize="@dimen/common_size_default"
-            android:textStyle="bold"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/divider_line" />
+            app:layout_constraintTop_toBottomOf="@id/divider_line">
 
+            <TextView
+                android:id="@+id/txt_title_overview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/common_margin_min"
+                android:layout_weight=".5"
+                android:background="@color/black_dense"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:padding="@dimen/common_padding_default"
+                android:text="@string/overview"
+                android:textColor="@color/white"
+                android:textSize="@dimen/common_size_default"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+            <TextView
+                android:id="@+id/txt_title_similar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/common_margin_min"
+                android:layout_weight=".5"
+                android:background="@color/black_dense"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:padding="@dimen/common_padding_default"
+                android:text="@string/similar"
+                android:textColor="@color/grey_dark"
+                android:textSize="@dimen/common_size_default"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divider_line_2"
+            android:layout_width="0dp"
+            android:layout_height="4dp"
+            android:background="@color/white"
+            app:layout_constraintEnd_toStartOf="@id/divider_line_3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/linear_option"
+            tools:ignore="MissingConstraints" />
+
+        <View
+            android:id="@+id/divider_line_3"
+            android:layout_width="0dp"
+            android:layout_height="4dp"
+            android:background="@color/grey_dark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/divider_line_2"
+            app:layout_constraintTop_toBottomOf="@id/linear_option"
+            tools:ignore="MissingConstraints" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
             android:layout_width="120dp"
             android:layout_height="170dp"
+            android:layout_marginVertical="@dimen/common_margin_default"
             android:layout_marginStart="@dimen/common_margin_default"
-            android:layout_marginBottom="@dimen/common_margin_min"
             android:clipToPadding="true"
             app:cardCornerRadius="@dimen/common_corner_min"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_title_overview">
+            app:layout_constraintTop_toBottomOf="@id/divider_line_2">
 
             <ImageView
                 android:id="@+id/img_movie"
@@ -216,16 +267,30 @@
             android:id="@+id/txt_description"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/common_margin_default"
-            android:layout_marginEnd="@dimen/common_margin_default"
+            android:layout_marginHorizontal="@dimen/common_margin_default"
+            android:layout_marginVertical="@dimen/common_margin_default"
             android:fontFamily="@font/poppins_regular"
             android:gravity="center"
             android:textColor="@color/white"
             android:textSize="@dimen/common_size_detail_movie"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/cardView"
-            app:layout_constraintTop_toBottomOf="@id/txt_title_overview"
+            app:layout_constraintTop_toBottomOf="@id/linear_option"
             tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_movies_similar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/common_margin_default"
+            android:layout_marginTop="@dimen/common_margin_default"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linear_option"
+            tools:listitem="@layout/item_movie_row" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/mcv_home_page"
@@ -234,9 +299,9 @@
             android:layout_marginHorizontal="@dimen/common_margin_default"
             android:layout_marginVertical="@dimen/common_margin_default"
             android:backgroundTint="@color/green_met"
+            android:visibility="gone"
             app:cardCornerRadius="@dimen/common_corner_middle"
             app:cardElevation="@dimen/common_margin_min"
-            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/mcv_watch_trailer"
             app:layout_constraintStart_toEndOf="@id/cardView"
@@ -247,11 +312,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/common_margin_min"
-                android:text="@string/homepage"
-                android:visibility="gone"
                 android:background="@drawable/rounded_corners"
+                android:text="@string/homepage"
                 android:textAlignment="center"
-                android:textSize="@dimen/common_size_detail_attributes"/>
+                android:textSize="@dimen/common_size_detail_attributes"
+                android:visibility="gone" />
 
         </com.google.android.material.card.MaterialCardView>
 

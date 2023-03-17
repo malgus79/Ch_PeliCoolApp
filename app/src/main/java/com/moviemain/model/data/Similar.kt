@@ -20,7 +20,7 @@ data class Similar(
 
 data class SimilarList(
     @SerializedName("page") val page: Int? = -1,
-    @SerializedName("results") val results: List<Similar> = listOf(),
+    @SerializedName("results") val results: List<Similar>? = listOf(),
     @SerializedName("total_pages") val total_pages: Int? = -1,
     @SerializedName("total_results") val total_results: Int? = -1
 )
