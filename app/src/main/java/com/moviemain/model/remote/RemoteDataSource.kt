@@ -3,6 +3,7 @@ package com.moviemain.model.remote
 import com.moviemain.core.common.Constants.API_KEY
 import com.moviemain.core.common.Constants.LANGUAGE_es_ES
 import com.moviemain.core.Resource
+import com.moviemain.core.common.Constants.PAGE_INITIAL_API
 import com.moviemain.model.data.*
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -13,15 +14,15 @@ import javax.inject.Inject
 class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
 
     suspend fun getPopularMovies(): MovieList {
-        return apiService.getPopularMovies(API_KEY, LANGUAGE_es_ES)
+        return apiService.getPopularMovies(API_KEY, LANGUAGE_es_ES, PAGE_INITIAL_API)
     }
 
     suspend fun getTopRatedMovies(): MovieList {
-        return apiService.getTopRatedMovies(API_KEY, LANGUAGE_es_ES)
+        return apiService.getTopRatedMovies(API_KEY, LANGUAGE_es_ES,PAGE_INITIAL_API)
     }
 
     suspend fun getNowPlayingMovies(): MovieList {
-        return apiService.getNowPlayingMovies(API_KEY, LANGUAGE_es_ES)
+        return apiService.getNowPlayingMovies(API_KEY, LANGUAGE_es_ES,PAGE_INITIAL_API)
     }
 
     suspend fun getUpcomingMovies(currentPage: Int): Response<MovieList> {

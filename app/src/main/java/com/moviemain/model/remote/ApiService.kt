@@ -20,18 +20,21 @@ interface ApiService {
     suspend fun getPopularMovies(
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
+        @Query("page") page: Int,
     ): MovieList
 
     @GET(TOP_RATED)
     suspend fun getTopRatedMovies(
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
+        @Query("page") page: Int,
     ): MovieList
 
     @GET(NOW_PLAYING)
     suspend fun getNowPlayingMovies(
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
+        @Query("page") page: Int,
     ): MovieList
 
     @GET(UPCOMING)

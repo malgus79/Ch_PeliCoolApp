@@ -19,4 +19,5 @@ object Constants {
     const val MOVIE_DATABASE_NAME = "movie_database"
 
     const val PAGE_INDEX = 1
+    const val PAGE_INITIAL_API = 1
 }
