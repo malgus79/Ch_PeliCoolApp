@@ -11,6 +11,9 @@ object Constants {
     const val NOW_PLAYING = "movie/now_playing"
     const val UPCOMING = "movie/upcoming"
     const val SEARCH = "search/movie"
+    const val DETAILS = "movie/{movie_id}"
+    const val VIDEOS = "movie/{movie_id}/videos"
+    const val SIMILAR = "movie/{movie_id}/similar"
 
     const val API_KEY = "5ab6b649a24299a96dc96faa2c825afa"
     const val LANGUAGE_es_ES = "es-ES"

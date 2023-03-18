@@ -1,10 +1,13 @@
 package com.moviemain.model.remote
 
+import com.moviemain.core.common.Constants.DETAILS
 import com.moviemain.core.common.Constants.NOW_PLAYING
 import com.moviemain.core.common.Constants.POPULAR
 import com.moviemain.core.common.Constants.SEARCH
+import com.moviemain.core.common.Constants.SIMILAR
 import com.moviemain.core.common.Constants.TOP_RATED
 import com.moviemain.core.common.Constants.UPCOMING
+import com.moviemain.core.common.Constants.VIDEOS
 import com.moviemain.model.data.Details
 import com.moviemain.model.data.MovieList
 import com.moviemain.model.data.SimilarList
@@ -51,21 +54,21 @@ interface ApiService {
         @Query("language") language: String,
     ): MovieList?
 
-    @GET("movie/{movie_id}")
+    @GET(DETAILS)
     suspend fun getHomepage(
         @Path(value = "movie_id") movie_id: Int,
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
     ): Details
 
-    @GET("movie/{movie_id}/videos")
+    @GET(VIDEOS)
     suspend fun getTrailerMovie(
         @Path(value = "movie_id") movie_id: Int,
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
     ): VideosList
 
-    @GET("movie/{movie_id}/similar")
+    @GET(SIMILAR)
     suspend fun getSimilarMovie(
         @Path(value = "movie_id") movie_id: Int,
         @Query("api_key") apiKey: String,
