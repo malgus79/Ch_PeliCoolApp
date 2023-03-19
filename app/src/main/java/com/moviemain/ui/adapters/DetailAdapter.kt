@@ -10,14 +10,14 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.moviemain.R
 import com.moviemain.databinding.ItemMovieRowBinding
 import com.moviemain.model.data.Movie
-import com.moviemain.ui.view.detail.SimilarDetailFragmentDirections
+import com.moviemain.ui.view.detail.DetailFragmentDirections
 
-class SimilarAdapter : RecyclerView.Adapter<SimilarAdapter.VieHolder>() {
+class DetailAdapter : RecyclerView.Adapter<DetailAdapter.VieHolder>() {
 
-    private var similarMovieList = listOf<Movie>()
+    private var detailMovieList = listOf<Movie>()
 
-    fun setSimilarMovieList(similarMovieList: List<Movie>) {
-        this.similarMovieList = similarMovieList
+    fun setDetailMovieList(detailMovieList: List<Movie>) {
+        this.detailMovieList = detailMovieList
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VieHolder {
@@ -27,17 +27,17 @@ class SimilarAdapter : RecyclerView.Adapter<SimilarAdapter.VieHolder>() {
     }
 
     override fun onBindViewHolder(holder: VieHolder, position: Int) {
-        holder.setData(similarMovieList[position])
+        holder.setData(detailMovieList[position])
     }
 
-    override fun getItemCount(): Int = similarMovieList.size - 8
+    override fun getItemCount(): Int = detailMovieList.size - 8
 
     inner class VieHolder(private val binding: ItemMovieRowBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun setData(similarMovie: Movie) {
+        fun setData(detailMovie: Movie) {
             val imageUrl = "https://image.tmdb.org/t/p/w500"
-            val posterFormat = imageUrl + similarMovie.poster_path
+            val posterFormat = imageUrl + detailMovie.poster_path
             Glide.with(binding.root.context)
                 .load(posterFormat)
                 .transition(DrawableTransitionOptions.withCrossFade())
@@ -48,8 +48,8 @@ class SimilarAdapter : RecyclerView.Adapter<SimilarAdapter.VieHolder>() {
 
             binding.cvImgMovie.setOnClickListener {
                 val action =
-                    SimilarDetailFragmentDirections.actionSimilarDetailFragmentToMovieDetailFragment(
-                        similarMovie
+                    DetailFragmentDirections.actionMovieDetailFragmentToSimilarDetailFragment(
+                        detailMovie
                     )
                 this.itemView.findNavController().navigate(action)
             }

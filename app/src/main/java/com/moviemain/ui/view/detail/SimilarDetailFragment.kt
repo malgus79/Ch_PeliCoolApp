@@ -7,7 +7,9 @@ import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Button
@@ -20,25 +22,23 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bumptech.glide.Glide
 import com.moviemain.R
 import com.moviemain.core.Resource
-import com.moviemain.core.common.Constants.POSTER_PATH_URL
-import com.moviemain.core.common.Constants.YOUTUBE_BASE_URL
+import com.moviemain.core.common.Constants
 import com.moviemain.core.hide
 import com.moviemain.core.show
 import com.moviemain.core.showToast
-import com.moviemain.databinding.FragmentDetailBinding
+import com.moviemain.databinding.FragmentSimilarDetailBinding
 import com.moviemain.model.data.Movie
-import com.moviemain.ui.adapters.DetailAdapter
+import com.moviemain.model.data.Similar
+import com.moviemain.ui.adapters.SimilarAdapter
 import com.moviemain.viewmodel.detail.DetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class DetailFragment : Fragment(R.layout.fragment_detail) {
+class SimilarDetailFragment : Fragment() {
 
-    private lateinit var binding: FragmentDetailBinding
-
-    //private val similarAdapter: SimilarAdapter = SimilarAdapter()
-    private val detailAdapter: DetailAdapter = DetailAdapter()
+    private lateinit var binding: FragmentSimilarDetailBinding
+    private val similarAdapter: SimilarAdapter = SimilarAdapter()
     private val viewModel by viewModels<DetailViewModel>()
 
     private lateinit var movie: Movie
@@ -51,12 +51,14 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     private var btnWatchTrailer: Button? = null
     private var btnWatchTrailerAnim: Animation? = null
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding = FragmentDetailBinding.bind(view)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentSimilarDetailBinding.inflate(inflater, container, false)
 
         requireArguments().let {
-            DetailFragmentArgs.fromBundle(it).also { args ->
+            SimilarDetailFragmentArgs.fromBundle(it).also { args ->
                 movie = args.movie
             }
         }
@@ -68,6 +70,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         updateButtonIcon()
         onClickShareMovie()
 
+        return binding.root
     }
 
     @SuppressLint("SetTextI18n")
@@ -75,12 +78,12 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         try {
             isLoadingScreen(false)
             Glide.with(requireContext())
-                .load(POSTER_PATH_URL + movie.poster_path)
+                .load(Constants.POSTER_PATH_URL + movie.poster_path)
                 .centerCrop()
                 .into(binding.imgMovie)
 
             Glide.with(requireContext())
-                .load(POSTER_PATH_URL + movie.backdrop_path)
+                .load(Constants.POSTER_PATH_URL + movie.backdrop_path)
                 .centerCrop()
                 .into(binding.imgBackground)
 
@@ -148,7 +151,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         btnWatchTrailer = binding.btnWatchTrailer
         btnWatchTrailerAnim = AnimationUtils.loadAnimation(context, R.anim.btn_anim)
 
-        val youtubeUrl = YOUTUBE_BASE_URL + key
+        val youtubeUrl = Constants.YOUTUBE_BASE_URL + key
 
         binding.btnWatchTrailer.setOnClickListener {
             btnWatchTrailer!!.startAnimation(btnWatchTrailerAnim)
@@ -165,11 +168,11 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             when (it) {
                 is Resource.Loading -> {}
                 is Resource.Success -> {
-                    if (it.data.results.isEmpty() && !binding.txtDescription.isVisible) {
+                    if (it.data.results?.isEmpty()!! && !binding.txtDescription.isVisible) {
                         showToast(getString(R.string.no_data))
                         return@observe
                     }
-                    detailAdapter.setDetailMovieList(it.data.results)
+                    similarAdapter.setSimilarMovieList(it.data.results)
                 }
                 is Resource.Failure -> {
                     showToast(getString(R.string.error_dialog_detail))
@@ -180,7 +183,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     private fun setupSimilarRecyclerView() {
         binding.rvMoviesSimilar.apply {
-            adapter = detailAdapter
+            adapter = similarAdapter
             layoutManager = StaggeredGridLayoutManager(
                 resources.getInteger(R.integer.columns_similar),
                 StaggeredGridLayoutManager.VERTICAL
@@ -329,3 +332,18 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     }
 }
 
+private fun Similar.asMovie(): Movie = Movie(
+    this.adult,
+    this.backdrop_path,
+    this.id,
+    this.original_title,
+    this.original_language,
+    this.overview,
+    this.popularity,
+    this.poster_path,
+    this.release_date,
+    this.title,
+    this.video,
+    this.vote_average,
+    this.vote_count
+)

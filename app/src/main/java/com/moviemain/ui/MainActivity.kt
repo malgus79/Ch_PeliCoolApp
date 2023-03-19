@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         //NavigationUI.setupActionBarWithNavController(this, navController)
 
         navController.addOnDestinationChangedListener { _, nd: NavDestination, _ ->
-            if (nd.id == R.id.movieDetailFragment) {
+            if (nd.id == R.id.movieDetailFragment || nd.id == R.id.similarDetailFragment) {
                 navView.hide()
             } else {
                 navView.show()

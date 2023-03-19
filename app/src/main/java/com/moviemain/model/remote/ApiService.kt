@@ -10,7 +10,6 @@ import com.moviemain.core.common.Constants.UPCOMING
 import com.moviemain.core.common.Constants.VIDEOS
 import com.moviemain.model.data.Details
 import com.moviemain.model.data.MovieList
-import com.moviemain.model.data.SimilarList
 import com.moviemain.model.data.VideosList
 import retrofit2.Response
 import retrofit2.http.GET
@@ -73,5 +72,5 @@ interface ApiService {
         @Path(value = "movie_id") movie_id: Int,
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
-    ): SimilarList
+    ): MovieList
 }
