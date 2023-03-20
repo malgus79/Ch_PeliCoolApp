@@ -84,6 +84,8 @@ dependencies {
     kapt "androidx.room:room-compiler:2.4.3"
     //Paging
     implementation "androidx.paging:paging-runtime-ktx:3.1.1"
+    // RecyclerView Animators
+    implementation 'jp.wasabeef:recyclerview-animators:4.0.2'
 
     testImplementation 'junit:junit:'
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4'

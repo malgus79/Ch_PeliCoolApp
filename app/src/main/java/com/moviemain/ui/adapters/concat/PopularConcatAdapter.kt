@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.moviemain.core.holder.BaseConcatHolder
 import com.moviemain.databinding.RowPopularMoviesBinding
 import com.moviemain.ui.adapters.HomeAdapter
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
+import jp.wasabeef.recyclerview.animators.LandingAnimator
 
 class PopularConcatAdapter(private val moviesAdapter: HomeAdapter) :
     RecyclerView.Adapter<BaseConcatHolder<*>>() {
@@ -28,7 +30,9 @@ class PopularConcatAdapter(private val moviesAdapter: HomeAdapter) :
     private inner class ConcatViewHolder(val binding: RowPopularMoviesBinding) :
         BaseConcatHolder<HomeAdapter>(binding.root) {
         override fun bind(adapter: HomeAdapter) {
-            binding.rvPopularMovies.adapter = adapter
+            //binding.rvPopularMovies.adapter = adapter
+            binding.rvPopularMovies.adapter = ScaleInAnimationAdapter(adapter)
+            binding.rvPopularMovies.itemAnimator = LandingAnimator().apply { addDuration = 300 }
         }
     }
 }

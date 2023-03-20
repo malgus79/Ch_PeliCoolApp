@@ -21,6 +21,8 @@ import com.moviemain.ui.adapters.concat.PopularConcatAdapter
 import com.moviemain.ui.adapters.concat.TopRatedConcatAdapter
 import com.moviemain.viewmodel.main.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
+import jp.wasabeef.recyclerview.animators.LandingAnimator
 import org.imaginativeworld.whynotimagecarousel.ImageCarousel
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 

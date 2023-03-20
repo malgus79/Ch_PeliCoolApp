@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.moviemain.core.holder.BaseConcatHolder
 import com.moviemain.databinding.RowTopRatedMovieBinding
 import com.moviemain.ui.adapters.HomeAdapter
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
+import jp.wasabeef.recyclerview.animators.LandingAnimator
 
 class TopRatedConcatAdapter(private val moviesAdapter: HomeAdapter) :
     RecyclerView.Adapter<BaseConcatHolder<*>>() {
@@ -28,7 +30,9 @@ class TopRatedConcatAdapter(private val moviesAdapter: HomeAdapter) :
     private inner class ConcatViewHolder(val binding: RowTopRatedMovieBinding) :
         BaseConcatHolder<HomeAdapter>(binding.root) {
         override fun bind(adapter: HomeAdapter) {
-            binding.rvTopRatedMovies.adapter = adapter
+            //binding.rvTopRatedMovies.adapter = adapter
+            binding.rvTopRatedMovies.adapter = ScaleInAnimationAdapter(adapter)
+            binding.rvTopRatedMovies.itemAnimator = LandingAnimator().apply { addDuration = 300 }
         }
     }
 }

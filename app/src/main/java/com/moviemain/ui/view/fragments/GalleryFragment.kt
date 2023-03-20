@@ -19,6 +19,9 @@ import com.moviemain.databinding.FragmentGalleryBinding
 import com.moviemain.ui.adapters.GalleryAdapter
 import com.moviemain.viewmodel.fragments.GalleryViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
+import jp.wasabeef.recyclerview.animators.LandingAnimator
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -68,7 +71,9 @@ class GalleryFragment : Fragment() {
 
     private fun setupGalleryRecyclerView() {
         binding.rvMoviesUpComing.apply {
-            adapter = galleryAdapter
+            //adapter = galleryAdapter
+            adapter = ScaleInAnimationAdapter(galleryAdapter)
+            itemAnimator = LandingAnimator().apply { addDuration = 300 }
             layoutManager = StaggeredGridLayoutManager(resources.getInteger(R.integer.main_columns), StaggeredGridLayoutManager.VERTICAL)
             setHasFixedSize(true)
             show()

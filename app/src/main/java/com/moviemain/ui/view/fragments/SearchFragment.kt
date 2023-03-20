@@ -21,6 +21,8 @@ import com.moviemain.model.data.Movie
 import com.moviemain.ui.adapters.SearchAdapter
 import com.moviemain.viewmodel.fragments.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
+import jp.wasabeef.recyclerview.animators.LandingAnimator
 
 @AndroidEntryPoint
 class SearchFragment : Fragment(), SearchAdapter.OnMovieClickListener {
@@ -68,7 +70,9 @@ class SearchFragment : Fragment(), SearchAdapter.OnMovieClickListener {
 
     private fun setupMostWantedRecyclerView() {
         binding.rvTopRatedInSearch.apply {
-            adapter = searchAdapter
+            //adapter = searchAdapter
+            adapter = ScaleInAnimationAdapter(searchAdapter)
+            itemAnimator = LandingAnimator().apply { addDuration = 300 }
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
             show()
@@ -105,7 +109,9 @@ class SearchFragment : Fragment(), SearchAdapter.OnMovieClickListener {
 
     private fun setupSearchRecyclerView() {
         binding.rvMoviesSearch.apply {
-            adapter = searchAdapter
+            //adapter = searchAdapter
+            adapter = ScaleInAnimationAdapter(searchAdapter)
+            itemAnimator = LandingAnimator().apply { addDuration = 300 }
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
             show()

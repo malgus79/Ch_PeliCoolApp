@@ -30,6 +30,8 @@ import com.moviemain.model.data.Movie
 import com.moviemain.ui.adapters.DetailAdapter
 import com.moviemain.viewmodel.detail.DetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
+import jp.wasabeef.recyclerview.animators.LandingAnimator
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -180,7 +182,9 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     private fun setupSimilarRecyclerView() {
         binding.rvMoviesSimilar.apply {
-            adapter = detailAdapter
+            //adapter = detailAdapter
+            adapter = ScaleInAnimationAdapter(detailAdapter)
+            itemAnimator = LandingAnimator().apply { addDuration = 300 }
             layoutManager = StaggeredGridLayoutManager(
                 resources.getInteger(R.integer.columns_similar),
                 StaggeredGridLayoutManager.VERTICAL

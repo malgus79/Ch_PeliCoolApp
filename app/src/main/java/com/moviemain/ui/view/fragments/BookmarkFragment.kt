@@ -22,6 +22,8 @@ import com.moviemain.model.data.Movie
 import com.moviemain.ui.adapters.BookmarkAdapter
 import com.moviemain.viewmodel.fragments.BookmarkViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
+import jp.wasabeef.recyclerview.animators.*
 
 @AndroidEntryPoint
 class BookmarkFragment : Fragment(), BookmarkAdapter.OnMovieClickListener {
@@ -69,7 +71,9 @@ class BookmarkFragment : Fragment(), BookmarkAdapter.OnMovieClickListener {
 
     private fun setupBookmarkRecyclerView() {
         binding.rvMoviesBookmark.apply {
-            adapter = bookmarkAdapter
+            //adapter = bookmarkAdapter
+            adapter = ScaleInAnimationAdapter(bookmarkAdapter)
+            itemAnimator = LandingAnimator().apply { addDuration = 1000 }
             layoutManager = StaggeredGridLayoutManager(resources.getInteger(R.integer.columns_bookmark), StaggeredGridLayoutManager.VERTICAL)
             setHasFixedSize(true)
         }
