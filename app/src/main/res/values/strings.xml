@@ -32,9 +32,9 @@
     <string name="home">Home</string>
     <string name="gallery">Gallery</string>
     <string name="search">Search</string>
-
     <string name="search_no_results">No movies found</string>
     <string name="helper_search">Search a movie</string>
+    <string name="the_most_wanted">The most wanted:</string>
 
     <string name="peli_cool_app">Peli Cool App</string>
     <string name="logo_splash">Logo splash</string>

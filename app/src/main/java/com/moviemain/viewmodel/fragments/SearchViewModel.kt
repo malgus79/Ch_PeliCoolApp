@@ -29,4 +29,15 @@ class SearchViewModel @Inject constructor(private val repository: RepositoryImpl
             }
         }
     }
+
+    fun fetchMostWanted() = liveData(viewModelScope.coroutineContext + Dispatchers.IO) {
+        emit(Resource.Loading)
+        try {
+            emit(Resource.Success(repository.getTopRatedMovies()))
+        } catch (e:Exception) {
+            emit(Resource.Failure(e))
+        }
+    }
+
+
 }
