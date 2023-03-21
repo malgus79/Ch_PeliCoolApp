@@ -30,6 +30,7 @@ import com.moviemain.core.showToast
 import com.moviemain.databinding.FragmentSimilarDetailBinding
 import com.moviemain.model.data.Movie
 import com.moviemain.ui.adapters.detail.CreditsAdapter
+import com.moviemain.ui.adapters.detail.CrewAdapter
 import com.moviemain.ui.adapters.detail.SimilarAdapter
 import com.moviemain.viewmodel.detail.DetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,6 +47,7 @@ class SimilarDetailFragment : Fragment() {
 
     private val similarAdapter: SimilarAdapter = SimilarAdapter()
     private val creditsAdapter: CreditsAdapter = CreditsAdapter()
+    private val crewAdapter: CrewAdapter = CrewAdapter()
 
     private lateinit var movie: Movie
 
@@ -102,7 +104,7 @@ class SimilarDetailFragment : Fragment() {
                 txtLanguage.text = getString(R.string.language) + " " + movie.original_language
 
                 if (movie.overview.isNullOrEmpty()) {
-                    showToast(getString(R.string.no_data))
+                    showToast(getString(R.string.no_data_for_description))
                 } else {
                     txtDescription.text = movie.overview
                 }
@@ -189,11 +191,16 @@ class SimilarDetailFragment : Fragment() {
                 is Resource.Success -> {
                     binding.progressbarOption.hide()
                     if (it.data.cast?.isEmpty()!!) {
-                        showToast(getString(R.string.no_data))
+                        showToast(getString(R.string.no_data_for_credits))
                         return@observe
+                    } else {
+                        creditsAdapter.setCreditsMovieList(it.data.cast)
+                        setupCreditsRecyclerView()
                     }
-                    creditsAdapter.setCreditsMovieList(it.data.cast)
-                    setupCreditsRecyclerView()
+                    if (!it.data.crew?.isEmpty()!!) {
+                        crewAdapter.setCrewMovieList(it.data.crew.filter { crew -> crew.job == "Director" })
+                        setupCrewRecyclerView()
+                    }
                 }
                 is Resource.Failure -> {
                     binding.progressbarOption.hide()
@@ -217,6 +224,19 @@ class SimilarDetailFragment : Fragment() {
         }
     }
 
+    private fun setupCrewRecyclerView() {
+        binding.rvMoviesCrew?.apply {
+            adapter = ScaleInAnimationAdapter(crewAdapter)
+            itemAnimator = LandingAnimator().apply { addDuration = 300 }
+            layoutManager = StaggeredGridLayoutManager(
+                resources.getInteger(R.integer.columns_crew),
+                StaggeredGridLayoutManager.HORIZONTAL
+            )
+            setHasFixedSize(true)
+            show()
+        }
+    }
+
     private fun showSimilarMovies(id: Int) {
         viewModel.fetchSimilarMovies(id).observe(viewLifecycleOwner) {
             when (it) {
@@ -226,7 +246,7 @@ class SimilarDetailFragment : Fragment() {
                 is Resource.Success -> {
                     binding.progressbarOption.hide()
                     if (it.data.results.isEmpty()) {
-                        showToast(getString(R.string.no_data))
+                        showToast(getString(R.string.no_data_for_similar_movies))
                         return@observe
                     }
                     similarAdapter.setSimilarMovieList(it.data.results)
@@ -257,6 +277,7 @@ class SimilarDetailFragment : Fragment() {
     private fun loadOverview() {
         binding.txtTitleOverview.setOnClickListener {
             binding.rvMoviesCredits.hide()
+            binding.rvMoviesCrew?.hide()
             binding.rvMoviesSimilar.hide()
             showDataDetails()
 
@@ -324,6 +345,7 @@ class SimilarDetailFragment : Fragment() {
         isLoadingBtnHomePage(false)
         isLoadingBtnWatchTrailer(false)
         binding.rvMoviesCredits.hide()
+        binding.rvMoviesCrew?.hide()
         binding.txtDescription.hide()
 
         if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {

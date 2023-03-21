@@ -28,6 +28,7 @@ import com.moviemain.core.showToast
 import com.moviemain.databinding.FragmentDetailBinding
 import com.moviemain.model.data.Movie
 import com.moviemain.ui.adapters.detail.CreditsAdapter
+import com.moviemain.ui.adapters.detail.CrewAdapter
 import com.moviemain.ui.adapters.detail.DetailAdapter
 import com.moviemain.viewmodel.detail.DetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,6 +45,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     private val detailAdapter: DetailAdapter = DetailAdapter()
     private val creditsAdapter: CreditsAdapter = CreditsAdapter()
+    private val crewAdapter: CrewAdapter = CrewAdapter()
 
     private lateinit var movie: Movie
 
@@ -97,7 +99,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                 txtLanguage.text = getString(R.string.language) + " " + movie.original_language
 
                 if (movie.overview.isNullOrEmpty()) {
-                    showToast(getString(R.string.no_data))
+                    showToast(getString(R.string.no_data_for_description))
                 } else {
                     txtDescription.text = movie.overview
                 }
@@ -185,11 +187,16 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                 is Resource.Success -> {
                     binding.progressbarOption.hide()
                     if (it.data.cast?.isEmpty()!!) {
-                        showToast(getString(R.string.no_data))
+                        showToast(getString(R.string.no_data_for_credits))
                         return@observe
+                    } else {
+                        creditsAdapter.setCreditsMovieList(it.data.cast)
+                        setupCreditsRecyclerView()
                     }
-                    creditsAdapter.setCreditsMovieList(it.data.cast)
-                    setupCreditsRecyclerView()
+                    if (!it.data.crew?.isEmpty()!!) {
+                        crewAdapter.setCrewMovieList(it.data.crew.filter { crew -> crew.job == "Director" })
+                        setupCrewRecyclerView()
+                    }
                 }
                 is Resource.Failure -> {
                     binding.progressbarOption.hide()
@@ -213,6 +220,19 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         }
     }
 
+    private fun setupCrewRecyclerView() {
+        binding.rvMoviesCrew.apply {
+            adapter = ScaleInAnimationAdapter(crewAdapter)
+            itemAnimator = LandingAnimator().apply { addDuration = 300 }
+            layoutManager = StaggeredGridLayoutManager(
+                resources.getInteger(R.integer.columns_crew),
+                StaggeredGridLayoutManager.HORIZONTAL
+            )
+            setHasFixedSize(true)
+            show()
+        }
+    }
+
     private fun showSimilarMovies(id: Int) {
         viewModel.fetchSimilarMovies(id).observe(viewLifecycleOwner) {
             when (it) {
@@ -222,7 +242,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                 is Resource.Success -> {
                     binding.progressbarOption.hide()
                     if (it.data.results.isEmpty()) {
-                        showToast(getString(R.string.no_data))
+                        showToast(getString(R.string.no_data_for_similar_movies))
                         return@observe
                     }
                     detailAdapter.setDetailMovieList(it.data.results)
@@ -253,6 +273,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     private fun loadOverview() {
         binding.txtTitleOverview.setOnClickListener {
             binding.rvMoviesCredits.hide()
+            binding.rvMoviesCrew.hide()
             binding.rvMoviesSimilar.hide()
             showDataDetails()
 
@@ -320,6 +341,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         isLoadingBtnHomePage(false)
         isLoadingBtnWatchTrailer(false)
         binding.rvMoviesCredits.hide()
+        binding.rvMoviesCrew.hide()
         binding.txtDescription.hide()
 
         if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {

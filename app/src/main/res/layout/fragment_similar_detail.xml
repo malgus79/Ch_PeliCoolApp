@@ -343,7 +343,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/common_margin_default"
-            android:layout_marginTop="@dimen/common_margin_default"
             android:orientation="vertical"
             android:visibility="gone"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -357,7 +356,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/common_margin_default"
-            android:layout_marginTop="@dimen/common_margin_default"
             android:orientation="vertical"
             android:visibility="gone"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -365,6 +363,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linear_option"
             tools:listitem="@layout/item_movie_credits" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_movies_crew"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/common_margin_default"
+            android:layout_marginHorizontal="@dimen/common_margin_item_movie"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_movies_credits"
+            tools:listitem="@layout/item_movie_crew" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline2"

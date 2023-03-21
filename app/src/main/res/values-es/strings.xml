@@ -23,6 +23,9 @@
     <string name="similar">Similares</string>
     <string name="no_data">Sin Datos</string>
     <string name="credits">Reparto</string>
+    <string name="no_data_for_description">No hay datos para INFORMACION</string>
+    <string name="no_data_for_credits">No hay datos para CREDITOS</string>
+    <string name="no_data_for_similar_movies">No hay datos para PELICULAS SIMILARES</string>
 
     <string name="error_dialog">Error</string>
     <string name="error_dialog_detail">Ha ocurrido un error obteniendo la información</string>

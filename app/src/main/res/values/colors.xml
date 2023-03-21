@@ -12,6 +12,7 @@
     <color name="grey_loading">#c8c8c9</color>
     <color name="grey_light">#A0A0A1</color>
     <color name="grey_dark">#474747</color>
+    <color name="grey_opaque">#393838</color>
     <color name="yellow">#FFFB00</color>
     <color name="yellow_dense">#C7A501</color>
 
