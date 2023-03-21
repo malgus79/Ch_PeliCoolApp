@@ -14,6 +14,7 @@ object Constants {
     const val DETAILS = "movie/{movie_id}"
     const val VIDEOS = "movie/{movie_id}/videos"
     const val SIMILAR = "movie/{movie_id}/similar"
+    const val CREDITS = "movie/{movie_id}/credits"
 
     const val API_KEY = "5ab6b649a24299a96dc96faa2c825afa"
     const val LANGUAGE_es_ES = "es-ES"

@@ -22,6 +22,7 @@
     <string name="watch_trailer">watch trailer</string>
     <string name="similar">Similar</string>
     <string name="no_data">No Data</string>
+    <string name="credits">Credits</string>
 
     <string name="error_dialog">Error</string>
     <string name="error_dialog_detail">An error occurred while obtaining the information</string>

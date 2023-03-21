@@ -1,5 +1,6 @@
 package com.moviemain.model.remote
 
+import com.moviemain.core.common.Constants.CREDITS
 import com.moviemain.core.common.Constants.DETAILS
 import com.moviemain.core.common.Constants.NOW_PLAYING
 import com.moviemain.core.common.Constants.POPULAR
@@ -8,6 +9,7 @@ import com.moviemain.core.common.Constants.SIMILAR
 import com.moviemain.core.common.Constants.TOP_RATED
 import com.moviemain.core.common.Constants.UPCOMING
 import com.moviemain.core.common.Constants.VIDEOS
+import com.moviemain.model.data.Credits
 import com.moviemain.model.data.Details
 import com.moviemain.model.data.MovieList
 import com.moviemain.model.data.VideosList
@@ -73,4 +75,11 @@ interface ApiService {
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
     ): MovieList
+
+    @GET(CREDITS)
+    suspend fun getCreditsMovie(
+        @Path(value = "movie_id") movie_id: Int,
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String,
+    ): Credits
 }

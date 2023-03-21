@@ -20,8 +20,9 @@
     <string name="released">Lanzamiento</string>
     <string name="homepage">Página web</string>
     <string name="watch_trailer">Ver trailer</string>
-    <string name="similar">Más similares</string>
+    <string name="similar">Similares</string>
     <string name="no_data">Sin Datos</string>
+    <string name="credits">Reparto</string>
 
     <string name="error_dialog">Error</string>
     <string name="error_dialog_detail">Ha ocurrido un error obteniendo la información</string>

@@ -3,4 +3,5 @@
     <integer name="main_columns">2</integer>
     <integer name="columns_bookmark">1</integer>
     <integer name="columns_similar">3</integer>
+    <integer name="columns_credits">3</integer>
 </resources>

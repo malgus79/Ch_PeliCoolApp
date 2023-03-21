@@ -41,7 +41,6 @@
             android:gravity="center"
             android:orientation="vertical"
             app:layout_constraintEnd_toStartOf="@+id/linear_share"
-            app:layout_constraintStart_toEndOf="@+id/linearLayout3"
             app:layout_constraintTop_toBottomOf="@+id/frameLayout"
             tools:ignore="UnknownId,UseCompoundDrawables">
 
@@ -243,32 +242,51 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/common_margin_min"
-                android:layout_weight=".5"
+                android:layout_weight=".3"
                 android:background="@color/black_dense"
                 android:fontFamily="@font/poppins_regular"
                 android:gravity="center"
                 android:padding="@dimen/common_padding_default"
                 android:text="@string/overview"
                 android:textColor="@color/white"
-                android:textSize="@dimen/common_size_default"
+                android:textSize="@dimen/common_size_detail_movie"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/guideline" />
 
             <TextView
+                android:id="@+id/txt_title_credits"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/common_margin_min"
+                android:layout_weight=".3"
+                android:background="@color/black_dense"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:padding="@dimen/common_padding_default"
+                android:text="@string/credits"
+                android:textColor="@color/grey_dark"
+                android:textSize="@dimen/common_size_detail_movie"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+
+            <TextView
                 android:id="@+id/txt_title_similar"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/common_margin_min"
-                android:layout_weight=".5"
+                android:layout_weight=".3"
                 android:background="@color/black_dense"
                 android:fontFamily="@font/poppins_regular"
                 android:gravity="center"
                 android:padding="@dimen/common_padding_default"
                 android:text="@string/similar"
                 android:textColor="@color/grey_dark"
-                android:textSize="@dimen/common_size_default"
+                android:textSize="@dimen/common_size_detail_movie"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -276,12 +294,22 @@
         </LinearLayout>
 
         <View
-            android:id="@+id/divider_line_2"
+            android:id="@+id/divider_line_1"
             android:layout_width="0dp"
             android:layout_height="4dp"
             android:background="@color/white"
-            app:layout_constraintEnd_toStartOf="@id/divider_line_3"
+            app:layout_constraintEnd_toStartOf="@id/divider_line_2"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/linear_option"
+            tools:ignore="MissingConstraints" />
+
+        <View
+            android:id="@+id/divider_line_2"
+            android:layout_width="0dp"
+            android:layout_height="4dp"
+            android:background="@color/grey_dark"
+            app:layout_constraintEnd_toStartOf="@id/divider_line_3"
+            app:layout_constraintStart_toEndOf="@id/divider_line_1"
             app:layout_constraintTop_toBottomOf="@id/linear_option"
             tools:ignore="MissingConstraints" />
 
@@ -323,6 +351,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linear_option"
             tools:listitem="@layout/item_movie_row" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_movies_credits"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/common_margin_default"
+            android:layout_marginTop="@dimen/common_margin_default"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linear_option"
+            tools:listitem="@layout/item_movie_credits" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline2"
@@ -396,6 +438,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/progressbar_option"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/common_margin_max"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider_line_1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

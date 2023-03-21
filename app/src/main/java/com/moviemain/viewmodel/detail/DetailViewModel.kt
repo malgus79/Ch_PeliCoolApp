@@ -55,4 +55,16 @@ class DetailViewModel @Inject constructor(private val repository: RepositoryImpl
                 emit(Resource.Failure(e))
             }
         }
+
+    fun fetchCreditsMovie(id: Int) =
+        liveData(viewModelScope.coroutineContext + Dispatchers.IO) {
+            emit(Resource.Loading)
+            try {
+                emit(
+                    Resource.Success(repository.getCreditsMovie(id))
+                )
+            } catch (e: Exception) {
+                emit(Resource.Failure(e))
+            }
+        }
 }

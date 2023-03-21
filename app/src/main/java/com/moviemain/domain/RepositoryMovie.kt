@@ -23,4 +23,5 @@ interface RepositoryMovie {
     suspend fun getHomepage(id: Int): Details
     suspend fun getTrailerMovie(id: Int): VideosList
     suspend fun getSimilarMovie(id: Int): MovieList
+    suspend fun getCreditsMovie(id: Int): Credits
 }

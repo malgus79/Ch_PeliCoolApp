@@ -22,14 +22,15 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bumptech.glide.Glide
 import com.moviemain.R
 import com.moviemain.core.Resource
-import com.moviemain.core.common.Constants
+import com.moviemain.core.common.Constants.POSTER_PATH_URL
+import com.moviemain.core.common.Constants.YOUTUBE_BASE_URL
 import com.moviemain.core.hide
 import com.moviemain.core.show
 import com.moviemain.core.showToast
 import com.moviemain.databinding.FragmentSimilarDetailBinding
 import com.moviemain.model.data.Movie
-import com.moviemain.model.data.Similar
-import com.moviemain.ui.adapters.SimilarAdapter
+import com.moviemain.ui.adapters.detail.CreditsAdapter
+import com.moviemain.ui.adapters.detail.SimilarAdapter
 import com.moviemain.viewmodel.detail.DetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
@@ -40,8 +41,11 @@ import kotlinx.coroutines.launch
 class SimilarDetailFragment : Fragment() {
 
     private lateinit var binding: FragmentSimilarDetailBinding
-    private val similarAdapter: SimilarAdapter = SimilarAdapter()
+
     private val viewModel by viewModels<DetailViewModel>()
+
+    private val similarAdapter: SimilarAdapter = SimilarAdapter()
+    private val creditsAdapter: CreditsAdapter = CreditsAdapter()
 
     private lateinit var movie: Movie
 
@@ -80,31 +84,42 @@ class SimilarDetailFragment : Fragment() {
         try {
             isLoadingScreen(false)
             Glide.with(requireContext())
-                .load(Constants.POSTER_PATH_URL + movie.poster_path)
+                .load(POSTER_PATH_URL + movie.poster_path)
                 .centerCrop()
                 .into(binding.imgMovie)
 
             Glide.with(requireContext())
-                .load(Constants.POSTER_PATH_URL + movie.backdrop_path)
+                .load(POSTER_PATH_URL + movie.backdrop_path)
                 .centerCrop()
                 .into(binding.imgBackground)
 
             with(binding) {
-                txtDescription.text = movie.overview
                 txtMovieTitle.text = movie.title
                 txtRating.text =
                     movie.vote_average.toString() + " " + "(" + movie.vote_count.toString() + " " +
                             getString(R.string.reviews) + ")"
                 txtReleased.text = getString(R.string.released) + " " + movie.release_date
                 txtLanguage.text = getString(R.string.language) + " " + movie.original_language
+
+                if (movie.overview.isNullOrEmpty()) {
+                    showToast(getString(R.string.no_data))
+                } else {
+                    txtDescription.text = movie.overview
+                }
             }
 
             showBtnHomepageAndWatchTrailer(movie.id!!)
-            showSimilarMovies(movie.id!!)
-
             loadOverview()
-            loadSimilar()
 
+            binding.txtTitleCredits.setOnClickListener {
+                showCreditsMovies(movie.id!!)
+                loadCredits()
+            }
+
+            binding.txtTitleSimilar.setOnClickListener {
+                showSimilarMovies(movie.id!!)
+                loadSimilar()
+            }
         } catch (e: Exception) {
             showToast("${e.message}")
         }
@@ -153,7 +168,7 @@ class SimilarDetailFragment : Fragment() {
         btnWatchTrailer = binding.btnWatchTrailer
         btnWatchTrailerAnim = AnimationUtils.loadAnimation(context, R.anim.btn_anim)
 
-        val youtubeUrl = Constants.YOUTUBE_BASE_URL + key
+        val youtubeUrl = YOUTUBE_BASE_URL + key
 
         binding.btnWatchTrailer.setOnClickListener {
             btnWatchTrailer!!.startAnimation(btnWatchTrailerAnim)
@@ -165,18 +180,60 @@ class SimilarDetailFragment : Fragment() {
         }
     }
 
+    private fun showCreditsMovies(id: Int) {
+        viewModel.fetchCreditsMovie(id).observe(viewLifecycleOwner) {
+            when (it) {
+                is Resource.Loading -> {
+                    binding.progressbarOption.show()
+                }
+                is Resource.Success -> {
+                    binding.progressbarOption.hide()
+                    if (it.data.cast?.isEmpty()!!) {
+                        showToast(getString(R.string.no_data))
+                        return@observe
+                    }
+                    creditsAdapter.setCreditsMovieList(it.data.cast)
+                    setupCreditsRecyclerView()
+                }
+                is Resource.Failure -> {
+                    binding.progressbarOption.hide()
+                    showToast(getString(R.string.error_dialog_detail))
+                }
+            }
+        }
+    }
+
+    private fun setupCreditsRecyclerView() {
+        binding.rvMoviesCredits.apply {
+            //adapter = creditsAdapter
+            adapter = ScaleInAnimationAdapter(creditsAdapter)
+            itemAnimator = LandingAnimator().apply { addDuration = 300 }
+            layoutManager = StaggeredGridLayoutManager(
+                resources.getInteger(R.integer.columns_credits),
+                StaggeredGridLayoutManager.VERTICAL
+            )
+            setHasFixedSize(true)
+            show()
+        }
+    }
+
     private fun showSimilarMovies(id: Int) {
         viewModel.fetchSimilarMovies(id).observe(viewLifecycleOwner) {
             when (it) {
-                is Resource.Loading -> {}
+                is Resource.Loading -> {
+                    binding.progressbarOption.show()
+                }
                 is Resource.Success -> {
-                    if (it.data.results?.isEmpty()!! && !binding.txtDescription.isVisible) {
+                    binding.progressbarOption.hide()
+                    if (it.data.results.isEmpty()) {
                         showToast(getString(R.string.no_data))
                         return@observe
                     }
                     similarAdapter.setSimilarMovieList(it.data.results)
+                    setupSimilarRecyclerView()
                 }
                 is Resource.Failure -> {
+                    binding.progressbarOption.hide()
                     showToast(getString(R.string.error_dialog_detail))
                 }
             }
@@ -199,57 +256,105 @@ class SimilarDetailFragment : Fragment() {
 
     private fun loadOverview() {
         binding.txtTitleOverview.setOnClickListener {
-            isLoadingOverviewOrSimilar(true)
+            binding.rvMoviesCredits.hide()
+            binding.rvMoviesSimilar.hide()
             showDataDetails()
+
             if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 binding.cardView.show()
             }
+
             with(binding) {
                 txtTitleOverview.setTextColor(
                     ContextCompat.getColor(requireContext(), R.color.white)
                 )
+                txtTitleCredits.setTextColor(
+                    ContextCompat.getColor(requireContext(), R.color.grey_dark)
+                )
                 txtTitleSimilar.setTextColor(
+                    ContextCompat.getColor(requireContext(), R.color.grey_dark)
+                )
+                dividerLine1.setBackgroundColor(
+                    ContextCompat.getColor(requireContext(), R.color.white)
+                )
+                dividerLine2.setBackgroundColor(
                     ContextCompat.getColor(requireContext(), R.color.grey_dark)
                 )
                 dividerLine3.setBackgroundColor(
                     ContextCompat.getColor(requireContext(), R.color.grey_dark)
-                )
-                dividerLine2.setBackgroundColor(
-                    ContextCompat.getColor(requireContext(), R.color.white)
                 )
             }
         }
     }
 
+    private fun loadCredits() {
+        isLoadingBtnHomePage(false)
+        isLoadingBtnWatchTrailer(false)
+        binding.txtDescription.hide()
+        binding.rvMoviesSimilar.hide()
+
+
+        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            binding.cardView.hide()
+        }
+
+        with(binding) {
+            txtTitleOverview.setTextColor(
+                ContextCompat.getColor(requireContext(), R.color.grey_dark)
+            )
+            txtTitleCredits.setTextColor(
+                ContextCompat.getColor(requireContext(), R.color.white)
+            )
+            txtTitleSimilar.setTextColor(
+                ContextCompat.getColor(requireContext(), R.color.grey_dark)
+            )
+            dividerLine1.setBackgroundColor(
+                ContextCompat.getColor(requireContext(), R.color.grey_dark)
+            )
+            dividerLine2.setBackgroundColor(
+                ContextCompat.getColor(requireContext(), R.color.white)
+            )
+            dividerLine3.setBackgroundColor(
+                ContextCompat.getColor(requireContext(), R.color.grey_dark)
+            )
+        }
+    }
+
     private fun loadSimilar() {
-        binding.txtTitleSimilar.setOnClickListener {
-            isLoadingOverviewOrSimilar(false)
-            isLoadingBtnHomePage(false)
-            isLoadingBtnWatchTrailer(false)
-            setupSimilarRecyclerView()
-            if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                binding.cardView.hide()
-            }
-            with(binding) {
-                txtTitleOverview.setTextColor(
-                    ContextCompat.getColor(requireContext(), R.color.grey_dark)
-                )
-                txtTitleSimilar.setTextColor(
-                    ContextCompat.getColor(requireContext(), R.color.white)
-                )
-                dividerLine3.setBackgroundColor(
-                    ContextCompat.getColor(requireContext(), R.color.white)
-                )
-                dividerLine2.setBackgroundColor(
-                    ContextCompat.getColor(requireContext(), R.color.grey_dark)
-                )
-            }
+        isLoadingBtnHomePage(false)
+        isLoadingBtnWatchTrailer(false)
+        binding.rvMoviesCredits.hide()
+        binding.txtDescription.hide()
+
+        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            binding.cardView.hide()
+        }
+
+        with(binding) {
+            txtTitleOverview.setTextColor(
+                ContextCompat.getColor(requireContext(), R.color.grey_dark)
+            )
+            txtTitleCredits.setTextColor(
+                ContextCompat.getColor(requireContext(), R.color.grey_dark)
+            )
+            txtTitleSimilar.setTextColor(
+                ContextCompat.getColor(requireContext(), R.color.white)
+            )
+            dividerLine1.setBackgroundColor(
+                ContextCompat.getColor(requireContext(), R.color.grey_dark)
+            )
+            dividerLine2.setBackgroundColor(
+                ContextCompat.getColor(requireContext(), R.color.grey_dark)
+            )
+            dividerLine3.setBackgroundColor(
+                ContextCompat.getColor(requireContext(), R.color.white)
+            )
         }
     }
 
     private fun isLoadingScreen(loading: Boolean) {
         with(binding) {
-            progressBar.isVisible = loading
+            progressbar?.isVisible = loading
             imgBackground.isVisible = !loading
             linearBookmark.isVisible = !loading
             linearShare.isVisible = !loading
@@ -273,13 +378,6 @@ class SimilarDetailFragment : Fragment() {
         with(binding) {
             btnWatchTrailer.isVisible = loading
             mcvWatchTrailer.isVisible = loading
-        }
-    }
-
-    private fun isLoadingOverviewOrSimilar(loading: Boolean) {
-        with(binding) {
-            txtDescription.isVisible = loading
-            rvMoviesSimilar.isVisible = !loading
         }
     }
 
@@ -335,19 +433,3 @@ class SimilarDetailFragment : Fragment() {
         }
     }
 }
-
-private fun Similar.asMovie(): Movie = Movie(
-    this.adult,
-    this.backdrop_path,
-    this.id,
-    this.original_title,
-    this.original_language,
-    this.overview,
-    this.popularity,
-    this.poster_path,
-    this.release_date,
-    this.title,
-    this.video,
-    this.vote_average,
-    this.vote_count
-)
