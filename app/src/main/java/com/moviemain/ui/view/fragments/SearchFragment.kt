@@ -47,22 +47,28 @@ class SearchFragment : Fragment(), SearchAdapter.OnMovieClickListener {
 
     private fun setupMostWanted() {
         viewModel.fetchMostWanted().observe(viewLifecycleOwner) {
-            when (it) {
-                is Resource.Loading -> {}
-                is Resource.Success -> {
-                    if (it.data.results.isEmpty() || binding.rvMoviesSearch.isVisible) {
-                        binding.rvTopRatedInSearch.hide()
-                        binding.rvMoviesSearch
-                        return@observe
-                    }
-                    binding.linearTopRated.show()
-                    binding.rvMoviesSearch.hide()
-                    setupMostWantedRecyclerView()
-                    searchAdapter.setMovieList(it.data.results)
+            with(binding) {
+                when (it) {
+                    is Resource.Loading -> {}
+                    is Resource.Success -> {
 
-                }
-                is Resource.Failure -> {
-                    Log.d(TAG, "Error: " + it.exception)
+                        if (it.data.results.isEmpty()) {
+                            rvTopRatedInSearch.hide()
+                            return@observe
+                        }
+
+                        if (rvMoviesSearch.isVisible) {
+                            rvMoviesSearch.show()
+                        } else {
+                            linearTopRated.show()
+                            rvMoviesSearch.hide()
+                            setupMostWantedRecyclerView()
+                            searchAdapter.setMovieList(it.data.results)
+                        }
+                    }
+                    is Resource.Failure -> {
+                        Log.d(TAG, "Error: " + it.exception)
+                    }
                 }
             }
         }
@@ -89,7 +95,7 @@ class SearchFragment : Fragment(), SearchAdapter.OnMovieClickListener {
                     }
                     is Resource.Success -> {
                         progressBar.hide()
-                        rvTopRatedInSearch.hide()
+                        linearTopRated.hide()
                         if (it.data.isEmpty()) {
                             rvMoviesSearch.hide()
                             emptyContainer.root.show()
@@ -109,9 +115,7 @@ class SearchFragment : Fragment(), SearchAdapter.OnMovieClickListener {
 
     private fun setupSearchRecyclerView() {
         binding.rvMoviesSearch.apply {
-            //adapter = searchAdapter
-            adapter = ScaleInAnimationAdapter(searchAdapter)
-            itemAnimator = LandingAnimator().apply { addDuration = 300 }
+            adapter = searchAdapter
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
             show()
@@ -126,6 +130,9 @@ class SearchFragment : Fragment(), SearchAdapter.OnMovieClickListener {
                 if (!query.isNullOrEmpty()) {
                     viewModel.setMovieSearched(query)
                     binding.linearTopRated.hide()
+                } else {
+                    binding.rvMoviesSearch.hide()
+                    setupMostWanted()
                 }
                 return false
             }
@@ -136,6 +143,7 @@ class SearchFragment : Fragment(), SearchAdapter.OnMovieClickListener {
                     binding.linearTopRated.hide()
                 } else {
                     binding.rvMoviesSearch.hide()
+                    setupMostWanted()
                 }
                 return true
             }
@@ -148,9 +156,5 @@ class SearchFragment : Fragment(), SearchAdapter.OnMovieClickListener {
                 movie
             )
         )
-    }
-
-    override fun onMovieLongClick(movie: Movie, position: Int) {
-
     }
 }

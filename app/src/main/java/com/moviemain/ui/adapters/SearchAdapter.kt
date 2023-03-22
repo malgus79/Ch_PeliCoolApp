@@ -23,7 +23,6 @@ class SearchAdapter(
 
     interface OnMovieClickListener {
         fun onMovieClick(movie: Movie, position: Int)
-        fun onMovieLongClick(movie: Movie, position: Int)
     }
 
     fun setMovieList(movieList: List<Movie>) {
@@ -42,15 +41,6 @@ class SearchAdapter(
                 ?: return@setOnClickListener
 
             itemClickListener.onMovieClick(movieList[position], position)
-        }
-
-        holder.itemView.setOnLongClickListener {
-            val position = holder.bindingAdapterPosition.takeIf { it != DiffUtil.DiffResult.NO_POSITION }
-                ?: return@setOnLongClickListener true
-
-            itemClickListener.onMovieLongClick(movieList[position], position)
-
-            return@setOnLongClickListener true
         }
 
         return holder
