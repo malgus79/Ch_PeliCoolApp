@@ -225,7 +225,7 @@ class SimilarDetailFragment : Fragment() {
     }
 
     private fun setupCrewRecyclerView() {
-        binding.rvMoviesCrew?.apply {
+        binding.rvMoviesCrew.apply {
             adapter = ScaleInAnimationAdapter(crewAdapter)
             itemAnimator = LandingAnimator().apply { addDuration = 300 }
             layoutManager = StaggeredGridLayoutManager(
@@ -277,7 +277,7 @@ class SimilarDetailFragment : Fragment() {
     private fun loadOverview() {
         binding.txtTitleOverview.setOnClickListener {
             binding.rvMoviesCredits.hide()
-            binding.rvMoviesCrew?.hide()
+            binding.rvMoviesCrew.hide()
             binding.rvMoviesSimilar.hide()
             showDataDetails()
 
@@ -345,7 +345,7 @@ class SimilarDetailFragment : Fragment() {
         isLoadingBtnHomePage(false)
         isLoadingBtnWatchTrailer(false)
         binding.rvMoviesCredits.hide()
-        binding.rvMoviesCrew?.hide()
+        binding.rvMoviesCrew.hide()
         binding.txtDescription.hide()
 
         if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
