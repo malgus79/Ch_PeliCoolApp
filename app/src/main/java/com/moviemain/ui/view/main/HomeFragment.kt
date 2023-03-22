@@ -2,10 +2,14 @@ package com.moviemain.ui.view.main
 
 import android.content.ContentValues
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ConcatAdapter
@@ -21,8 +25,6 @@ import com.moviemain.ui.adapters.concat.PopularConcatAdapter
 import com.moviemain.ui.adapters.concat.TopRatedConcatAdapter
 import com.moviemain.viewmodel.main.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
-import jp.wasabeef.recyclerview.animators.LandingAnimator
 import org.imaginativeworld.whynotimagecarousel.ImageCarousel
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 
@@ -41,9 +43,27 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         concatAdapter = ConcatAdapter()
 
+        swipeRefresh()
         setupMainMovies()
 
         return binding.root
+    }
+
+    private fun swipeRefresh() {
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            binding.swipeRefreshLayout.setColorSchemeResources(R.color.black)
+            binding.swipeRefreshLayout.setProgressBackgroundColorSchemeColor(
+                ContextCompat.getColor(requireContext(), R.color.white)
+            )
+            Handler(Looper.getMainLooper()).postDelayed({
+                setupMainMovies()
+            }, 500)
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        binding.swipeRefreshLayout.isRefreshing = false
     }
 
     private fun setupMainMovies() {
@@ -51,15 +71,33 @@ class HomeFragment : Fragment() {
             with(binding) {
                 when (it) {
                     is Resource.Loading -> {
-                        containerLoading.root.show()
+                        if (swipeRefreshLayout.isRefreshing) {
+                            containerLoading.root.hide()
+                        } else {
+                            containerLoading.root.show()
+                        }
                     }
                     is Resource.Success -> {
+                        binding.swipeRefreshLayout.isRefreshing = false
                         containerLoading.root.hide()
-                        concatAdapter.apply {
-                            addAdapter(0, PopularConcatAdapter(HomeAdapter(it.data.third.results)))
-                            addAdapter(1, TopRatedConcatAdapter(HomeAdapter(it.data.second.results)))
-                            addAdapter(2, NowPlayingConcatAdapter(HomeAdapter(it.data.first.results)))
+
+                        if (!binding.rvMovies.isVisible) {
+                            concatAdapter.apply {
+                                addAdapter(
+                                    0,
+                                    PopularConcatAdapter(HomeAdapter(it.data.third.results))
+                                )
+                                addAdapter(
+                                    1,
+                                    TopRatedConcatAdapter(HomeAdapter(it.data.second.results))
+                                )
+                                addAdapter(
+                                    2,
+                                    NowPlayingConcatAdapter(HomeAdapter(it.data.first.results))
+                                )
+                            }
                         }
+
                         rvMovies.apply {
                             adapter = concatAdapter
                             show()
@@ -67,6 +105,7 @@ class HomeFragment : Fragment() {
                         setupCarousel()
                     }
                     is Resource.Failure -> {
+                        binding.swipeRefreshLayout.isRefreshing = false
                         containerLoading.root.hide()
                         showToast(getString(R.string.error_dialog_detail) + it.exception)
                         Log.d(ContentValues.TAG, "Error: " + it.exception)
