@@ -4,13 +4,12 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.moviemain.core.common.Constants
 import com.moviemain.core.common.Constants.API_KEY
 import com.moviemain.core.common.Constants.LANGUAGE_es_ES
+import com.moviemain.core.common.Constants.PAGE_INITIAL_API
 import com.moviemain.dataaccess.JSONFileLoader
 import com.moviemain.model.data.Movie
 import com.moviemain.model.remote.ApiService
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import org.hamcrest.MatcherAssert
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.notNullValue
@@ -38,16 +37,9 @@ class HomeViewModelTest {
         @BeforeClass
         @JvmStatic
         fun setupCommon() {
-            val loggingInterceptor = HttpLoggingInterceptor()
-                .setLevel(HttpLoggingInterceptor.Level.BODY)
-
-            val client = OkHttpClient.Builder()
-                .addInterceptor(loggingInterceptor)
-
             retrofit = Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
-                .client(client.build())
                 .build()
         }
     }
@@ -60,7 +52,7 @@ class HomeViewModelTest {
     @Test
     fun `check fetch movie popular is not null test`() {
         runBlocking {
-            val result = apiService.getPopularMovies(API_KEY, LANGUAGE_es_ES)
+            val result = apiService.getPopularMovies(API_KEY, LANGUAGE_es_ES, PAGE_INITIAL_API)
             MatcherAssert.assertThat(result.results, `is`(notNullValue()))
         }
     }
@@ -68,7 +60,7 @@ class HomeViewModelTest {
     @Test
     fun `check fetch movie top rated is not null test`() {
         runBlocking {
-            val result = apiService.getTopRatedMovies(API_KEY, LANGUAGE_es_ES)
+            val result = apiService.getTopRatedMovies(API_KEY, LANGUAGE_es_ES, PAGE_INITIAL_API)
             MatcherAssert.assertThat(result.results, `is`(notNullValue()))
         }
     }
@@ -76,7 +68,7 @@ class HomeViewModelTest {
     @Test
     fun `check fetch movie now playing is not null test`() {
         runBlocking {
-            val result = apiService.getNowPlayingMovies(API_KEY, LANGUAGE_es_ES)
+            val result = apiService.getNowPlayingMovies(API_KEY, LANGUAGE_es_ES, PAGE_INITIAL_API)
             MatcherAssert.assertThat(result.results, `is`(notNullValue()))
         }
     }
@@ -84,7 +76,7 @@ class HomeViewModelTest {
     @Test
     fun `check item movies for page test`() {
         runBlocking {
-            val result = apiService.getPopularMovies(API_KEY, LANGUAGE_es_ES)
+            val result = apiService.getPopularMovies(API_KEY, LANGUAGE_es_ES, PAGE_INITIAL_API)
             MatcherAssert.assertThat(result.results.size, `is`(20))
         }
     }
@@ -92,7 +84,7 @@ class HomeViewModelTest {
     @Test
     fun `check item movies adult test`() {
         runBlocking {
-            val result = apiService.getPopularMovies(API_KEY, LANGUAGE_es_ES)
+            val result = apiService.getPopularMovies(API_KEY, LANGUAGE_es_ES, PAGE_INITIAL_API)
             MatcherAssert.assertThat(
                 result.results.filter { Movie().adult == true },
                 `is`(emptyList())
@@ -104,7 +96,7 @@ class HomeViewModelTest {
     fun `check error fetch movies popular test`() {
         runBlocking {
             try {
-                apiService.getPopularMovies("", "")
+                apiService.getPopularMovies("", "", 0)
             } catch (e: Exception) {
                 MatcherAssert.assertThat(e.localizedMessage, `is`("HTTP 401 "))
             }
@@ -115,7 +107,7 @@ class HomeViewModelTest {
     fun `check error fetch movies top rated test`() {
         runBlocking {
             try {
-                apiService.getTopRatedMovies("", "")
+                apiService.getTopRatedMovies("", "", 0)
             } catch (e: Exception) {
                 MatcherAssert.assertThat(e.localizedMessage, `is`("HTTP 401 "))
             }
@@ -126,7 +118,7 @@ class HomeViewModelTest {
     fun `check error fetch movies now playing test`() {
         runBlocking {
             try {
-                apiService.getNowPlayingMovies("", "")
+                apiService.getNowPlayingMovies("", "", 0)
             } catch (e: Exception) {
                 MatcherAssert.assertThat(e.localizedMessage, `is`("HTTP 401 "))
             }
@@ -136,7 +128,7 @@ class HomeViewModelTest {
     @Test
     fun `check remote with local test`() {
         runBlocking {
-            val remoteResult = apiService.getPopularMovies(API_KEY, LANGUAGE_es_ES)
+            val remoteResult = apiService.getPopularMovies(API_KEY, LANGUAGE_es_ES, PAGE_INITIAL_API)
             val localResult = JSONFileLoader().loadMovieList("movie_response_success")
 
             MatcherAssert.assertThat(

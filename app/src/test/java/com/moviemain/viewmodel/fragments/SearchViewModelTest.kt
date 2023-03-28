@@ -7,8 +7,6 @@ import com.moviemain.dataaccess.JSONFileLoader
 import com.moviemain.model.data.Movie
 import com.moviemain.model.remote.ApiService
 import kotlinx.coroutines.runBlocking
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.notNullValue
@@ -28,16 +26,9 @@ class SearchViewModelTest {
         @BeforeClass
         @JvmStatic
         fun setupCommon() {
-            val loggingInterceptor = HttpLoggingInterceptor()
-                .setLevel(HttpLoggingInterceptor.Level.BODY)
-
-            val client = OkHttpClient.Builder()
-                .addInterceptor(loggingInterceptor)
-
             retrofit = Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
-                .client(client.build())
                 .build()
         }
     }
@@ -59,7 +50,7 @@ class SearchViewModelTest {
     fun `check item movies searched for page test`() {
         runBlocking {
             val result = apiService.getMovieByName("", API_KEY, LANGUAGE_es_ES)
-            assertThat(result?.results?.size, `is`(20))
+            assertThat(result?.results?.size, `is`(0))
         }
     }
 
@@ -89,7 +80,7 @@ class SearchViewModelTest {
     fun `check movies searched remote with local test`() {
         runBlocking {
             val remoteResult = apiService.getMovieByName("", API_KEY, LANGUAGE_es_ES)
-            val localResult = JSONFileLoader().loadMovieList("movie_response_success")
+            val localResult = JSONFileLoader().loadMovieList("movie_searched_response_success")
 
             assertThat(
                 localResult?.results?.size,

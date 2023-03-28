@@ -8,8 +8,6 @@ import com.moviemain.dataaccess.JSONFileLoader
 import com.moviemain.model.data.Movie
 import com.moviemain.model.remote.ApiService
 import kotlinx.coroutines.runBlocking
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.notNullValue
@@ -29,16 +27,9 @@ class GalleryViewModelTest {
         @BeforeClass
         @JvmStatic
         fun setupCommon() {
-            val loggingInterceptor = HttpLoggingInterceptor()
-                .setLevel(HttpLoggingInterceptor.Level.BODY)
-
-            val client = OkHttpClient.Builder()
-                .addInterceptor(loggingInterceptor)
-
             retrofit = Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
-                .client(client.build())
                 .build()
         }
     }
