@@ -76,7 +76,6 @@ class SearchFragment : Fragment(), SearchAdapter.OnMovieClickListener {
 
     private fun setupMostWantedRecyclerView() {
         binding.rvTopRatedInSearch.apply {
-            //adapter = searchAdapter
             adapter = ScaleInAnimationAdapter(searchAdapter)
             itemAnimator = LandingAnimator().apply { addDuration = 300 }
             layoutManager = LinearLayoutManager(requireContext())
@@ -123,31 +122,33 @@ class SearchFragment : Fragment(), SearchAdapter.OnMovieClickListener {
     }
 
     private fun setupSearchView() {
-        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
-            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+        with(binding) {
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+                androidx.appcompat.widget.SearchView.OnQueryTextListener {
 
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                if (!query.isNullOrEmpty()) {
-                    viewModel.setMovieSearched(query)
-                    binding.linearTopRated.hide()
-                } else {
-                    binding.rvMoviesSearch.hide()
-                    setupMostWanted()
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    if (!query.isNullOrEmpty()) {
+                        viewModel.setMovieSearched(query)
+                        linearTopRated.hide()
+                    } else {
+                        rvMoviesSearch.hide()
+                        setupMostWanted()
+                    }
+                    return false
                 }
-                return false
-            }
 
-            override fun onQueryTextChange(query: String?): Boolean {
-                if (query!!.isNotEmpty()) {
-                    viewModel.setMovieSearched(query)
-                    binding.linearTopRated.hide()
-                } else {
-                    binding.rvMoviesSearch.hide()
-                    setupMostWanted()
+                override fun onQueryTextChange(query: String?): Boolean {
+                    if (query!!.isNotEmpty()) {
+                        viewModel.setMovieSearched(query)
+                        linearTopRated.hide()
+                    } else {
+                        rvMoviesSearch.hide()
+                        setupMostWanted()
+                    }
+                    return true
                 }
-                return true
-            }
-        })
+            })
+        }
     }
 
     override fun onMovieClick(movie: Movie, position: Int) {

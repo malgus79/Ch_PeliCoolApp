@@ -17,7 +17,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.bumptech.glide.Glide
 import com.moviemain.R
 import com.moviemain.core.*
 import com.moviemain.core.common.Constants.POSTER_PATH_URL
@@ -75,13 +74,14 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     @SuppressLint("SetTextI18n")
     private fun showDataDetails() {
-        try {
-            isLoadingScreen(false)
+        with(binding) {
+            try {
+                isLoadingScreen(false)
 
-            loadImage(requireContext(), POSTER_PATH_URL + movie.poster_path, binding.imgMovie)
-            loadImage(requireContext(), POSTER_PATH_URL + movie.backdrop_path, binding.imgBackground)
+                loadImage(requireContext(), POSTER_PATH_URL + movie.poster_path, binding.imgMovie)
+                loadImage(requireContext(), POSTER_PATH_URL + movie.backdrop_path, binding.imgBackground)
 
-            with(binding) {
+
                 txtMovieTitle.text = movie.title
                 txtRating.text =
                     movie.vote_average.toString() + " " + "(" + movie.vote_count.toString() + " " +
@@ -94,23 +94,23 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                 } else {
                     txtDescription.text = movie.overview
                 }
+
+                showBtnHomepageAndWatchTrailer(movie.id!!)
+                loadOverview()
+
+                txtTitleCredits.setOnClickListener {
+                    showCreditsMovies(movie.id!!)
+                    loadCredits()
+                }
+
+                txtTitleSimilar.setOnClickListener {
+                    showSimilarMovies(movie.id!!)
+                    loadSimilar()
+                }
+
+            } catch (e: Exception) {
+                showToast("${e.message}")
             }
-
-            showBtnHomepageAndWatchTrailer(movie.id!!)
-            loadOverview()
-
-            binding.txtTitleCredits.setOnClickListener {
-                showCreditsMovies(movie.id!!)
-                loadCredits()
-            }
-
-            binding.txtTitleSimilar.setOnClickListener {
-                showSimilarMovies(movie.id!!)
-                loadSimilar()
-            }
-
-        } catch (e: Exception) {
-            showToast("${e.message}")
         }
     }
 
@@ -119,12 +119,14 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             when (it) {
                 is Resource.Loading -> {}
                 is Resource.Success -> {
+
                     if (it.data.first.homepage?.isEmpty()!!) {
                         isLoadingBtnHomePage(false)
                     } else {
                         isLoadingBtnHomePage(true)
                         goToHomepage(it.data.first.homepage.toString())
                     }
+
                     if (it.data.second.results.isEmpty()) {
                         isLoadingBtnWatchTrailer(false)
                     } else {
@@ -170,28 +172,30 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     }
 
     private fun showCreditsMovies(id: Int) {
-        viewModel.fetchCreditsMovie(id).observe(viewLifecycleOwner) {
-            when (it) {
-                is Resource.Loading -> {
-                    binding.progressbarOption.show()
-                }
-                is Resource.Success -> {
-                    binding.progressbarOption.hide()
-                    if (it.data.cast?.isEmpty()!!) {
-                        showToast(getString(R.string.no_data_for_credits))
-                        return@observe
-                    } else {
-                        creditsAdapter.setCreditsMovieList(it.data.cast)
-                        setupCreditsRecyclerView()
+        with(binding) {
+            viewModel.fetchCreditsMovie(id).observe(viewLifecycleOwner) {
+                when (it) {
+                    is Resource.Loading -> {
+                        progressbarOption.show()
                     }
-                    if (!it.data.crew?.isEmpty()!!) {
-                        crewAdapter.setCrewMovieList(it.data.crew.filter { crew -> crew.job == "Director" })
-                        setupCrewRecyclerView()
+                    is Resource.Success -> {
+                        progressbarOption.hide()
+                        if (it.data.cast?.isEmpty()!!) {
+                            showToast(getString(R.string.no_data_for_credits))
+                            return@observe
+                        } else {
+                            creditsAdapter.setCreditsMovieList(it.data.cast)
+                            setupCreditsRecyclerView()
+                        }
+                        if (!it.data.crew?.isEmpty()!!) {
+                            crewAdapter.setCrewMovieList(it.data.crew.filter { crew -> crew.job == "Director" })
+                            setupCrewRecyclerView()
+                        }
                     }
-                }
-                is Resource.Failure -> {
-                    binding.progressbarOption.hide()
-                    showToast(getString(R.string.error_dialog_detail))
+                    is Resource.Failure -> {
+                        progressbarOption.hide()
+                        showToast(getString(R.string.error_dialog_detail))
+                    }
                 }
             }
         }
@@ -199,7 +203,6 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     private fun setupCreditsRecyclerView() {
         binding.rvMoviesCredits.apply {
-            //adapter = creditsAdapter
             adapter = ScaleInAnimationAdapter(creditsAdapter)
             itemAnimator = LandingAnimator().apply { addDuration = 300 }
             layoutManager = StaggeredGridLayoutManager(
@@ -225,23 +228,25 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     }
 
     private fun showSimilarMovies(id: Int) {
-        viewModel.fetchSimilarMovies(id).observe(viewLifecycleOwner) {
-            when (it) {
-                is Resource.Loading -> {
-                    binding.progressbarOption.show()
-                }
-                is Resource.Success -> {
-                    binding.progressbarOption.hide()
-                    if (it.data.results.isEmpty()) {
-                        showToast(getString(R.string.no_data_for_similar_movies))
-                        return@observe
+        with(binding) {
+            viewModel.fetchSimilarMovies(id).observe(viewLifecycleOwner) {
+                when (it) {
+                    is Resource.Loading -> {
+                        progressbarOption.show()
                     }
-                    detailAdapter.setDetailMovieList(it.data.results)
-                    setupSimilarRecyclerView()
-                }
-                is Resource.Failure -> {
-                    binding.progressbarOption.hide()
-                    showToast(getString(R.string.error_dialog_detail))
+                    is Resource.Success -> {
+                        progressbarOption.hide()
+                        if (it.data.results.isEmpty()) {
+                            showToast(getString(R.string.no_data_for_similar_movies))
+                            return@observe
+                        }
+                        detailAdapter.setDetailMovieList(it.data.results)
+                        setupSimilarRecyclerView()
+                    }
+                    is Resource.Failure -> {
+                        progressbarOption.hide()
+                        showToast(getString(R.string.error_dialog_detail))
+                    }
                 }
             }
         }
@@ -249,7 +254,6 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     private fun setupSimilarRecyclerView() {
         binding.rvMoviesSimilar.apply {
-            //adapter = detailAdapter
             adapter = ScaleInAnimationAdapter(detailAdapter)
             itemAnimator = LandingAnimator().apply { addDuration = 300 }
             layoutManager = StaggeredGridLayoutManager(
@@ -262,17 +266,17 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     }
 
     private fun loadOverview() {
-        binding.txtTitleOverview.setOnClickListener {
-            binding.rvMoviesCredits.hide()
-            binding.rvMoviesCrew.hide()
-            binding.rvMoviesSimilar.hide()
-            showDataDetails()
+        with(binding) {
+            txtTitleOverview.setOnClickListener {
+                rvMoviesCredits.hide()
+                rvMoviesCrew.hide()
+                rvMoviesSimilar.hide()
+                showDataDetails()
 
-            if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                binding.cardView.show()
-            }
+                if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    cardView.show()
+                }
 
-            with(binding) {
                 txtTitleOverview.setTextColor(
                     ContextCompat.getColor(requireContext(), R.color.white)
                 )
@@ -296,17 +300,17 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     }
 
     private fun loadCredits() {
-        isLoadingBtnHomePage(false)
-        isLoadingBtnWatchTrailer(false)
-        binding.txtDescription.hide()
-        binding.rvMoviesSimilar.hide()
-
-
-        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            binding.cardView.hide()
-        }
-
         with(binding) {
+            isLoadingBtnHomePage(false)
+            isLoadingBtnWatchTrailer(false)
+            txtDescription.hide()
+            rvMoviesSimilar.hide()
+
+
+            if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                cardView.hide()
+            }
+
             txtTitleOverview.setTextColor(
                 ContextCompat.getColor(requireContext(), R.color.grey_dark)
             )
@@ -329,17 +333,17 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     }
 
     private fun loadSimilar() {
-        isLoadingBtnHomePage(false)
-        isLoadingBtnWatchTrailer(false)
-        binding.rvMoviesCredits.hide()
-        binding.rvMoviesCrew.hide()
-        binding.txtDescription.hide()
-
-        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            binding.cardView.hide()
-        }
-
         with(binding) {
+            isLoadingBtnHomePage(false)
+            isLoadingBtnWatchTrailer(false)
+            rvMoviesCredits.hide()
+            rvMoviesCrew.hide()
+            txtDescription.hide()
+
+            if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                cardView.hide()
+            }
+
             txtTitleOverview.setTextColor(
                 ContextCompat.getColor(requireContext(), R.color.grey_dark)
             )

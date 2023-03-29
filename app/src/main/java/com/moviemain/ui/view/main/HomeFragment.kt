@@ -50,14 +50,16 @@ class HomeFragment : Fragment() {
     }
 
     private fun swipeRefresh() {
-        binding.swipeRefreshLayout.setOnRefreshListener {
-            binding.swipeRefreshLayout.setColorSchemeResources(R.color.black)
-            binding.swipeRefreshLayout.setProgressBackgroundColorSchemeColor(
-                ContextCompat.getColor(requireContext(), R.color.white)
-            )
-            Handler(Looper.getMainLooper()).postDelayed({
-                setupMainMovies()
-            }, 500)
+        with(binding) {
+            swipeRefreshLayout.setOnRefreshListener {
+                swipeRefreshLayout.setColorSchemeResources(R.color.black)
+                swipeRefreshLayout.setProgressBackgroundColorSchemeColor(
+                    ContextCompat.getColor(requireContext(), R.color.white)
+                )
+                Handler(Looper.getMainLooper()).postDelayed({
+                    setupMainMovies()
+                }, 500)
+            }
         }
     }
 
@@ -78,10 +80,10 @@ class HomeFragment : Fragment() {
                         }
                     }
                     is Resource.Success -> {
-                        binding.swipeRefreshLayout.isRefreshing = false
+                        swipeRefreshLayout.isRefreshing = false
                         containerLoading.root.hide()
 
-                        if (!binding.rvMovies.isVisible) {
+                        if (!rvMovies.isVisible) {
                             concatAdapter.apply {
                                 addAdapter(
                                     0,
@@ -97,21 +99,24 @@ class HomeFragment : Fragment() {
                                 )
                             }
                         }
-
-                        rvMovies.apply {
-                            adapter = concatAdapter
-                            show()
-                        }
+                        setupHomeMoviesRecyclerView()
                         setupCarousel()
                     }
                     is Resource.Failure -> {
-                        binding.swipeRefreshLayout.isRefreshing = false
+                        swipeRefreshLayout.isRefreshing = false
                         containerLoading.root.hide()
                         showToast(getString(R.string.error_dialog_detail) + it.exception)
                         Log.d(ContentValues.TAG, "Error: " + it.exception)
                     }
                 }
             }
+        }
+    }
+
+    private fun setupHomeMoviesRecyclerView() {
+        binding.rvMovies.apply {
+            adapter = concatAdapter
+            show()
         }
     }
 

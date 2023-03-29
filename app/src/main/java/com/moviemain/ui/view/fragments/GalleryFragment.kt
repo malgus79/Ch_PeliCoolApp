@@ -47,14 +47,16 @@ class GalleryFragment : Fragment() {
     }
 
     private fun swipeRefresh() {
-        binding.swipeRefreshLayout.setOnRefreshListener {
-            binding.swipeRefreshLayout.setColorSchemeResources(R.color.black)
-            binding.swipeRefreshLayout.setProgressBackgroundColorSchemeColor(
-                ContextCompat.getColor(requireContext(), R.color.white)
-            )
-            Handler(Looper.getMainLooper()).postDelayed({
-                setupGalleryMovies()
-            }, 500)
+        with(binding) {
+            swipeRefreshLayout.setOnRefreshListener {
+                swipeRefreshLayout.setColorSchemeResources(R.color.black)
+                swipeRefreshLayout.setProgressBackgroundColorSchemeColor(
+                    ContextCompat.getColor(requireContext(), R.color.white)
+                )
+                Handler(Looper.getMainLooper()).postDelayed({
+                    setupGalleryMovies()
+                }, 500)
+            }
         }
     }
 
@@ -75,7 +77,7 @@ class GalleryFragment : Fragment() {
                         }
                     }
                     is ResourcePaging.SuccessPaging<*> -> {
-                        binding.swipeRefreshLayout.isRefreshing = false
+                        swipeRefreshLayout.isRefreshing = false
                         if (it.data.results.isEmpty()) {
                             containerLoading.root.show()
                             return@observe
@@ -85,7 +87,7 @@ class GalleryFragment : Fragment() {
                         loadData()
                     }
                     is ResourcePaging.FailurePaging -> {
-                        binding.swipeRefreshLayout.isRefreshing = false
+                        swipeRefreshLayout.isRefreshing = false
                         containerLoading.root.show()
                         showToast(getString(R.string.error_dialog_detail) + it.exception)
                         Log.d(ContentValues.TAG, "Error: " + it.exception)
@@ -96,18 +98,19 @@ class GalleryFragment : Fragment() {
     }
 
     private fun setupGalleryRecyclerView() {
-        binding.rvMoviesUpComing.apply {
-            //adapter = galleryAdapter
-            adapter = ScaleInAnimationAdapter(galleryAdapter)
-            itemAnimator = FlipInLeftYAnimator().apply { addDuration = 500 }
-            layoutManager = StaggeredGridLayoutManager(
-                resources.getInteger(R.integer.main_columns),
-                StaggeredGridLayoutManager.VERTICAL
-            )
-            setHasFixedSize(true)
-            show()
+        with(binding) {
+            rvMoviesUpComing.apply {
+                adapter = ScaleInAnimationAdapter(galleryAdapter)
+                itemAnimator = FlipInLeftYAnimator().apply { addDuration = 500 }
+                layoutManager = StaggeredGridLayoutManager(
+                    resources.getInteger(R.integer.main_columns),
+                    StaggeredGridLayoutManager.VERTICAL
+                )
+                setHasFixedSize(true)
+                show()
+            }
+            titleUpcoming.show()
         }
-        binding.titleUpcoming.show()
     }
 
     private fun loadData() {
