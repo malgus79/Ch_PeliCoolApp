@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".ui.MainActivity">
+    tools:context=".ui.activities.main.MainActivity">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/black"
-            tools:context=".ui.view.main.HomeFragment">
+            tools:context=".ui.fragments.home.HomeFragment">
 
             <RelativeLayout
                 android:id="@+id/progress_bar"
