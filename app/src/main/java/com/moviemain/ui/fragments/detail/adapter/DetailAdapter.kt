@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.moviemain.R
+import com.moviemain.core.loadImage
 import com.moviemain.databinding.ItemMovieRowBinding
 import com.moviemain.model.data.Movie
 import com.moviemain.ui.fragments.detail.DetailFragmentDirections
@@ -38,13 +39,8 @@ class DetailAdapter : RecyclerView.Adapter<DetailAdapter.VieHolder>() {
         fun setData(detailMovie: Movie) {
             val imageUrl = "https://image.tmdb.org/t/p/w500"
             val posterFormat = imageUrl + detailMovie.poster_path
-            Glide.with(binding.root.context)
-                .load(posterFormat)
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .error(R.drawable.gradient)
-                .centerCrop()
-                .into(binding.imgMovie)
+
+            loadImage(binding.root.context, posterFormat, binding.imgMovie)
 
             binding.cvImgMovie.setOnClickListener {
                 val action =
