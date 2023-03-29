@@ -2,9 +2,13 @@ package com.moviemain.core
 
 import android.content.Context
 import android.view.View
-import android.widget.SearchView
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy.ALL
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
+import com.moviemain.R
 
 fun View.show() {
     visibility = View.VISIBLE
@@ -36,4 +40,14 @@ fun Context.showToast(message: String, duration: Int = Toast.LENGTH_SHORT) {
 
 fun Fragment.showToast(message: String, duration: Int = Toast.LENGTH_SHORT) {
     requireContext().showToast(message, duration)
+}
+
+fun loadImage(context: Context, url: String, imageView: ImageView) {
+    Glide.with(context)
+        .load(url)
+        .transition(withCrossFade())
+        .diskCacheStrategy(ALL)
+        .error(R.drawable.gradient)
+        .centerCrop()
+        .into(imageView)
 }

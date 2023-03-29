@@ -6,10 +6,7 @@ import androidx.navigation.findNavController
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.moviemain.R
+import com.moviemain.core.loadImage
 import com.moviemain.databinding.ItemMovieGalleryBinding
 import com.moviemain.model.data.Movie
 import com.moviemain.ui.view.fragments.GalleryFragmentDirections
@@ -52,18 +49,14 @@ class GalleryAdapter : PagingDataAdapter<Movie,
 
                 val imageUrl = "https://image.tmdb.org/t/p/w500"
                 val posterFormat = imageUrl + currMovie?.poster_path
-                Glide.with(this)
-                    .load(posterFormat)
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .error(R.drawable.gradient)
-                    .centerCrop()
-                    .into(imgMovie)
+
+                loadImage(context, posterFormat, imgMovie)
 
                 setOnClickListener {
-                    val action = GalleryFragmentDirections.actionGalleryFragmentToMovieDetailFragment(
-                        currMovie!!
-                    )
+                    val action =
+                        GalleryFragmentDirections.actionGalleryFragmentToMovieDetailFragment(
+                            currMovie!!
+                        )
                     this.findNavController().navigate(action)
                 }
             }

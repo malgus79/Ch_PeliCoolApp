@@ -21,12 +21,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bumptech.glide.Glide
 import com.moviemain.R
-import com.moviemain.core.Resource
+import com.moviemain.core.*
 import com.moviemain.core.common.Constants.POSTER_PATH_URL
 import com.moviemain.core.common.Constants.YOUTUBE_BASE_URL
-import com.moviemain.core.hide
-import com.moviemain.core.show
-import com.moviemain.core.showToast
 import com.moviemain.databinding.FragmentSimilarDetailBinding
 import com.moviemain.model.data.Movie
 import com.moviemain.ui.adapters.detail.CreditsAdapter
@@ -85,15 +82,9 @@ class SimilarDetailFragment : Fragment() {
     private fun showDataDetails() {
         try {
             isLoadingScreen(false)
-            Glide.with(requireContext())
-                .load(POSTER_PATH_URL + movie.poster_path)
-                .centerCrop()
-                .into(binding.imgMovie)
 
-            Glide.with(requireContext())
-                .load(POSTER_PATH_URL + movie.backdrop_path)
-                .centerCrop()
-                .into(binding.imgBackground)
+            loadImage(requireContext(), POSTER_PATH_URL + movie.poster_path, binding.imgMovie)
+            loadImage(requireContext(), POSTER_PATH_URL + movie.backdrop_path, binding.imgBackground)
 
             with(binding) {
                 txtMovieTitle.text = movie.title

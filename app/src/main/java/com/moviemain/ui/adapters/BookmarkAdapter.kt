@@ -5,12 +5,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.moviemain.R
 import com.moviemain.core.holder.BaseViewHolder
-import com.moviemain.databinding.ItemMovieBookmarkBinding
+import com.moviemain.core.loadImage
 import com.moviemain.databinding.ItemMovieSearchBinding
 import com.moviemain.model.data.Movie
 
@@ -33,21 +29,24 @@ class BookmarkAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
-        val itemBinding = ItemMovieSearchBinding.inflate(LayoutInflater.from(context), parent, false)
+        val itemBinding =
+            ItemMovieSearchBinding.inflate(LayoutInflater.from(context), parent, false)
 //        return MainViewHolder(itemBinding)
 
         val holder = MainViewHolder(itemBinding)
 
         holder.itemView.setOnClickListener {
-            val position = holder.bindingAdapterPosition.takeIf { it != DiffUtil.DiffResult.NO_POSITION }
-                ?: return@setOnClickListener
+            val position =
+                holder.bindingAdapterPosition.takeIf { it != DiffUtil.DiffResult.NO_POSITION }
+                    ?: return@setOnClickListener
 
             itemClickListener.onMovieClick(movieList[position], position)
         }
 
         holder.itemView.setOnLongClickListener {
-            val position = holder.bindingAdapterPosition.takeIf { it != DiffUtil.DiffResult.NO_POSITION }
-                ?: return@setOnLongClickListener true
+            val position =
+                holder.bindingAdapterPosition.takeIf { it != DiffUtil.DiffResult.NO_POSITION }
+                    ?: return@setOnLongClickListener true
 
             itemClickListener.onMovieLongClick(movieList[position], position)
 
@@ -71,13 +70,8 @@ class BookmarkAdapter(
         override fun bind(item: Movie, position: Int): Unit = with(binding) {
             val imageUrl = "https://image.tmdb.org/t/p/w500"
             val posterFormat = imageUrl + item.poster_path
-            Glide.with(context)
-                .load(posterFormat)
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .error(R.drawable.gradient)
-                .centerCrop()
-                .into(imgMovie)
+
+            loadImage(context, posterFormat, imgMovie)
 
             binding.txtTitulo.text = item.title
         }
