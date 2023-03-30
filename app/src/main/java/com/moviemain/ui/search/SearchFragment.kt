@@ -16,8 +16,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.moviemain.core.Resource
 import com.moviemain.core.utils.hide
 import com.moviemain.core.utils.show
-import com.moviemain.databinding.FragmentSearchBinding
 import com.moviemain.data.model.Movie
+import com.moviemain.databinding.FragmentSearchBinding
 import com.moviemain.ui.search.adapter.SearchAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
@@ -31,17 +31,19 @@ class SearchFragment : Fragment(), SearchAdapter.OnMovieClickListener {
     private val viewModel by viewModels<SearchViewModel>()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentSearchBinding.inflate(layoutInflater, container, false)
         searchAdapter = SearchAdapter(requireContext(), this)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         setupMostWanted()
         setupSearchView()
         setupSearchMovies()
-
-        return binding.root
     }
 
     private fun setupMostWanted() {

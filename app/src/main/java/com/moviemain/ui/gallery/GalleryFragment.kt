@@ -33,16 +33,18 @@ class GalleryFragment : Fragment() {
     private val viewModel: GalleryViewModel by viewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentGalleryBinding.inflate(inflater, container, false)
         galleryAdapter = GalleryAdapter()
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         swipeRefresh()
         setupGalleryMovies()
-
-        return binding.root
     }
 
     private fun swipeRefresh() {

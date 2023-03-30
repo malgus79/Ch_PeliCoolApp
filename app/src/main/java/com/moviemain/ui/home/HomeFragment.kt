@@ -36,16 +36,18 @@ class HomeFragment : Fragment() {
     private val viewModel by viewModels<HomeViewModel>()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         concatAdapter = ConcatAdapter()
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         swipeRefresh()
         setupMainMovies()
-
-        return binding.root
     }
 
     private fun swipeRefresh() {

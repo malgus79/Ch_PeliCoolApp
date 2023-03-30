@@ -7,7 +7,9 @@ import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Button
@@ -25,8 +27,8 @@ import com.moviemain.core.utils.hide
 import com.moviemain.core.utils.loadImage
 import com.moviemain.core.utils.show
 import com.moviemain.core.utils.showToast
-import com.moviemain.databinding.FragmentDetailBinding
 import com.moviemain.data.model.Movie
+import com.moviemain.databinding.FragmentDetailBinding
 import com.moviemain.ui.detail.adapter.CreditsAdapter
 import com.moviemain.ui.detail.adapter.CrewAdapter
 import com.moviemain.ui.detail.adapter.DetailAdapter
@@ -36,7 +38,7 @@ import jp.wasabeef.recyclerview.animators.LandingAnimator
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class DetailFragment : Fragment(R.layout.fragment_detail) {
+class DetailFragment : Fragment() {
 
     private lateinit var binding: FragmentDetailBinding
 
@@ -56,9 +58,15 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     private var btnWatchTrailer: Button? = null
     private var btnWatchTrailerAnim: Animation? = null
 
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentDetailBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentDetailBinding.bind(view)
 
         requireArguments().let {
             DetailFragmentArgs.fromBundle(it).also { args ->
@@ -72,7 +80,6 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         isMovieFavorited()
         updateButtonIcon()
         onClickShareMovie()
-
     }
 
     @SuppressLint("SetTextI18n")

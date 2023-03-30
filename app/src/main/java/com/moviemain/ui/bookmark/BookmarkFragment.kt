@@ -16,30 +16,33 @@ import com.moviemain.core.Resource
 import com.moviemain.core.utils.hide
 import com.moviemain.core.utils.show
 import com.moviemain.core.utils.showToast
-import com.moviemain.databinding.FragmentBookmarkBinding
 import com.moviemain.data.model.Movie
+import com.moviemain.databinding.FragmentBookmarkBinding
 import com.moviemain.ui.bookmark.adapter.BookmarkAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
 import jp.wasabeef.recyclerview.animators.LandingAnimator
 
 @AndroidEntryPoint
-class BookmarkFragment : Fragment(), BookmarkAdapter.OnMovieClickListener {
+class BookmarkFragment : Fragment(),
+    BookmarkAdapter.OnMovieClickListener {
 
     private lateinit var binding: FragmentBookmarkBinding
     private lateinit var bookmarkAdapter: BookmarkAdapter
     private val viewModel: BookmarkViewModel by viewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentBookmarkBinding.inflate(layoutInflater, container, false)
         bookmarkAdapter = BookmarkAdapter(requireContext(), this)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         setupBookmarkMovies()
-
-        return binding.root
     }
 
     private fun setupBookmarkMovies() {

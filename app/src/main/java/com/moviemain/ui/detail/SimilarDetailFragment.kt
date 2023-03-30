@@ -27,8 +27,8 @@ import com.moviemain.core.utils.hide
 import com.moviemain.core.utils.loadImage
 import com.moviemain.core.utils.show
 import com.moviemain.core.utils.showToast
-import com.moviemain.databinding.FragmentSimilarDetailBinding
 import com.moviemain.data.model.Movie
+import com.moviemain.databinding.FragmentSimilarDetailBinding
 import com.moviemain.ui.detail.adapter.CreditsAdapter
 import com.moviemain.ui.detail.adapter.CrewAdapter
 import com.moviemain.ui.detail.adapter.SimilarAdapter
@@ -59,10 +59,14 @@ class SimilarDetailFragment : Fragment() {
     private var btnWatchTrailerAnim: Animation? = null
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentSimilarDetailBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         requireArguments().let {
             SimilarDetailFragmentArgs.fromBundle(it).also { args ->
@@ -76,8 +80,6 @@ class SimilarDetailFragment : Fragment() {
         isMovieFavorited()
         updateButtonIcon()
         onClickShareMovie()
-
-        return binding.root
     }
 
     @SuppressLint("SetTextI18n")
