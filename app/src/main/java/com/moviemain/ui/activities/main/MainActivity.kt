@@ -13,9 +13,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.snackbar.Snackbar
 import com.moviemain.R
-import com.moviemain.core.hide
-import com.moviemain.core.show
+import com.moviemain.core.utils.hide
+import com.moviemain.core.utils.show
 import com.moviemain.databinding.ActivityMainBinding
+import com.moviemain.presentation.MainActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 

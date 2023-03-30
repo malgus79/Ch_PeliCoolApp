@@ -1,7 +1,6 @@
 package com.moviemain.core
 
 import com.moviemain.model.data.MovieList
-import retrofit2.Response
 
 sealed class Resource<out T>() {
     object Loading : Resource<Nothing>()

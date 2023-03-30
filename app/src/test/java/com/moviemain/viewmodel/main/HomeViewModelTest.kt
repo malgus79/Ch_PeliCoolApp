@@ -1,13 +1,13 @@
 package com.moviemain.viewmodel.main
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.moviemain.core.common.Constants
-import com.moviemain.core.common.Constants.API_KEY
-import com.moviemain.core.common.Constants.LANGUAGE_es_ES
-import com.moviemain.core.common.Constants.PAGE_INITIAL_API
+import com.moviemain.application.Constants
+import com.moviemain.application.Constants.API_KEY
+import com.moviemain.application.Constants.LANGUAGE_es_ES
+import com.moviemain.application.Constants.PAGE_INITIAL_API
 import com.moviemain.dataaccess.JSONFileLoader
+import com.moviemain.data.remote.ApiService
 import com.moviemain.model.data.Movie
-import com.moviemain.model.remote.ApiService
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.MatcherAssert

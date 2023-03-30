@@ -15,10 +15,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.moviemain.R
 import com.moviemain.core.ResourcePaging
-import com.moviemain.core.hide
-import com.moviemain.core.show
-import com.moviemain.core.showToast
+import com.moviemain.core.utils.hide
+import com.moviemain.core.utils.show
+import com.moviemain.core.utils.showToast
 import com.moviemain.databinding.FragmentGalleryBinding
+import com.moviemain.presentation.gallery.GalleryViewModel
+import com.moviemain.ui.fragments.gallery.adapter.GalleryAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
 import jp.wasabeef.recyclerview.animators.FlipInLeftYAnimator

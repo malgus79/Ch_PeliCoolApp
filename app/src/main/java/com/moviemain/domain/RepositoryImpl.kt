@@ -3,15 +3,16 @@ package com.moviemain.domain
 import androidx.lifecycle.LiveData
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.moviemain.core.Resource
-import com.moviemain.core.common.Constants.PAGE_INDEX
+import com.moviemain.application.Constants.PAGE_INDEX
 import com.moviemain.core.connectivity.CheckInternet
+import com.moviemain.data.local.LocalDataSource
+import com.moviemain.data.local.MovieEntity
+import com.moviemain.data.local.toMovieEntity
+import com.moviemain.data.paging.DataPagingSource
+import com.moviemain.data.remote.RemoteDataSource
 import com.moviemain.model.data.*
-import com.moviemain.model.local.LocalDataSource
-import com.moviemain.model.local.MovieEntity
-import com.moviemain.model.local.toMovieEntity
-import com.moviemain.model.paging.DataPagingSource
-import com.moviemain.model.remote.RemoteDataSource
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -23,12 +24,6 @@ class RepositoryImpl @Inject constructor(
     private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource
 ) : RepositoryMovie {
-
-    val listDataRepository = Pager(
-        config = PagingConfig(PAGE_INDEX),
-    ) {
-        DataPagingSource(repository = RepositoryImpl(localDataSource, remoteDataSource))
-    }.flow
 
     override suspend fun getPopularMovies(): MovieList {
         return if (CheckInternet.isNetworkAvailable()) {
@@ -136,4 +131,11 @@ class RepositoryImpl @Inject constructor(
     override suspend fun getCreditsMovie(id: Int): Credits {
         return remoteDataSource.getCreditsMovie(id)
     }
+
+    override fun listGalleryDataRepository(): Flow<PagingData<Movie>> = Pager(
+            config = PagingConfig(PAGE_INDEX),
+        ) {
+            DataPagingSource(repository = RepositoryImpl(localDataSource, remoteDataSource))
+        }.flow
+
 }

@@ -14,10 +14,12 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.moviemain.core.Resource
-import com.moviemain.core.hide
-import com.moviemain.core.show
+import com.moviemain.core.utils.hide
+import com.moviemain.core.utils.show
 import com.moviemain.databinding.FragmentSearchBinding
 import com.moviemain.model.data.Movie
+import com.moviemain.presentation.search.SearchViewModel
+import com.moviemain.ui.fragments.search.adapter.SearchAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
 import jp.wasabeef.recyclerview.animators.LandingAnimator

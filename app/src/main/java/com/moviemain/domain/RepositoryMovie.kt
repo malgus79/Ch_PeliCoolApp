@@ -1,9 +1,10 @@
 package com.moviemain.domain
 
 import androidx.lifecycle.LiveData
+import androidx.paging.PagingData
 import com.moviemain.core.Resource
+import com.moviemain.data.local.MovieEntity
 import com.moviemain.model.data.*
-import com.moviemain.model.local.MovieEntity
 import kotlinx.coroutines.flow.Flow
 
 interface RepositoryMovie {
@@ -24,4 +25,6 @@ interface RepositoryMovie {
     suspend fun getTrailerMovie(id: Int): VideosList
     suspend fun getSimilarMovie(id: Int): MovieList
     suspend fun getCreditsMovie(id: Int): Credits
+
+    fun listGalleryDataRepository(): Flow<PagingData<Movie>>
 }

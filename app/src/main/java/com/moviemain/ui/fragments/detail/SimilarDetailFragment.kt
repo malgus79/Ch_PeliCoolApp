@@ -20,11 +20,16 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.moviemain.R
+import com.moviemain.application.Constants.POSTER_PATH_URL
+import com.moviemain.application.Constants.YOUTUBE_BASE_URL
 import com.moviemain.core.*
-import com.moviemain.core.common.Constants.POSTER_PATH_URL
-import com.moviemain.core.common.Constants.YOUTUBE_BASE_URL
+import com.moviemain.core.utils.hide
+import com.moviemain.core.utils.loadImage
+import com.moviemain.core.utils.show
+import com.moviemain.core.utils.showToast
 import com.moviemain.databinding.FragmentSimilarDetailBinding
 import com.moviemain.model.data.Movie
+import com.moviemain.presentation.detail.DetailViewModel
 import com.moviemain.ui.fragments.detail.adapter.CreditsAdapter
 import com.moviemain.ui.fragments.detail.adapter.CrewAdapter
 import com.moviemain.ui.fragments.detail.adapter.SimilarAdapter
@@ -82,7 +87,11 @@ class SimilarDetailFragment : Fragment() {
             isLoadingScreen(false)
 
             loadImage(requireContext(), POSTER_PATH_URL + movie.poster_path, binding.imgMovie)
-            loadImage(requireContext(), POSTER_PATH_URL + movie.backdrop_path, binding.imgBackground)
+            loadImage(
+                requireContext(),
+                POSTER_PATH_URL + movie.backdrop_path,
+                binding.imgBackground
+            )
 
             with(binding) {
                 txtMovieTitle.text = movie.title
@@ -429,21 +438,24 @@ class SimilarDetailFragment : Fragment() {
 
     private fun onClickShareMovie() {
         binding.fabShare.setOnClickListener {
-
-            val bitmapDrawable = binding.imgMovie.drawable as BitmapDrawable
-            val bitmap = bitmapDrawable.bitmap
-            val bitmapPath =
-                MediaStore.Images.Media.insertImage(
-                    context?.contentResolver,
-                    bitmap,
-                    "IMAGE" + System.currentTimeMillis(),
-                    null
-                )
-            val bitmapUri = Uri.parse(bitmapPath.toString())
-            val intent = Intent(Intent.ACTION_SEND)
-            intent.type = "image/*"
-            intent.putExtra(Intent.EXTRA_STREAM, bitmapUri)
-            startActivity(Intent.createChooser(intent, "Peli Cool App"))
+            try {
+                val bitmapDrawable = binding.imgMovie.drawable as BitmapDrawable
+                val bitmap = bitmapDrawable.bitmap
+                val bitmapPath =
+                    MediaStore.Images.Media.insertImage(
+                        context?.contentResolver,
+                        bitmap,
+                        "IMAGE" + System.currentTimeMillis(),
+                        null
+                    )
+                val bitmapUri = Uri.parse(bitmapPath.toString())
+                val intent = Intent(Intent.ACTION_SEND)
+                intent.type = "image/*"
+                intent.putExtra(Intent.EXTRA_STREAM, bitmapUri)
+                startActivity(Intent.createChooser(intent, "Peli Cool App"))
+            } catch (e: Exception) {
+                showToast(getString(R.string.share_error))
+            }
         }
     }
 }

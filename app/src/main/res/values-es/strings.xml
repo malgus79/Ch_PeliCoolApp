@@ -26,6 +26,7 @@
     <string name="no_data_for_description">No hay datos para INFORMACION</string>
     <string name="no_data_for_credits">No hay datos para CREDITOS</string>
     <string name="no_data_for_similar_movies">No hay datos para PELICULAS SIMILARES</string>
+    <string name="share_error">Error al compartir</string>
 
     <string name="error_dialog">Error</string>
     <string name="error_dialog_detail">Ha ocurrido un error obteniendo la información</string>

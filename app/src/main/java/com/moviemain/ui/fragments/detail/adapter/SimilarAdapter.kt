@@ -4,11 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.moviemain.R
-import com.moviemain.core.loadImage
+import com.moviemain.core.utils.loadImage
 import com.moviemain.databinding.ItemMovieRowBinding
 import com.moviemain.model.data.Movie
 import com.moviemain.ui.fragments.detail.SimilarDetailFragmentDirections

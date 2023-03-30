@@ -6,6 +6,10 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth.*
+import com.moviemain.data.local.FavoritesEntity
+import com.moviemain.data.local.MovieDao
+import com.moviemain.data.local.MovieDatabase
+import com.moviemain.data.local.MovieEntity
 import com.moviemain.getOrAwaitValue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest

@@ -3,11 +3,7 @@ package com.moviemain.ui.fragments.detail.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.moviemain.R
-import com.moviemain.core.loadImage
+import com.moviemain.core.utils.loadImage
 import com.moviemain.databinding.ItemMovieCreditsBinding
 import com.moviemain.model.data.Cast
 

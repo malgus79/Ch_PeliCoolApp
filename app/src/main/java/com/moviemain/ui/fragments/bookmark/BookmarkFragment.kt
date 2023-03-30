@@ -13,11 +13,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.moviemain.R
 import com.moviemain.core.Resource
-import com.moviemain.core.hide
-import com.moviemain.core.show
-import com.moviemain.core.showToast
+import com.moviemain.core.utils.hide
+import com.moviemain.core.utils.show
+import com.moviemain.core.utils.showToast
 import com.moviemain.databinding.FragmentBookmarkBinding
 import com.moviemain.model.data.Movie
+import com.moviemain.presentation.bookmark.BookmarkViewModel
+import com.moviemain.ui.fragments.bookmark.adapter.BookmarkAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
 import jp.wasabeef.recyclerview.animators.LandingAnimator
