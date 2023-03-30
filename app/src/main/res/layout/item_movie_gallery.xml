@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:gravity="center"
     android:orientation="horizontal"
     tools:background="@color/black">
@@ -20,9 +20,9 @@
             android:id="@+id/img_movie"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:contentDescription="@string/gallery"
             android:scaleType="centerCrop"
-            android:src="@mipmap/ic_launcher"
-            android:contentDescription="@string/gallery"/>
+            android:src="@mipmap/ic_launcher" />
 
     </androidx.cardview.widget.CardView>
 

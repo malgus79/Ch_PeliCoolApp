@@ -1,6 +1,6 @@
 package com.moviemain.application.di
 
-import com.moviemain.domain.RepositoryImpl
+import com.moviemain.data.RepositoryImpl
 import com.moviemain.domain.RepositoryMovie
 import dagger.Binds
 import dagger.Module

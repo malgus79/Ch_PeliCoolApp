@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/menu_home"
-        android:name="com.moviemain.ui.fragments.home.HomeFragment"
+        android:name="com.moviemain.ui.home.HomeFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_home">
         <action
@@ -42,7 +42,7 @@
     </fragment>
     <fragment
         android:id="@+id/movieDetailFragment"
-        android:name="com.moviemain.ui.fragments.detail.DetailFragment"
+        android:name="com.moviemain.ui.detail.DetailFragment"
         android:label="@string/movie_detail"
         tools:layout="@layout/fragment_detail">
 
@@ -59,7 +59,7 @@
     </fragment>
     <fragment
         android:id="@+id/menu_gallery"
-        android:name="com.moviemain.ui.fragments.gallery.GalleryFragment"
+        android:name="com.moviemain.ui.gallery.GalleryFragment"
         android:label="@string/upcoming"
         tools:layout="@layout/fragment_gallery" >
         <action
@@ -72,7 +72,7 @@
     </fragment>
     <fragment
         android:id="@+id/menu_bookmark"
-        android:name="com.moviemain.ui.fragments.bookmark.BookmarkFragment"
+        android:name="com.moviemain.ui.bookmark.BookmarkFragment"
         android:label="@string/bookmark"
         tools:layout="@layout/fragment_bookmark">
         <action
@@ -85,7 +85,7 @@
     </fragment>
     <fragment
         android:id="@+id/menu_search"
-        android:name="com.moviemain.ui.fragments.search.SearchFragment"
+        android:name="com.moviemain.ui.search.SearchFragment"
         android:label="@string/search"
         tools:layout="@layout/fragment_search" >
         <action
@@ -98,7 +98,7 @@
     </fragment>
     <fragment
         android:id="@+id/similarDetailFragment"
-        android:name="com.moviemain.ui.fragments.detail.SimilarDetailFragment"
+        android:name="com.moviemain.ui.detail.SimilarDetailFragment"
         android:label="@string/movie_detail"
         tools:layout="@layout/fragment_similar_detail" >
         <action

@@ -5,8 +5,7 @@
     android:id="@+id/swipe_refresh_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
-    tools:context=".ui.activities.main.MainActivity">
+    android:background="@color/black">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -18,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/black"
-            tools:context=".ui.fragments.home.HomeFragment">
+            tools:context=".ui.home.HomeFragment">
 
             <RelativeLayout
                 android:id="@+id/progress_bar"

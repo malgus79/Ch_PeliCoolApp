@@ -6,9 +6,9 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/common_margin_item_movie"
     android:layout_marginVertical="@dimen/common_margin_item_movie"
+    android:backgroundTint="@color/grey_opaque"
     app:cardCornerRadius="@dimen/common_corner_default"
-    app:cardElevation="@dimen/common_corner_min"
-    android:backgroundTint="@color/grey_opaque">
+    app:cardElevation="@dimen/common_corner_min">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -20,11 +20,11 @@
             android:layout_height="130dp"
             android:layout_marginHorizontal="@dimen/common_margin_min"
             android:layout_marginVertical="@dimen/common_margin_min"
-            app:cardCornerRadius="@dimen/common_corner_default"
             android:backgroundTint="@color/black_dense"
+            app:cardCornerRadius="@dimen/common_corner_default"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/img_character"
@@ -40,12 +40,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/common_margin_min"
-            android:maxLines="1"
-            android:textSize="@dimen/common_size_detail_attributes"
-            android:textColor="@color/white"
-            android:textStyle="bold"
             android:ellipsize="end"
             android:gravity="center"
+            android:maxLines="1"
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_size_detail_attributes"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/mcv_credits"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/mcv_credits"
@@ -57,11 +57,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/common_margin_min"
-            android:maxLines="1"
-            android:textSize="@dimen/common_size_middle"
-            android:textColor="@color/white"
             android:ellipsize="end"
             android:gravity="center"
+            android:maxLines="1"
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_size_middle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/mcv_credits"
             app:layout_constraintTop_toBottomOf="@id/txt_name"

@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.fragments.detail.DetailFragment">
+        tools:context=".ui.detail.DetailFragment">
 
         <FrameLayout
             android:id="@+id/frameLayout"
@@ -337,8 +337,8 @@
             android:id="@+id/rv_movies_crew"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/common_margin_default"
             android:layout_marginHorizontal="@dimen/common_margin_item_movie"
+            android:layout_marginVertical="@dimen/common_margin_default"
             android:orientation="vertical"
             android:visibility="gone"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -417,8 +417,8 @@
             android:id="@+id/progressbar_option"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             android:layout_marginTop="@dimen/common_margin_max"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
