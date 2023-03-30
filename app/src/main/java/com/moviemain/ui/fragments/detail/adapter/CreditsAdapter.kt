@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.moviemain.core.utils.loadImage
 import com.moviemain.databinding.ItemMovieCreditsBinding
-import com.moviemain.model.data.Cast
+import com.moviemain.data.model.Cast
 
 class CreditsAdapter : RecyclerView.Adapter<CreditsAdapter.VieHolder>() {
 

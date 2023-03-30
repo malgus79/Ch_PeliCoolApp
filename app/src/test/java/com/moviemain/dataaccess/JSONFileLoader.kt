@@ -1,7 +1,7 @@
 package com.moviemain.dataaccess
 
 import com.google.gson.Gson
-import com.moviemain.model.data.MovieList
+import com.moviemain.data.model.MovieList
 import java.io.InputStreamReader
 
 class JSONFileLoader {

@@ -6,7 +6,7 @@ import com.moviemain.application.Constants.LANGUAGE_es_ES
 import com.moviemain.application.Constants.PAGE_INDEX
 import com.moviemain.dataaccess.JSONFileLoader
 import com.moviemain.data.remote.ApiService
-import com.moviemain.model.data.Movie
+import com.moviemain.data.model.Movie
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.`is`

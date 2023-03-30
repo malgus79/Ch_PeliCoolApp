@@ -6,7 +6,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.moviemain.core.utils.loadImage
 import com.moviemain.databinding.ItemMovieRowBinding
-import com.moviemain.model.data.Movie
+import com.moviemain.data.model.Movie
 import com.moviemain.ui.fragments.home.HomeFragmentDirections
 
 class HomeAdapter(private var movieList: List<Movie>) :

@@ -4,7 +4,7 @@ import com.moviemain.application.Constants.API_KEY
 import com.moviemain.application.Constants.LANGUAGE_es_ES
 import com.moviemain.core.Resource
 import com.moviemain.application.Constants.PAGE_INITIAL_API
-import com.moviemain.model.data.*
+import com.moviemain.data.model.*
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow

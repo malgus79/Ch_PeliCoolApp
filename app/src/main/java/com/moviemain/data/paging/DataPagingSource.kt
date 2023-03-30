@@ -4,7 +4,7 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.moviemain.application.Constants.PAGE_INDEX
 import com.moviemain.domain.RepositoryImpl
-import com.moviemain.model.data.Movie
+import com.moviemain.data.model.Movie
 import retrofit2.HttpException
 import java.io.IOException
 

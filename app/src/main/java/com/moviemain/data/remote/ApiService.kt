@@ -9,10 +9,10 @@ import com.moviemain.application.Constants.SIMILAR
 import com.moviemain.application.Constants.TOP_RATED
 import com.moviemain.application.Constants.UPCOMING
 import com.moviemain.application.Constants.VIDEOS
-import com.moviemain.model.data.Credits
-import com.moviemain.model.data.Details
-import com.moviemain.model.data.MovieList
-import com.moviemain.model.data.VideosList
+import com.moviemain.data.model.Credits
+import com.moviemain.data.model.Details
+import com.moviemain.data.model.MovieList
+import com.moviemain.data.model.VideosList
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path

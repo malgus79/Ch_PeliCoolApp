@@ -7,7 +7,7 @@ import com.moviemain.application.Constants.LANGUAGE_es_ES
 import com.moviemain.application.Constants.PAGE_INITIAL_API
 import com.moviemain.dataaccess.JSONFileLoader
 import com.moviemain.data.remote.ApiService
-import com.moviemain.model.data.Movie
+import com.moviemain.data.model.Movie
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.MatcherAssert

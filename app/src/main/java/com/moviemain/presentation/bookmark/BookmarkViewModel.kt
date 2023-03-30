@@ -6,7 +6,7 @@ import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.moviemain.core.Resource
 import com.moviemain.domain.RepositoryMovie
-import com.moviemain.model.data.Movie
+import com.moviemain.data.model.Movie
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

@@ -3,9 +3,9 @@ package com.moviemain.data.local
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import com.moviemain.core.Resource
-import com.moviemain.model.data.Movie
-import com.moviemain.model.data.MovieList
-import com.moviemain.model.data.asFavoriteEntity
+import com.moviemain.data.model.Movie
+import com.moviemain.data.model.MovieList
+import com.moviemain.data.model.asFavoriteEntity
 import javax.inject.Inject
 
 class LocalDataSource @Inject constructor(private val movieDao: MovieDao) {

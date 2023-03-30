@@ -17,7 +17,7 @@ import com.moviemain.core.Resource
 import com.moviemain.core.utils.hide
 import com.moviemain.core.utils.show
 import com.moviemain.databinding.FragmentSearchBinding
-import com.moviemain.model.data.Movie
+import com.moviemain.data.model.Movie
 import com.moviemain.presentation.search.SearchViewModel
 import com.moviemain.ui.fragments.search.adapter.SearchAdapter
 import dagger.hilt.android.AndroidEntryPoint

@@ -10,9 +10,9 @@ import com.moviemain.core.connectivity.CheckInternet
 import com.moviemain.data.local.LocalDataSource
 import com.moviemain.data.local.MovieEntity
 import com.moviemain.data.local.toMovieEntity
+import com.moviemain.data.model.*
 import com.moviemain.data.paging.DataPagingSource
 import com.moviemain.data.remote.RemoteDataSource
-import com.moviemain.model.data.*
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow

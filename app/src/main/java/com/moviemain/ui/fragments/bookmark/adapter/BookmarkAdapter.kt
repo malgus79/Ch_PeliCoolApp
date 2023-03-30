@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.moviemain.core.holder.BaseViewHolder
 import com.moviemain.core.utils.loadImage
 import com.moviemain.databinding.ItemMovieSearchBinding
-import com.moviemain.model.data.Movie
+import com.moviemain.data.model.Movie
 
 class BookmarkAdapter(
     private val context: Context,

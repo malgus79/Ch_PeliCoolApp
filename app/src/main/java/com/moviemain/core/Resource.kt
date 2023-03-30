@@ -1,6 +1,6 @@
 package com.moviemain.core
 
-import com.moviemain.model.data.MovieList
+import com.moviemain.data.model.MovieList
 
 sealed class Resource<out T>() {
     object Loading : Resource<Nothing>()

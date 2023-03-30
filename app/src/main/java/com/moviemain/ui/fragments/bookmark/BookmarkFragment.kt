@@ -17,7 +17,7 @@ import com.moviemain.core.utils.hide
 import com.moviemain.core.utils.show
 import com.moviemain.core.utils.showToast
 import com.moviemain.databinding.FragmentBookmarkBinding
-import com.moviemain.model.data.Movie
+import com.moviemain.data.model.Movie
 import com.moviemain.presentation.bookmark.BookmarkViewModel
 import com.moviemain.ui.fragments.bookmark.adapter.BookmarkAdapter
 import dagger.hilt.android.AndroidEntryPoint

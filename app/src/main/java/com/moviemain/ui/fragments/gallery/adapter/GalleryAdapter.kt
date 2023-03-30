@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.moviemain.core.utils.loadImage
 import com.moviemain.databinding.ItemMovieGalleryBinding
-import com.moviemain.model.data.Movie
+import com.moviemain.data.model.Movie
 import com.moviemain.ui.fragments.gallery.GalleryFragmentDirections
 
 class GalleryAdapter : PagingDataAdapter<Movie,

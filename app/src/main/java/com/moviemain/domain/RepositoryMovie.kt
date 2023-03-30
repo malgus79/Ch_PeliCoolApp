@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.paging.PagingData
 import com.moviemain.core.Resource
 import com.moviemain.data.local.MovieEntity
-import com.moviemain.model.data.*
+import com.moviemain.data.model.*
 import kotlinx.coroutines.flow.Flow
 
 interface RepositoryMovie {

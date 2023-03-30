@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.moviemain.core.utils.loadImage
 import com.moviemain.databinding.ItemMovieCrewBinding
-import com.moviemain.model.data.Crew
+import com.moviemain.data.model.Crew
 
 class CrewAdapter : RecyclerView.Adapter<CrewAdapter.VieHolder>() {
 

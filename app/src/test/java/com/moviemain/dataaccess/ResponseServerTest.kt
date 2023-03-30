@@ -1,7 +1,7 @@
 package com.moviemain.dataaccess
 
 import com.google.gson.Gson
-import com.moviemain.model.data.MovieList
+import com.moviemain.data.model.MovieList
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.hamcrest.MatcherAssert.assertThat

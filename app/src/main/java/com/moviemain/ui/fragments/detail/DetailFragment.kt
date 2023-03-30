@@ -26,7 +26,7 @@ import com.moviemain.core.utils.loadImage
 import com.moviemain.core.utils.show
 import com.moviemain.core.utils.showToast
 import com.moviemain.databinding.FragmentDetailBinding
-import com.moviemain.model.data.Movie
+import com.moviemain.data.model.Movie
 import com.moviemain.presentation.detail.DetailViewModel
 import com.moviemain.ui.fragments.detail.adapter.CreditsAdapter
 import com.moviemain.ui.fragments.detail.adapter.CrewAdapter

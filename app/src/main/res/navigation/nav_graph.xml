@@ -46,9 +46,6 @@
         android:label="@string/movie_detail"
         tools:layout="@layout/fragment_detail">
 
-        <argument
-            android:name="movie"
-            app:argType="com.moviemain.model.data.Movie" />
         <action
             android:id="@+id/action_movieDetailFragment_to_similarDetailFragment"
             app:destination="@id/similarDetailFragment"
@@ -56,6 +53,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <argument
+            android:name="movie"
+            app:argType="com.moviemain.data.model.Movie" />
     </fragment>
     <fragment
         android:id="@+id/menu_gallery"
@@ -101,9 +101,6 @@
         android:name="com.moviemain.ui.fragments.detail.SimilarDetailFragment"
         android:label="@string/movie_detail"
         tools:layout="@layout/fragment_similar_detail" >
-        <argument
-            android:name="movie"
-            app:argType="com.moviemain.model.data.Movie" />
         <action
             android:id="@+id/action_similarDetailFragment_to_movieDetailFragment"
             app:destination="@id/movieDetailFragment"
@@ -111,5 +108,8 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <argument
+            android:name="movie"
+            app:argType="com.moviemain.data.model.Movie" />
     </fragment>
 </navigation>
