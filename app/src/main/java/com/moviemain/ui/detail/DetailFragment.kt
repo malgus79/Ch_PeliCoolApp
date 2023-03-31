@@ -2,7 +2,6 @@ package com.moviemain.ui.detail
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.res.Configuration
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
@@ -13,7 +12,6 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Button
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -23,10 +21,7 @@ import com.moviemain.R
 import com.moviemain.application.Constants.POSTER_PATH_URL
 import com.moviemain.application.Constants.YOUTUBE_BASE_URL
 import com.moviemain.core.*
-import com.moviemain.core.utils.hide
-import com.moviemain.core.utils.loadImage
-import com.moviemain.core.utils.show
-import com.moviemain.core.utils.showToast
+import com.moviemain.core.utils.*
 import com.moviemain.data.model.Movie
 import com.moviemain.databinding.FragmentDetailBinding
 import com.moviemain.ui.detail.adapter.CreditsAdapter
@@ -95,7 +90,6 @@ class DetailFragment : Fragment() {
                     binding.imgBackground
                 )
 
-
                 txtMovieTitle.text = movie.title
                 txtRating.text =
                     movie.vote_average.toString() + " " + "(" + movie.vote_count.toString() + " " +
@@ -159,14 +153,7 @@ class DetailFragment : Fragment() {
         btnHomepage = binding.btnHomePage
         btnHomepageAnim = AnimationUtils.loadAnimation(context, R.anim.btn_anim)
 
-        binding.btnHomePage.setOnClickListener {
-            btnHomepage!!.startAnimation(btnHomepageAnim)
-            try {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(homepage)))
-            } catch (e: Exception) {
-                showToast("${e.message}")
-            }
-        }
+        btnHomepage!!.goToHomepage(homepage)
     }
 
     private fun goToWatchTrailer(key: String) {
@@ -175,14 +162,7 @@ class DetailFragment : Fragment() {
 
         val youtubeUrl = YOUTUBE_BASE_URL + key
 
-        binding.btnWatchTrailer.setOnClickListener {
-            btnWatchTrailer!!.startAnimation(btnWatchTrailerAnim)
-            try {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(youtubeUrl)))
-            } catch (e: Exception) {
-                showToast("${e.message}")
-            }
-        }
+        btnWatchTrailer!!.goToWatchTrailer(youtubeUrl)
     }
 
     private fun showCreditsMovies(id: Int) {
@@ -282,33 +262,19 @@ class DetailFragment : Fragment() {
     private fun loadOverview() {
         with(binding) {
             txtTitleOverview.setOnClickListener {
-                rvMoviesCredits.hide()
-                rvMoviesCrew.hide()
-                rvMoviesSimilar.hide()
                 showDataDetails()
+                hideElements(rvMoviesCredits, rvMoviesCrew, rvMoviesSimilar)
 
-                if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                if (resources.isLandscapeOrientation()) {
                     cardView.show()
                 }
 
-                txtTitleOverview.setTextColor(
-                    ContextCompat.getColor(requireContext(), R.color.white)
-                )
-                txtTitleCredits.setTextColor(
-                    ContextCompat.getColor(requireContext(), R.color.grey_dark)
-                )
-                txtTitleSimilar.setTextColor(
-                    ContextCompat.getColor(requireContext(), R.color.grey_dark)
-                )
-                dividerLine1.setBackgroundColor(
-                    ContextCompat.getColor(requireContext(), R.color.white)
-                )
-                dividerLine2.setBackgroundColor(
-                    ContextCompat.getColor(requireContext(), R.color.grey_dark)
-                )
-                dividerLine3.setBackgroundColor(
-                    ContextCompat.getColor(requireContext(), R.color.grey_dark)
-                )
+                txtTitleOverview.setTextColorCompat(R.color.white)
+                txtTitleCredits.setTextColorCompat(R.color.grey_dark)
+                txtTitleSimilar.setTextColorCompat(R.color.grey_dark)
+                dividerLine1.setBackgroundColorCompat(R.color.white)
+                dividerLine2.setBackgroundColorCompat(R.color.grey_dark)
+                dividerLine3.setBackgroundColorCompat(R.color.grey_dark)
             }
         }
     }
@@ -317,32 +283,19 @@ class DetailFragment : Fragment() {
         with(binding) {
             isLoadingBtnHomePage(false)
             isLoadingBtnWatchTrailer(false)
-            txtDescription.hide()
-            rvMoviesSimilar.hide()
 
+            hideElements(txtDescription, rvMoviesSimilar)
 
-            if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            if (resources.isLandscapeOrientation()) {
                 cardView.hide()
             }
 
-            txtTitleOverview.setTextColor(
-                ContextCompat.getColor(requireContext(), R.color.grey_dark)
-            )
-            txtTitleCredits.setTextColor(
-                ContextCompat.getColor(requireContext(), R.color.white)
-            )
-            txtTitleSimilar.setTextColor(
-                ContextCompat.getColor(requireContext(), R.color.grey_dark)
-            )
-            dividerLine1.setBackgroundColor(
-                ContextCompat.getColor(requireContext(), R.color.grey_dark)
-            )
-            dividerLine2.setBackgroundColor(
-                ContextCompat.getColor(requireContext(), R.color.white)
-            )
-            dividerLine3.setBackgroundColor(
-                ContextCompat.getColor(requireContext(), R.color.grey_dark)
-            )
+            txtTitleOverview.setTextColorCompat(R.color.grey_dark)
+            txtTitleCredits.setTextColorCompat(R.color.white)
+            txtTitleSimilar.setTextColorCompat(R.color.grey_dark)
+            dividerLine1.setBackgroundColorCompat(R.color.grey_dark)
+            dividerLine2.setBackgroundColorCompat(R.color.white)
+            dividerLine3.setBackgroundColorCompat(R.color.grey_dark)
         }
     }
 
@@ -350,32 +303,19 @@ class DetailFragment : Fragment() {
         with(binding) {
             isLoadingBtnHomePage(false)
             isLoadingBtnWatchTrailer(false)
-            rvMoviesCredits.hide()
-            rvMoviesCrew.hide()
-            txtDescription.hide()
 
-            if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            hideElements(rvMoviesCredits, rvMoviesCrew, txtDescription)
+
+            if (resources.isLandscapeOrientation()) {
                 cardView.hide()
             }
 
-            txtTitleOverview.setTextColor(
-                ContextCompat.getColor(requireContext(), R.color.grey_dark)
-            )
-            txtTitleCredits.setTextColor(
-                ContextCompat.getColor(requireContext(), R.color.grey_dark)
-            )
-            txtTitleSimilar.setTextColor(
-                ContextCompat.getColor(requireContext(), R.color.white)
-            )
-            dividerLine1.setBackgroundColor(
-                ContextCompat.getColor(requireContext(), R.color.grey_dark)
-            )
-            dividerLine2.setBackgroundColor(
-                ContextCompat.getColor(requireContext(), R.color.grey_dark)
-            )
-            dividerLine3.setBackgroundColor(
-                ContextCompat.getColor(requireContext(), R.color.white)
-            )
+            txtTitleOverview.setTextColorCompat(R.color.grey_dark)
+            txtTitleCredits.setTextColorCompat(R.color.grey_dark)
+            txtTitleSimilar.setTextColorCompat(R.color.white)
+            dividerLine1.setBackgroundColorCompat(R.color.grey_dark)
+            dividerLine2.setBackgroundColorCompat(R.color.grey_dark)
+            dividerLine3.setBackgroundColorCompat(R.color.white)
         }
     }
 
