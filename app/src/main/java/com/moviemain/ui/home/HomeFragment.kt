@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ConcatAdapter
 import com.moviemain.R
-import com.moviemain.core.Resource
+import com.moviemain.domain.common.Resource
 import com.moviemain.core.utils.hide
 import com.moviemain.core.utils.show
 import com.moviemain.core.utils.showToast

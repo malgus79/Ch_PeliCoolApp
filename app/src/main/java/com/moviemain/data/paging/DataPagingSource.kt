@@ -5,6 +5,7 @@ import androidx.paging.PagingState
 import com.moviemain.application.Constants.PAGE_INDEX
 import com.moviemain.data.RepositoryImpl
 import com.moviemain.data.model.Movie
+import com.moviemain.domain.common.getSuccess
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -21,8 +22,10 @@ class DataPagingSource(private val repository: RepositoryImpl) :
             val currentPage = params.key ?: PAGE_INDEX
             val response = repository.getUpcomingMovies(currentPage)
             val responseData = mutableListOf<Movie>()
-            val data = response.results
-            responseData.addAll(data)
+            val data = response.getSuccess()
+            if (data != null) {
+                responseData.addAll(data)
+            }
 
             LoadResult.Page(
                 data = responseData,

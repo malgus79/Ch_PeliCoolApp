@@ -2,7 +2,7 @@ package com.moviemain.data.local
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
-import com.moviemain.core.Resource
+import com.moviemain.domain.common.Resource
 import com.moviemain.data.model.Movie
 import com.moviemain.data.model.MovieList
 import com.moviemain.data.model.asFavoriteEntity

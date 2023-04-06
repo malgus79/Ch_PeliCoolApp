@@ -53,4 +53,14 @@
 
     <string name="exit">Exit</string>
 
+    <string name="not_found_error">¡Ups! We didn\'t find any movies.</string>
+    <string name="service_unavailable_error">Ups! Service unavailable.</string>
+    <string name="internal_server_error">Ups! An internal server error occurred.</string>
+    <string name="invalid_request_error">Invalid request happened.</string>
+    <string name="unauthorized_error">Unauthorized user.</string>
+    <string name="unknown_error">Unknown error occurred.</string>
+    <string name="connectivity_error">An error occurred while your request was executing.</string>
+    <string name="internet_error">Please check your internet connection and try again.</string>
+    <string name="error_message">Error Message</string>
+
 </resources>

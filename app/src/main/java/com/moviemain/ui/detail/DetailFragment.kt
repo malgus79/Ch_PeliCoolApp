@@ -24,6 +24,7 @@ import com.moviemain.core.*
 import com.moviemain.core.utils.*
 import com.moviemain.data.model.Movie
 import com.moviemain.databinding.FragmentDetailBinding
+import com.moviemain.domain.common.Resource
 import com.moviemain.ui.detail.adapter.CreditsAdapter
 import com.moviemain.ui.detail.adapter.CrewAdapter
 import com.moviemain.ui.detail.adapter.DetailAdapter

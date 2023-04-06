@@ -12,7 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.moviemain.R
-import com.moviemain.core.Resource
+import com.moviemain.domain.common.Resource
 import com.moviemain.core.utils.hide
 import com.moviemain.core.utils.show
 import com.moviemain.core.utils.showToast

@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.moviemain.core.Resource
 import com.moviemain.application.Constants.PAGE_INDEX
 import com.moviemain.core.connectivity.CheckInternet
 import com.moviemain.data.local.LocalDataSource
@@ -14,6 +13,10 @@ import com.moviemain.data.model.*
 import com.moviemain.data.paging.DataPagingSource
 import com.moviemain.data.remote.RemoteDataSource
 import com.moviemain.domain.RepositoryMovie
+import com.moviemain.domain.common.Resource
+import com.moviemain.domain.common.Result
+import com.moviemain.domain.common.fold
+import com.moviemain.domain.common.makeSafeRequest
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -61,16 +64,26 @@ class RepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getUpcomingMovies(currentPage: Int): MovieList {
-        return if (CheckInternet.isNetworkAvailable()) {
-            remoteDataSource.getUpcomingMovies(currentPage).body()?.results?.forEach {
-                localDataSource.saveMovie(it.toMovieEntity("upcoming"))
+    override suspend fun getUpcomingMovies(currentPage: Int): Result<List<Movie>> {
+        val response = makeSafeRequest { remoteDataSource.getUpcomingMovies(currentPage) }
+        return response.fold(
+            onSuccess = {
+                Result.Success(it.results)
+            },
+            onError = { code, message ->
+                Result.Error(code, message)
+            },
+            onException = {
+                Result.Exception(it)
             }
-            localDataSource.getUpcomingMovies()
-        } else {
-            localDataSource.getUpcomingMovies()
-        }
+        )
     }
+
+    override fun listGalleryDataRepository(): Flow<PagingData<Movie>> = Pager(
+        config = PagingConfig(PAGE_INDEX),
+    ) {
+        DataPagingSource(repository = RepositoryImpl(localDataSource, remoteDataSource))
+    }.flow
 
     override suspend fun isMovieFavorite(movie: Movie): Boolean {
         return localDataSource.isMovieFavorite(movie)
@@ -132,11 +145,5 @@ class RepositoryImpl @Inject constructor(
     override suspend fun getCreditsMovie(id: Int): Credits {
         return remoteDataSource.getCreditsMovie(id)
     }
-
-    override fun listGalleryDataRepository(): Flow<PagingData<Movie>> = Pager(
-            config = PagingConfig(PAGE_INDEX),
-        ) {
-            DataPagingSource(repository = RepositoryImpl(localDataSource, remoteDataSource))
-        }.flow
 
 }

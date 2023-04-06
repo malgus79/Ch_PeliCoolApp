@@ -53,4 +53,14 @@
 
     <string name="exit">Salir</string>
 
+    <string name="not_found_error">¡Ups! No encontramos ninguna película.</string>
+    <string name="service_unavailable_error">Ups! Servicio No Disponible.</string>
+    <string name="internal_server_error">Ups! Ocurrió un error interno del servidor.</string>
+    <string name="invalid_request_error">Ocurrió una solicitud no válida.</string>
+    <string name="unauthorized_error">Usuario no autorizado.</string>
+    <string name="unknown_error">Ocurrió un error desconocido.</string>
+    <string name="connectivity_error">Ocurrió un error mientras se ejecutaba su solicitud.</string>
+    <string name="internet_error">Comprueba tu conexión a Internet e inténtalo de nuevo.</string>
+    <string name="error_message">Mensaje de error</string>
+
 </resources>

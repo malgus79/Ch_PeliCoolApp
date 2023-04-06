@@ -5,21 +5,23 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.net.Uri
+import android.os.Handler
 import android.view.View
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.ColorRes
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.Fragment
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy.ALL
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
 import com.moviemain.R
-import com.moviemain.application.Constants
 
 fun View.show() {
     visibility = View.VISIBLE
@@ -69,9 +71,9 @@ fun View.goToHomepage(homepage: String) {
     btnHomepage.setOnClickListener {
         btnHomepage.startAnimation(btnHomepageAnim)
         try {
-            startActivity(context,Intent(Intent.ACTION_VIEW, Uri.parse(homepage)), null)
+            startActivity(context, Intent(Intent.ACTION_VIEW, Uri.parse(homepage)), null)
         } catch (e: Exception) {
-            Toast.makeText(context,"${e.message}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "${e.message}", Toast.LENGTH_SHORT).show()
         }
     }
 }
@@ -83,9 +85,9 @@ fun View.goToWatchTrailer(key: String) {
     btnWatchTrailer.setOnClickListener {
         btnWatchTrailer.startAnimation(btnHomepageAnim)
         try {
-            startActivity(context,Intent(Intent.ACTION_VIEW, Uri.parse(key)), null)
+            startActivity(context, Intent(Intent.ACTION_VIEW, Uri.parse(key)), null)
         } catch (e: Exception) {
-            Toast.makeText(context,"${e.message}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "${e.message}", Toast.LENGTH_SHORT).show()
         }
     }
 }
@@ -106,4 +108,28 @@ fun hideElements(vararg elements: View) {
     for (element in elements) {
         element.hide()
     }
+}
+
+fun showElements(vararg elements: View) {
+    for (element in elements) {
+        element.show()
+    }
+}
+
+fun SwipeRefreshLayout.hideRefresh() {
+    isRefreshing = false
+}
+
+fun View.setRetryAction(delay: Long = 300, action: () -> Unit): AlphaAnimation {
+    val anim = AlphaAnimation(1.0f, 0.5f)
+    anim.duration = 100
+    anim.repeatMode = Animation.REVERSE
+    anim.repeatCount = 1
+    this.setOnClickListener {
+        this.startAnimation(anim)
+        Handler().postDelayed({
+            action()
+        }, delay)
+    }
+    return anim
 }

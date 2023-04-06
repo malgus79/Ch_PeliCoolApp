@@ -3,7 +3,7 @@ package com.moviemain.ui.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
-import com.moviemain.core.Resource
+import com.moviemain.domain.common.Resource
 import com.moviemain.domain.RepositoryMovie
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

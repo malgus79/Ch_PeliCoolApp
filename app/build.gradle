@@ -67,6 +67,11 @@ dependencies {
 //    // OkHttp
 //    implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.10")
 //    implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.10")
+    // Timber
+    implementation 'com.jakewharton.timber:timber:5.0.1'
+    // Dependencias de App Center
+    implementation 'com.microsoft.appcenter:appcenter-analytics:4.3.1'
+    implementation 'com.microsoft.appcenter:appcenter-crashes:4.3.1'
     // ViewPager2
     implementation "androidx.viewpager2:viewpager2:1.0.0"
     // Hilt

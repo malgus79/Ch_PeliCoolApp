@@ -1,7 +1,7 @@
 package com.moviemain.ui.search
 
 import androidx.lifecycle.*
-import com.moviemain.core.Resource
+import com.moviemain.domain.common.Resource
 import com.moviemain.domain.RepositoryMovie
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

@@ -1,6 +1,5 @@
 package com.moviemain.ui.gallery
 
-import android.content.ContentValues
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -14,10 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.moviemain.R
-import com.moviemain.core.ResourcePaging
-import com.moviemain.core.utils.hide
-import com.moviemain.core.utils.show
-import com.moviemain.core.utils.showToast
+import com.moviemain.core.utils.*
 import com.moviemain.databinding.FragmentGalleryBinding
 import com.moviemain.ui.gallery.adapter.GalleryAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -63,38 +59,53 @@ class GalleryFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        binding.swipeRefreshLayout.isRefreshing = false
+        binding.swipeRefreshLayout.hideRefresh()
     }
 
     private fun setupGalleryMovies() {
-        viewModel.fetchUpcomingMovies().observe(viewLifecycleOwner) {
+        viewModel.fetchUpcomingMovies()
+        viewModel.galleryMovieState.observe(viewLifecycleOwner) {
             with(binding) {
                 when (it) {
-                    is ResourcePaging.LoadingPaging -> {
-                        if (swipeRefreshLayout.isRefreshing) {
-                            containerLoading.root.hide()
-                        } else {
-                            containerLoading.root.show()
+                    GalleryState.Loading -> {
+                        hideElements(containerError.root)
+
+                        containerLoading.root.apply {
+                            if (swipeRefreshLayout.isRefreshing) hide() else show()
                         }
                     }
-                    is ResourcePaging.SuccessPaging<*> -> {
-                        swipeRefreshLayout.isRefreshing = false
-                        if (it.data.results.isEmpty()) {
-                            containerLoading.root.show()
+                    is GalleryState.Success -> {
+                        swipeRefreshLayout.hideRefresh()
+                        hideElements(containerError.root,containerLoading.root)
+
+                        if (it.movies.isEmpty()) {
+                            showElements(containerLoading.root)
                             return@observe
                         }
-                        containerLoading.root.hide()
+
                         setupGalleryRecyclerView()
                         loadData()
                     }
-                    is ResourcePaging.FailurePaging -> {
-                        swipeRefreshLayout.isRefreshing = false
-                        containerLoading.root.show()
-                        showToast(getString(R.string.error_dialog_detail) + it.exception)
-                        Log.d(ContentValues.TAG, "Error: " + it.exception)
+                    is GalleryState.Failure -> {
+                        swipeRefreshLayout.hideRefresh()
+                        hideElements(containerLoading.root,rvMoviesUpComing)
+                        showElements(containerError.root)
+
+                        btnRetry()
+
+                        if (it.error != null) {
+                            val errorMessage = getString(it.error.errorMessage)
+                            containerError.textView.text = errorMessage
+                        }
                     }
                 }
             }
+        }
+    }
+
+    private fun btnRetry() {
+        binding.containerError.btnRetry.setRetryAction {
+            setupGalleryMovies()
         }
     }
 

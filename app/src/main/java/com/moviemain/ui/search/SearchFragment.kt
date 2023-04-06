@@ -13,7 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.moviemain.core.Resource
+import com.moviemain.domain.common.Resource
 import com.moviemain.core.utils.hide
 import com.moviemain.core.utils.show
 import com.moviemain.data.model.Movie

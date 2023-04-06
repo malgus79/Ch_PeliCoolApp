@@ -2,7 +2,6 @@ package com.moviemain.ui.detail
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.res.Configuration
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
@@ -13,7 +12,6 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Button
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -26,6 +24,7 @@ import com.moviemain.core.*
 import com.moviemain.core.utils.*
 import com.moviemain.data.model.Movie
 import com.moviemain.databinding.FragmentSimilarDetailBinding
+import com.moviemain.domain.common.Resource
 import com.moviemain.ui.detail.adapter.CreditsAdapter
 import com.moviemain.ui.detail.adapter.CrewAdapter
 import com.moviemain.ui.detail.adapter.SimilarAdapter
