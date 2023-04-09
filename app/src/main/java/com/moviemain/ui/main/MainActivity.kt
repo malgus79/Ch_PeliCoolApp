@@ -88,7 +88,7 @@ class MainActivity : AppCompatActivity() {
             .setAction(getString(R.string.rule_out)) {}
             .setAnchorView(binding.bottomNavigationView)
             .setBackgroundTint(
-                ContextCompat.getColor(this@MainActivity, R.color.red_theme)
+                ContextCompat.getColor(this, R.color.red_theme)
             )
             .show()
     }
@@ -96,8 +96,9 @@ class MainActivity : AppCompatActivity() {
     private fun snackBarConnectivityOn() {
         Snackbar.make(binding.root, R.string.connection_restored, Snackbar.LENGTH_SHORT)
             .setAnchorView(binding.bottomNavigationView)
+            .setTextColor(ContextCompat.getColor(this, R.color.black))
             .setBackgroundTint(
-                ContextCompat.getColor(this@MainActivity, R.color.green_dark_theme)
+                ContextCompat.getColor(this, R.color.yellow)
             )
             .show()
     }

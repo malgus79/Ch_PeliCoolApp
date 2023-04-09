@@ -31,8 +31,8 @@ interface RepositoryMovie {
     suspend fun saveMovie(movie: MovieEntity)
 
     /* --------------------------- DETAIL --------------------------- */
-    suspend fun getHomepage(id: Int): Details
-    suspend fun getTrailerMovie(id: Int): VideosList
-    suspend fun getSimilarMovie(id: Int): MovieList
-    suspend fun getCreditsMovie(id: Int): Credits
+    suspend fun getHomepage(id: Int): Result<Details>
+    suspend fun getTrailerMovie(id: Int): Result<VideosList>
+    suspend fun getSimilarMovie(id: Int): Result<MovieList>
+    suspend fun getCreditsMovie(id: Int): Result<Credits>
 }

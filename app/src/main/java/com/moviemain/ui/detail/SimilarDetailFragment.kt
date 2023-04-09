@@ -24,10 +24,12 @@ import com.moviemain.core.*
 import com.moviemain.core.utils.*
 import com.moviemain.data.model.Movie
 import com.moviemain.databinding.FragmentSimilarDetailBinding
-import com.moviemain.domain.common.Resource
 import com.moviemain.ui.detail.adapter.CreditsAdapter
 import com.moviemain.ui.detail.adapter.CrewAdapter
 import com.moviemain.ui.detail.adapter.SimilarAdapter
+import com.moviemain.ui.detail.state.ButtonsState
+import com.moviemain.ui.detail.state.CreditsState
+import com.moviemain.ui.detail.state.SimilarState
 import dagger.hilt.android.AndroidEntryPoint
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
 import jp.wasabeef.recyclerview.animators.LandingAnimator
@@ -54,10 +56,15 @@ class SimilarDetailFragment : Fragment() {
     private var btnWatchTrailer: Button? = null
     private var btnWatchTrailerAnim: Animation? = null
 
+    private var colorEnabled: Int? = null
+    private var colorDisable: Int? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentSimilarDetailBinding.inflate(inflater, container, false)
+        colorEnabled = R.color.white
+        colorDisable = R.color.grey_dark
         return binding.root
     }
 
@@ -124,27 +131,77 @@ class SimilarDetailFragment : Fragment() {
     }
 
     private fun showBtnHomepageAndWatchTrailer(id: Int) {
-        viewModel.fetchHomepageAndTrailerMovie(id).observe(viewLifecycleOwner) {
-            when (it) {
-                is Resource.Loading -> {}
-                is Resource.Success -> {
-                    if (it.data.first.homepage?.isEmpty()!!) {
+        enableOptions()
+        viewModel.fetchHomepageAndTrailerMovie(id)
+        viewModel.buttonsState.observe(viewLifecycleOwner) {
+            with(binding) {
+                when (it) {
+                    is ButtonsState.Loading -> {
+                        hideElements(containerError.root, txtDescription)
                         isLoadingBtnHomePage(false)
-                    } else {
-                        isLoadingBtnHomePage(true)
-                        goToHomepage(it.data.first.homepage.toString())
-                    }
-                    if (it.data.second.results.isEmpty()) {
                         isLoadingBtnWatchTrailer(false)
-                    } else {
-                        isLoadingBtnWatchTrailer(true)
-                        goToWatchTrailer((it.data.second.results.last().key.toString()))
                     }
-                }
-                is Resource.Failure -> {
-                    showToast(getString(R.string.error_dialog_detail))
+
+                    is ButtonsState.SuccessHomepage -> {
+                        showElements(txtDescription)
+                        binding.txtTitleOverview.setTextColorCompat(colorEnabled!!)
+                        binding.dividerLine1.setBackgroundColorCompat(colorEnabled!!)
+
+                        if (it.homepage.homepage?.isEmpty()!!) {
+                            isLoadingBtnHomePage(false)
+                        } else {
+                            isLoadingBtnHomePage(true)
+                            goToHomepage(it.homepage.homepage.toString())
+                        }
+
+                        if (resources.isLandscapeOrientation()) {
+                            cardView.show()
+                        }
+                    }
+
+                    is ButtonsState.SuccessTrailer -> {
+                        showElements(txtDescription)
+                        binding.txtTitleOverview.setTextColorCompat(colorEnabled!!)
+                        binding.dividerLine1.setBackgroundColorCompat(colorEnabled!!)
+
+                        if (it.trailer.results.isEmpty()) {
+                            isLoadingBtnWatchTrailer(false)
+                        } else {
+                            isLoadingBtnWatchTrailer(true)
+                            goToWatchTrailer((it.trailer.results.last().key.toString()))
+                        }
+
+                        if (resources.isLandscapeOrientation()) {
+                            cardView.show()
+                        }
+                    }
+
+                    is ButtonsState.Failure -> {
+                        hideElements(txtDescription)
+                        showElements(containerError.root)
+                        isLoadingBtnHomePage(false)
+                        isLoadingBtnWatchTrailer(false)
+
+                        if (resources.isLandscapeOrientation()) {
+                            cardView.hide()
+                        }
+
+                        btnRetryButtons()
+                        disableOptions()
+
+                        if (it.error != null) {
+                            val errorMessage = getString(it.error.errorMessage)
+                            containerError.textView.text = errorMessage
+                        }
+                    }
                 }
             }
+        }
+    }
+
+    private fun btnRetryButtons() {
+        binding.containerError.btnRetry.setRetryAction {
+            showDataDetails()
         }
     }
 
@@ -165,32 +222,54 @@ class SimilarDetailFragment : Fragment() {
     }
 
     private fun showCreditsMovies(id: Int) {
-        viewModel.fetchCreditsMovie(id).observe(viewLifecycleOwner) {
-            with(binding) {
+        with(binding) {
+            enableOptions()
+            viewModel.fetchCreditsMovie(id)
+            viewModel.creditsState.observe(viewLifecycleOwner) {
                 when (it) {
-                    is Resource.Loading -> {
-                        progressbarOption.show()
+                    is CreditsState.Loading -> {
+                        showElements(progressbarOption)
+                        hideElements(containerError.root)
                     }
-                    is Resource.Success -> {
-                        progressbarOption.hide()
-                        if (it.data.cast?.isEmpty()!!) {
+
+                    is CreditsState.Success -> {
+                        hideElements(progressbarOption)
+                        binding.txtTitleCredits.setTextColorCompat(colorEnabled!!)
+                        binding.dividerLine2.setBackgroundColorCompat(colorEnabled!!)
+
+                        if (it.credits.cast?.isEmpty()!!) {
                             showToast(getString(R.string.no_data_for_credits))
                             return@observe
                         } else {
-                            creditsAdapter.setCreditsMovieList(it.data.cast)
+                            creditsAdapter.setCreditsMovieList(it.credits.cast)
                             setupCreditsRecyclerView()
                         }
-                        if (!it.data.crew?.isEmpty()!!) {
-                            crewAdapter.setCrewMovieList(it.data.crew.filter { crew -> crew.job == "Director" })
+                        if (!it.credits.crew?.isEmpty()!!) {
+                            crewAdapter.setCrewMovieList(it.credits.crew.filter { crew -> crew.job == "Director" })
                             setupCrewRecyclerView()
                         }
                     }
-                    is Resource.Failure -> {
-                        progressbarOption.hide()
-                        showToast(getString(R.string.error_dialog_detail))
+
+                    is CreditsState.Failure -> {
+                        hideElements(progressbarOption, rvMoviesCredits, rvMoviesCrew)
+                        showElements(containerError.root)
+
+                        btnRetryCredits(id)
+                        disableOptions()
+
+                        if (it.error != null) {
+                            val errorMessage = getString(it.error.errorMessage)
+                            containerError.textView.text = errorMessage
+                        }
                     }
                 }
             }
+        }
+    }
+
+    private fun btnRetryCredits(id: Int) {
+        binding.containerError.btnRetry.setRetryAction {
+            showCreditsMovies(id)
         }
     }
 
@@ -221,27 +300,49 @@ class SimilarDetailFragment : Fragment() {
     }
 
     private fun showSimilarMovies(id: Int) {
-        viewModel.fetchSimilarMovies(id).observe(viewLifecycleOwner) {
-            with(binding) {
+        with(binding) {
+            enableOptions()
+            viewModel.fetchSimilarMovies(id)
+            viewModel.similarState.observe(viewLifecycleOwner) {
                 when (it) {
-                    is Resource.Loading -> {
-                        progressbarOption.show()
+                    is SimilarState.Loading -> {
+                        showElements(progressbarOption)
+                        hideElements(containerError.root)
                     }
-                    is Resource.Success -> {
-                        progressbarOption.hide()
-                        if (it.data.results.isEmpty()) {
+
+                    is SimilarState.Success -> {
+                        hideElements(progressbarOption)
+                        binding.txtTitleSimilar.setTextColorCompat(colorEnabled!!)
+                        binding.dividerLine3.setBackgroundColorCompat(colorEnabled!!)
+
+                        if (it.similar.results.isEmpty()) {
                             showToast(getString(R.string.no_data_for_similar_movies))
                             return@observe
                         }
-                        similarAdapter.setSimilarMovieList(it.data.results)
+                        similarAdapter.setSimilarMovieList(it.similar.results)
                         setupSimilarRecyclerView()
                     }
-                    is Resource.Failure -> {
-                        progressbarOption.hide()
-                        showToast(getString(R.string.error_dialog_detail))
+
+                    is SimilarState.Failure -> {
+                        hideElements(progressbarOption, rvMoviesSimilar)
+                        showElements(containerError.root)
+
+                        btnRetrySimilar(id)
+                        disableOptions()
+
+                        if (it.error != null) {
+                            val errorMessage = getString(it.error.errorMessage)
+                            containerError.textView.text = errorMessage
+                        }
                     }
                 }
             }
+        }
+    }
+
+    private fun btnRetrySimilar(id: Int) {
+        binding.containerError.btnRetry.setRetryAction {
+            showSimilarMovies(id)
         }
     }
 
@@ -262,18 +363,18 @@ class SimilarDetailFragment : Fragment() {
         with(binding) {
             txtTitleOverview.setOnClickListener {
                 showDataDetails()
-                hideElements(rvMoviesCredits, rvMoviesCrew, rvMoviesSimilar)
+                hideElements(rvMoviesCredits, rvMoviesCrew, rvMoviesSimilar, containerError.root)
 
                 if (resources.isLandscapeOrientation()) {
                     cardView.show()
                 }
 
-                txtTitleOverview.setTextColorCompat(R.color.white)
-                txtTitleCredits.setTextColorCompat(R.color.grey_dark)
-                txtTitleSimilar.setTextColorCompat(R.color.grey_dark)
-                dividerLine1.setBackgroundColorCompat(R.color.white)
-                dividerLine2.setBackgroundColorCompat(R.color.grey_dark)
-                dividerLine3.setBackgroundColorCompat(R.color.grey_dark)
+                txtTitleOverview.setTextColorCompat(colorEnabled!!)
+                txtTitleCredits.setTextColorCompat(colorDisable!!)
+                txtTitleSimilar.setTextColorCompat(colorDisable!!)
+                dividerLine1.setBackgroundColorCompat(colorEnabled!!)
+                dividerLine2.setBackgroundColorCompat(colorDisable!!)
+                dividerLine3.setBackgroundColorCompat(colorDisable!!)
             }
         }
     }
@@ -289,12 +390,12 @@ class SimilarDetailFragment : Fragment() {
                 cardView.hide()
             }
 
-            txtTitleOverview.setTextColorCompat(R.color.grey_dark)
-            txtTitleCredits.setTextColorCompat(R.color.white)
-            txtTitleSimilar.setTextColorCompat(R.color.grey_dark)
-            dividerLine1.setBackgroundColorCompat(R.color.grey_dark)
-            dividerLine2.setBackgroundColorCompat(R.color.white)
-            dividerLine3.setBackgroundColorCompat(R.color.grey_dark)
+            txtTitleOverview.setTextColorCompat(colorDisable!!)
+            txtTitleCredits.setTextColorCompat(colorEnabled!!)
+            txtTitleSimilar.setTextColorCompat(colorDisable!!)
+            dividerLine1.setBackgroundColorCompat(colorDisable!!)
+            dividerLine2.setBackgroundColorCompat(colorEnabled!!)
+            dividerLine3.setBackgroundColorCompat(colorDisable!!)
         }
     }
 
@@ -309,12 +410,35 @@ class SimilarDetailFragment : Fragment() {
                 cardView.hide()
             }
 
-            txtTitleOverview.setTextColorCompat(R.color.grey_dark)
-            txtTitleCredits.setTextColorCompat(R.color.grey_dark)
-            txtTitleSimilar.setTextColorCompat(R.color.white)
-            dividerLine1.setBackgroundColorCompat(R.color.grey_dark)
-            dividerLine2.setBackgroundColorCompat(R.color.grey_dark)
-            dividerLine3.setBackgroundColorCompat(R.color.white)
+            txtTitleOverview.setTextColorCompat(colorDisable!!)
+            txtTitleCredits.setTextColorCompat(colorDisable!!)
+            txtTitleSimilar.setTextColorCompat(colorEnabled!!)
+            dividerLine1.setBackgroundColorCompat(colorDisable!!)
+            dividerLine2.setBackgroundColorCompat(colorDisable!!)
+            dividerLine3.setBackgroundColorCompat(colorEnabled!!)
+        }
+    }
+
+    private fun disableOptions() {
+        with(binding) {
+            txtTitleOverview.disableClick()
+            txtTitleCredits.disableClick()
+            txtTitleSimilar.disableClick()
+
+            txtTitleOverview.setTextColorCompat(colorDisable!!)
+            txtTitleCredits.setTextColorCompat(colorDisable!!)
+            txtTitleSimilar.setTextColorCompat(colorDisable!!)
+            dividerLine1.setBackgroundColorCompat(colorDisable!!)
+            dividerLine2.setBackgroundColorCompat(colorDisable!!)
+            dividerLine3.setBackgroundColorCompat(colorDisable!!)
+        }
+    }
+
+    private fun enableOptions() {
+        with(binding) {
+            txtTitleOverview.enableClick()
+            txtTitleCredits.enableClick()
+            txtTitleSimilar.enableClick()
         }
     }
 

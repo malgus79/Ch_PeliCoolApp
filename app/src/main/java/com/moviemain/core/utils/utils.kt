@@ -133,3 +133,11 @@ fun View.setRetryAction(delay: Long = 300, action: () -> Unit): AlphaAnimation {
     }
     return anim
 }
+
+fun TextView.disableClick() {
+    isClickable = false
+}
+
+fun TextView.enableClick() {
+    isClickable = true
+}

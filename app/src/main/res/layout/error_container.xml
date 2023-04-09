@@ -55,7 +55,7 @@
             android:background="@drawable/rounded_corners"
             android:clickable="true"
             android:focusable="true"
-            android:text="Retry"
+            android:text="@string/update"
             android:textAlignment="center"
             android:textSize="@dimen/common_size_detail_attributes" />
 

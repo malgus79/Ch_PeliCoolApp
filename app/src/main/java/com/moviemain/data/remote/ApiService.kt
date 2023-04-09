@@ -60,26 +60,26 @@ interface ApiService {
         @Path(value = "movie_id") movie_id: Int,
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
-    ): Details
+    ): Response<Details>
 
     @GET(VIDEOS)
     suspend fun getTrailerMovie(
         @Path(value = "movie_id") movie_id: Int,
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
-    ): VideosList
+    ): Response<VideosList>
 
     @GET(SIMILAR)
     suspend fun getSimilarMovie(
         @Path(value = "movie_id") movie_id: Int,
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
-    ): MovieList
+    ): Response<MovieList>
 
     @GET(CREDITS)
     suspend fun getCreditsMovie(
         @Path(value = "movie_id") movie_id: Int,
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
-    ): Credits
+    ): Response<Credits>
 }

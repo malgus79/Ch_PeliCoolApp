@@ -96,34 +96,6 @@
 
         </LinearLayout>
 
-        <!--
-                <LinearLayout
-                    android:id="@+id/linearLayout3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/common_margin_default"
-                    android:layout_marginTop="@dimen/common_margin_min"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    app:layout_constraintStart_toEndOf="@id/guideline2"
-                    app:layout_constraintTop_toBottomOf="@+id/frameLayout"
-                    tools:ignore="UseCompoundDrawables">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/favourite"
-                        android:src="@drawable/ic_favorite_border" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/favourite"
-                        android:textColor="@color/white" />
-
-                </LinearLayout>
-        -->
-
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
             android:layout_width="120dp"
@@ -440,6 +412,18 @@
                 android:visibility="gone" />
 
         </com.google.android.material.card.MaterialCardView>
+
+        <include
+            android:id="@+id/container_error"
+            layout="@layout/error_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/common_margin_default"
+            android:layout_marginVertical="@dimen/common_margin_min"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider_line_1" />
 
         <ProgressBar
             android:id="@+id/progressBar"

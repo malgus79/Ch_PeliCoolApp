@@ -130,20 +130,63 @@ class RepositoryImpl @Inject constructor(
         localDataSource.saveMovie(movie)
     }
 
-    override suspend fun getHomepage(id: Int): Details {
-        return remoteDataSource.getHomepage(id)
+    override suspend fun getHomepage(id: Int): Result<Details> {
+        val response = makeSafeRequest { remoteDataSource.getHomepage(id) }
+        return response.fold(
+            onSuccess = {
+                Result.Success(it)
+            },
+            onError = { code, message ->
+                Result.Error(code, message)
+            },
+            onException = {
+                Result.Exception(it)
+            }
+        )
     }
 
-    override suspend fun getTrailerMovie(id: Int): VideosList {
-        return remoteDataSource.getTrailerMovie(id)
+    override suspend fun getTrailerMovie(id: Int): Result<VideosList> {
+        val response = makeSafeRequest { remoteDataSource.getTrailerMovie(id) }
+        return response.fold(
+            onSuccess = {
+                Result.Success(it)
+            },
+            onError = { code, message ->
+                Result.Error(code, message)
+            },
+            onException = {
+                Result.Exception(it)
+            }
+        )
     }
 
-    override suspend fun getSimilarMovie(id: Int): MovieList {
-        return remoteDataSource.getSimilarMovie(id)
+    override suspend fun getSimilarMovie(id: Int): Result<MovieList> {
+        val response = makeSafeRequest { remoteDataSource.getSimilarMovie(id) }
+        return response.fold(
+            onSuccess = {
+                Result.Success(it)
+            },
+            onError = { code, message ->
+                Result.Error(code, message)
+            },
+            onException = {
+                Result.Exception(it)
+            }
+        )
     }
 
-    override suspend fun getCreditsMovie(id: Int): Credits {
-        return remoteDataSource.getCreditsMovie(id)
+    override suspend fun getCreditsMovie(id: Int): Result<Credits> {
+        val response = makeSafeRequest { remoteDataSource.getCreditsMovie(id) }
+        return response.fold(
+            onSuccess = {
+                Result.Success(it)
+            },
+            onError = { code, message ->
+                Result.Error(code, message)
+            },
+            onException = {
+                Result.Exception(it)
+            }
+        )
     }
-
 }

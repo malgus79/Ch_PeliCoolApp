@@ -39,19 +39,19 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
             awaitClose { close() }
         }
 
-    suspend fun getHomepage(id: Int): Details {
+    suspend fun getHomepage(id: Int): Response<Details> {
         return apiService.getHomepage(id, API_KEY, LANGUAGE_es_ES)
     }
 
-    suspend fun getTrailerMovie(id: Int): VideosList {
+    suspend fun getTrailerMovie(id: Int): Response<VideosList> {
         return apiService.getTrailerMovie(id, API_KEY, LANGUAGE_es_ES)
     }
 
-    suspend fun getSimilarMovie(id: Int): MovieList {
+    suspend fun getSimilarMovie(id: Int): Response<MovieList> {
         return apiService.getSimilarMovie(id, API_KEY, LANGUAGE_es_ES)
     }
 
-    suspend fun getCreditsMovie(id: Int): Credits {
+    suspend fun getCreditsMovie(id: Int): Response<Credits> {
         return apiService.getCreditsMovie(id, API_KEY, LANGUAGE_es_ES)
     }
 }

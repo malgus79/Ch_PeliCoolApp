@@ -62,5 +62,6 @@
     <string name="connectivity_error">An error occurred while your request was executing.</string>
     <string name="internet_error">Please check your internet connection and try again.</string>
     <string name="error_message">Error Message</string>
+    <string name="update">Update</string>
 
 </resources>
