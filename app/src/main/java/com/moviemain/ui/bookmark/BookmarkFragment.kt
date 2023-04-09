@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.moviemain.R
 import com.moviemain.domain.common.Resource
 import com.moviemain.core.utils.hide
+import com.moviemain.core.utils.setupRecyclerView
 import com.moviemain.core.utils.show
 import com.moviemain.core.utils.showToast
 import com.moviemain.data.model.Movie
@@ -71,15 +72,12 @@ class BookmarkFragment : Fragment(),
     }
 
     private fun setupBookmarkRecyclerView() {
-        binding.rvMoviesBookmark.apply {
-            adapter = ScaleInAnimationAdapter(bookmarkAdapter)
-            itemAnimator = LandingAnimator().apply { addDuration = 1000 }
-            layoutManager = StaggeredGridLayoutManager(
-                resources.getInteger(R.integer.columns_bookmark),
-                StaggeredGridLayoutManager.VERTICAL
-            )
-            setHasFixedSize(true)
-        }
+        binding.rvMoviesBookmark.setupRecyclerView(
+            bookmarkAdapter,
+            resources.getInteger(R.integer.columns_bookmark),
+            LandingAnimator(),
+            true
+        )
     }
 
     override fun onMovieClick(movie: Movie, position: Int) {

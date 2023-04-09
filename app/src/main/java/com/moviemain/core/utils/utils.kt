@@ -17,11 +17,16 @@ import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.Recycler
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy.ALL
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
 import com.moviemain.R
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
+import jp.wasabeef.recyclerview.animators.LandingAnimator
 
 fun View.show() {
     visibility = View.VISIBLE
@@ -140,4 +145,17 @@ fun TextView.disableClick() {
 
 fun TextView.enableClick() {
     isClickable = true
+}
+
+fun RecyclerView.setupRecyclerView(adapter: RecyclerView.Adapter<*>, columns: Int, itemAnimator: RecyclerView.ItemAnimator,vertical: Boolean) {
+    this.apply {
+        this.adapter = ScaleInAnimationAdapter(adapter)
+        this.itemAnimator = itemAnimator.apply { addDuration = 300 }
+        this.layoutManager = StaggeredGridLayoutManager(
+            columns,
+            if (vertical) StaggeredGridLayoutManager.VERTICAL else StaggeredGridLayoutManager.HORIZONTAL
+        )
+        setHasFixedSize(true)
+        show()
+    }
 }

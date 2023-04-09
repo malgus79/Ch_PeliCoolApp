@@ -11,13 +11,11 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.moviemain.R
 import com.moviemain.core.utils.*
 import com.moviemain.databinding.FragmentGalleryBinding
 import com.moviemain.ui.gallery.adapter.GalleryAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
 import jp.wasabeef.recyclerview.animators.FlipInLeftYAnimator
 import kotlinx.coroutines.launch
 
@@ -76,7 +74,7 @@ class GalleryFragment : Fragment() {
                     }
                     is GalleryState.Success -> {
                         swipeRefreshLayout.hideRefresh()
-                        hideElements(containerError.root,containerLoading.root)
+                        hideElements(containerError.root, containerLoading.root)
 
                         if (it.movies.isEmpty()) {
                             showElements(containerLoading.root)
@@ -88,7 +86,7 @@ class GalleryFragment : Fragment() {
                     }
                     is GalleryState.Failure -> {
                         swipeRefreshLayout.hideRefresh()
-                        hideElements(containerLoading.root,rvMoviesUpComing)
+                        hideElements(containerLoading.root, rvMoviesUpComing)
                         showElements(containerError.root)
 
                         btnRetry()
@@ -111,16 +109,12 @@ class GalleryFragment : Fragment() {
 
     private fun setupGalleryRecyclerView() {
         with(binding) {
-            rvMoviesUpComing.apply {
-                adapter = ScaleInAnimationAdapter(galleryAdapter)
-                itemAnimator = FlipInLeftYAnimator().apply { addDuration = 500 }
-                layoutManager = StaggeredGridLayoutManager(
-                    resources.getInteger(R.integer.main_columns),
-                    StaggeredGridLayoutManager.VERTICAL
-                )
-                setHasFixedSize(true)
-                show()
-            }
+            rvMoviesUpComing.setupRecyclerView(
+                galleryAdapter,
+                resources.getInteger(R.integer.main_columns),
+                FlipInLeftYAnimator(),
+                true
+            )
             titleUpcoming.show()
         }
     }

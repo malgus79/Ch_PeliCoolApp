@@ -12,15 +12,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.moviemain.domain.common.Resource
+import com.moviemain.R
 import com.moviemain.core.utils.hide
+import com.moviemain.core.utils.setupRecyclerView
 import com.moviemain.core.utils.show
 import com.moviemain.data.model.Movie
 import com.moviemain.databinding.FragmentSearchBinding
+import com.moviemain.domain.common.Resource
 import com.moviemain.ui.search.adapter.SearchAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
 import jp.wasabeef.recyclerview.animators.LandingAnimator
 
 @AndroidEntryPoint
@@ -76,13 +76,12 @@ class SearchFragment : Fragment(), SearchAdapter.OnMovieClickListener {
     }
 
     private fun setupMostWantedRecyclerView() {
-        binding.rvTopRatedInSearch.apply {
-            adapter = ScaleInAnimationAdapter(searchAdapter)
-            itemAnimator = LandingAnimator().apply { addDuration = 300 }
-            layoutManager = LinearLayoutManager(requireContext())
-            setHasFixedSize(true)
-            show()
-        }
+        binding.rvTopRatedInSearch.setupRecyclerView(
+            searchAdapter,
+            resources.getInteger(R.integer.columns_bookmark),
+            LandingAnimator(),
+            true
+        )
     }
 
     private fun setupSearchMovies() {
@@ -114,12 +113,12 @@ class SearchFragment : Fragment(), SearchAdapter.OnMovieClickListener {
     }
 
     private fun setupSearchRecyclerView() {
-        binding.rvMoviesSearch.apply {
-            adapter = searchAdapter
-            layoutManager = LinearLayoutManager(requireContext())
-            setHasFixedSize(true)
-            show()
-        }
+        binding.rvMoviesSearch.setupRecyclerView(
+            searchAdapter,
+            resources.getInteger(R.integer.columns_bookmark),
+            LandingAnimator(),
+            true
+        )
     }
 
     private fun setupSearchView() {

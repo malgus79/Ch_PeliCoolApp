@@ -16,7 +16,6 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.moviemain.R
 import com.moviemain.application.Constants.POSTER_PATH_URL
 import com.moviemain.application.Constants.YOUTUBE_BASE_URL
@@ -31,7 +30,6 @@ import com.moviemain.ui.detail.state.ButtonsState
 import com.moviemain.ui.detail.state.CreditsState
 import com.moviemain.ui.detail.state.SimilarState
 import dagger.hilt.android.AndroidEntryPoint
-import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
 import jp.wasabeef.recyclerview.animators.LandingAnimator
 import kotlinx.coroutines.launch
 
@@ -274,29 +272,21 @@ class DetailFragment : Fragment() {
     }
 
     private fun setupCreditsRecyclerView() {
-        binding.rvMoviesCredits.apply {
-            adapter = ScaleInAnimationAdapter(creditsAdapter)
-            itemAnimator = LandingAnimator().apply { addDuration = 300 }
-            layoutManager = StaggeredGridLayoutManager(
-                resources.getInteger(R.integer.columns_credits),
-                StaggeredGridLayoutManager.VERTICAL
-            )
-            setHasFixedSize(true)
-            show()
-        }
+        binding.rvMoviesCredits.setupRecyclerView(
+            creditsAdapter,
+            resources.getInteger(R.integer.columns_credits),
+            LandingAnimator(),
+            true
+        )
     }
 
     private fun setupCrewRecyclerView() {
-        binding.rvMoviesCrew.apply {
-            adapter = ScaleInAnimationAdapter(crewAdapter)
-            itemAnimator = LandingAnimator().apply { addDuration = 300 }
-            layoutManager = StaggeredGridLayoutManager(
-                resources.getInteger(R.integer.columns_crew),
-                StaggeredGridLayoutManager.HORIZONTAL
-            )
-            setHasFixedSize(true)
-            show()
-        }
+        binding.rvMoviesCrew.setupRecyclerView(
+            crewAdapter,
+            resources.getInteger(R.integer.columns_crew),
+            LandingAnimator(),
+            false
+        )
     }
 
     private fun showSimilarMovies(id: Int) {
@@ -347,16 +337,12 @@ class DetailFragment : Fragment() {
     }
 
     private fun setupSimilarRecyclerView() {
-        binding.rvMoviesSimilar.apply {
-            adapter = ScaleInAnimationAdapter(detailAdapter)
-            itemAnimator = LandingAnimator().apply { addDuration = 300 }
-            layoutManager = StaggeredGridLayoutManager(
-                resources.getInteger(R.integer.columns_similar),
-                StaggeredGridLayoutManager.VERTICAL
-            )
-            setHasFixedSize(true)
-            show()
-        }
+        binding.rvMoviesSimilar.setupRecyclerView(
+            detailAdapter,
+            resources.getInteger(R.integer.columns_similar),
+            LandingAnimator(),
+            true
+        )
     }
 
     private fun loadOverview() {
