@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.moviemain.R
 import com.moviemain.core.utils.hide
 import com.moviemain.core.utils.setupRecyclerView
@@ -58,11 +59,9 @@ class SearchFragment : Fragment(), SearchAdapter.OnMovieClickListener {
                             return@observe
                         }
 
-                        if (rvMoviesSearch.isVisible) {
-                            rvMoviesSearch.show()
-                        } else {
-                            linearTopRated.show()
+                        if (!rvMoviesSearch.isVisible) {
                             rvMoviesSearch.hide()
+                            linearTopRated.show()
                             setupMostWantedRecyclerView()
                             searchAdapter.setMovieList(it.data.results)
                         }
@@ -113,12 +112,12 @@ class SearchFragment : Fragment(), SearchAdapter.OnMovieClickListener {
     }
 
     private fun setupSearchRecyclerView() {
-        binding.rvMoviesSearch.setupRecyclerView(
-            searchAdapter,
-            resources.getInteger(R.integer.columns_bookmark),
-            LandingAnimator(),
-            true
-        )
+        binding.rvMoviesSearch.apply {
+            adapter = searchAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+            setHasFixedSize(true)
+            show()
+        }
     }
 
     private fun setupSearchView() {
@@ -143,7 +142,6 @@ class SearchFragment : Fragment(), SearchAdapter.OnMovieClickListener {
                         linearTopRated.hide()
                     } else {
                         rvMoviesSearch.hide()
-                        setupMostWanted()
                     }
                     return true
                 }
