@@ -22,6 +22,7 @@
             android:layout_height="match_parent"
             android:contentDescription="@string/movie_item"
             android:scaleType="centerCrop"
+            android:background="@color/black_dense"
             android:src="@mipmap/ic_launcher" />
 
     </androidx.cardview.widget.CardView>

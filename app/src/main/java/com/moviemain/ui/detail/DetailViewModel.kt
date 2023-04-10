@@ -3,6 +3,7 @@ package com.moviemain.ui.detail
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.moviemain.application.di.IoDispatcher
 import com.moviemain.data.model.Movie
 import com.moviemain.domain.RepositoryMovie
 import com.moviemain.domain.common.fold
@@ -13,12 +14,15 @@ import com.moviemain.ui.detail.state.ButtonsState
 import com.moviemain.ui.detail.state.CreditsState
 import com.moviemain.ui.detail.state.SimilarState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DetailViewModel @Inject constructor(private val repository: RepositoryMovie) :
+class DetailViewModel @Inject constructor(
+    private val repository: RepositoryMovie,
+    @IoDispatcher private val dispatcher: CoroutineDispatcher
+) :
     BaseViewModel() {
 
     /* --------------------------- FAVORITES --------------------------- */
@@ -42,7 +46,7 @@ class DetailViewModel @Inject constructor(private val repository: RepositoryMovi
 
     fun fetchHomepageAndTrailerMovie(id: Int) {
         _buttonsState.value = ButtonsState.Loading
-        viewModelScope.launch(viewModelScope.coroutineContext + Dispatchers.IO) {
+        viewModelScope.launch(dispatcher) {
 
             repository.getHomepage(id).fold(
                 onSuccess = {
@@ -80,7 +84,7 @@ class DetailViewModel @Inject constructor(private val repository: RepositoryMovi
 
     fun fetchSimilarMovies(id: Int) {
         _similarState.value = SimilarState.Loading
-        viewModelScope.launch(viewModelScope.coroutineContext + Dispatchers.IO) {
+        viewModelScope.launch(dispatcher) {
             repository.getSimilarMovie(id).fold(
                 onSuccess = {
                     _similarState.postValue(SimilarState.Success(it))
@@ -103,7 +107,7 @@ class DetailViewModel @Inject constructor(private val repository: RepositoryMovi
 
     fun fetchCreditsMovie(id: Int) {
         _creditsState.value = CreditsState.Loading
-        viewModelScope.launch(viewModelScope.coroutineContext + Dispatchers.IO) {
+        viewModelScope.launch(dispatcher) {
             repository.getCreditsMovie(id).fold(
                 onSuccess = {
                     _creditsState.postValue(CreditsState.Success(it))

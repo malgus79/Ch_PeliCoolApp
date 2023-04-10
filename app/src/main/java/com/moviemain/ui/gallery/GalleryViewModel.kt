@@ -5,18 +5,22 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.moviemain.application.Constants.PAGE_INDEX
+import com.moviemain.application.di.IoDispatcher
 import com.moviemain.domain.RepositoryMovie
 import com.moviemain.domain.common.fold
 import com.moviemain.domain.common.toError
 import com.moviemain.domain.common.validateHttpErrorCode
 import com.moviemain.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class GalleryViewModel @Inject constructor(private val repository: RepositoryMovie) :
+class GalleryViewModel @Inject constructor(
+    private val repository: RepositoryMovie,
+    @IoDispatcher private val dispatcher: CoroutineDispatcher
+) :
     BaseViewModel() {
 
     val listData = repository.listGalleryDataRepository().cachedIn(viewModelScope)
@@ -26,7 +30,7 @@ class GalleryViewModel @Inject constructor(private val repository: RepositoryMov
 
     fun fetchUpcomingMovies() {
         _galleryMovieState.value = GalleryState.Loading
-        viewModelScope.launch(viewModelScope.coroutineContext + Dispatchers.IO) {
+        viewModelScope.launch(dispatcher) {
             repository.getUpcomingMovies(PAGE_INDEX).fold(
                 onSuccess = {
                     _galleryMovieState.postValue(GalleryState.Success(it))

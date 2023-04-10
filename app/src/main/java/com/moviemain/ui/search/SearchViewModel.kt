@@ -1,15 +1,19 @@
 package com.moviemain.ui.search
 
 import androidx.lifecycle.*
-import com.moviemain.domain.common.Resource
+import com.moviemain.application.di.IoDispatcher
 import com.moviemain.domain.RepositoryMovie
+import com.moviemain.domain.common.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 
 @HiltViewModel
-class SearchViewModel @Inject constructor(private val repository: RepositoryMovie) : ViewModel() {
+class SearchViewModel @Inject constructor(
+    private val repository: RepositoryMovie,
+    @IoDispatcher private val dispatcher: CoroutineDispatcher
+) : ViewModel() {
 
     private val mutableMovieSearched = MutableLiveData<String>()
 
@@ -18,7 +22,7 @@ class SearchViewModel @Inject constructor(private val repository: RepositoryMovi
     }
 
     val fetchMovieList = mutableMovieSearched.distinctUntilChanged().switchMap {
-        liveData(viewModelScope.coroutineContext + Dispatchers.IO) {
+        liveData(dispatcher) {
             emit(Resource.Loading)
             try {
                 repository.getMovieByName(it).collectLatest {
@@ -30,11 +34,11 @@ class SearchViewModel @Inject constructor(private val repository: RepositoryMovi
         }
     }
 
-    fun fetchMostWanted() = liveData(viewModelScope.coroutineContext + Dispatchers.IO) {
+    fun fetchMostWanted() = liveData(dispatcher) {
         emit(Resource.Loading)
         try {
             emit(Resource.Success(repository.getTopRatedMovies()))
-        } catch (e:Exception) {
+        } catch (e: Exception) {
             emit(Resource.Failure(e))
         }
     }

@@ -150,7 +150,7 @@ fun TextView.enableClick() {
 fun RecyclerView.setupRecyclerView(adapter: RecyclerView.Adapter<*>, columns: Int, itemAnimator: RecyclerView.ItemAnimator,vertical: Boolean) {
     this.apply {
         this.adapter = ScaleInAnimationAdapter(adapter)
-        this.itemAnimator = itemAnimator.apply { addDuration = 300 }
+        this.itemAnimator = itemAnimator.apply { addDuration = 500 }
         this.layoutManager = StaggeredGridLayoutManager(
             columns,
             if (vertical) StaggeredGridLayoutManager.VERTICAL else StaggeredGridLayoutManager.HORIZONTAL
