@@ -57,6 +57,8 @@ class SimilarDetailFragment : Fragment() {
     private var colorEnabled: Int? = null
     private var colorDisable: Int? = null
 
+    private var isToastShown: Boolean = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -222,6 +224,7 @@ class SimilarDetailFragment : Fragment() {
     private fun showCreditsMovies(id: Int) {
         with(binding) {
             enableOptions()
+            hideElements(rvMoviesCredits, rvMoviesCrew)
             viewModel.fetchCreditsMovie(id)
             viewModel.creditsState.observe(viewLifecycleOwner) {
                 when (it) {
@@ -235,15 +238,14 @@ class SimilarDetailFragment : Fragment() {
                         binding.txtTitleCredits.setTextColorCompat(colorEnabled!!)
                         binding.dividerLine2.setBackgroundColorCompat(colorEnabled!!)
 
-                        if (it.credits.cast?.isEmpty()!!) {
+                        if (it.credits.cast?.isEmpty()!! && it.credits.crew?.isEmpty()!! && !isToastShown) {
                             showToast(getString(R.string.no_data_for_credits))
+                            isToastShown = true
                             return@observe
                         } else {
                             creditsAdapter.setCreditsMovieList(it.credits.cast)
                             setupCreditsRecyclerView()
-                        }
-                        if (!it.credits.crew?.isEmpty()!!) {
-                            crewAdapter.setCrewMovieList(it.credits.crew.filter { crew -> crew.job == "Director" })
+                            it.credits.crew?.let { mCrew -> crewAdapter.setCrewMovieList(mCrew.filter { crew -> crew.job == "Director" }) }
                             setupCrewRecyclerView()
                         }
                     }
@@ -262,6 +264,7 @@ class SimilarDetailFragment : Fragment() {
                     }
                 }
             }
+            isToastShown = false
         }
     }
 
@@ -305,8 +308,9 @@ class SimilarDetailFragment : Fragment() {
                         binding.txtTitleSimilar.setTextColorCompat(colorEnabled!!)
                         binding.dividerLine3.setBackgroundColorCompat(colorEnabled!!)
 
-                        if (it.similar.results.isEmpty()) {
+                        if (it.similar.results.isEmpty() && !isToastShown) {
                             showToast(getString(R.string.no_data_for_similar_movies))
+                            isToastShown = true
                             return@observe
                         }
                         similarAdapter.setSimilarMovieList(it.similar.results)
@@ -327,6 +331,7 @@ class SimilarDetailFragment : Fragment() {
                     }
                 }
             }
+            isToastShown = false
         }
     }
 
