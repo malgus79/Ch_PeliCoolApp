@@ -1,10 +1,8 @@
 package com.moviemain.ui.home
 
-import android.content.ContentValues
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,11 +12,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ConcatAdapter
 import com.moviemain.R
-import com.moviemain.domain.common.Resource
-import com.moviemain.core.utils.hide
-import com.moviemain.core.utils.show
-import com.moviemain.core.utils.showToast
+import com.moviemain.core.utils.*
 import com.moviemain.databinding.FragmentHomeBinding
+import com.moviemain.domain.common.Resource
 import com.moviemain.ui.home.adapter.HomeAdapter
 import com.moviemain.ui.home.adapter.concat.NowPlayingConcatAdapter
 import com.moviemain.ui.home.adapter.concat.PopularConcatAdapter
@@ -79,6 +75,7 @@ class HomeFragment : Fragment() {
                         } else {
                             containerLoading.root.show()
                         }
+                        containerError.root.hide()
                     }
                     is Resource.Success -> {
                         swipeRefreshLayout.isRefreshing = false
@@ -105,12 +102,22 @@ class HomeFragment : Fragment() {
                     }
                     is Resource.Failure -> {
                         swipeRefreshLayout.isRefreshing = false
-                        containerLoading.root.hide()
-                        showToast(getString(R.string.error_dialog_detail) + it.exception)
-                        Log.d(ContentValues.TAG, "Error: " + it.exception)
+                        hideElements(containerLoading.root, rvMovies)
+                        containerError.root.show()
+
+                        val errorMessage = getString(R.string.not_found_error)
+                        containerError.textView.text = errorMessage
+
+                        btnRetry()
                     }
                 }
             }
+        }
+    }
+
+    private fun btnRetry() {
+        binding.containerError.btnRetry.setRetryAction {
+            setupMainMovies()
         }
     }
 

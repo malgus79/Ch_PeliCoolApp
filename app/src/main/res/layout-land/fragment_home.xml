@@ -94,6 +94,18 @@
                 app:layout_constraintTop_toBottomOf="@id/splash_screen_image"
                 app:layout_constraintVertical_bias="0.6" />
 
+            <include
+                android:id="@+id/container_error"
+                layout="@layout/error_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/common_margin_default"
+                android:layout_marginVertical="@dimen/common_margin_max"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
             <com.facebook.shimmer.ShimmerFrameLayout
                 android:layout_width="match_parent"
