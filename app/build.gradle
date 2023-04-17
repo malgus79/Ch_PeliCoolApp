@@ -37,6 +37,7 @@ android {
         viewBinding true
     }
     kapt { correctErrorTypes true }
+    namespace 'com.moviemain'
 }
 
 dependencies {
