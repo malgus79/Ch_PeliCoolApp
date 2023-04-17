@@ -63,5 +63,6 @@
     <string name="internet_error">Comprueba tu conexión a Internet e inténtalo de nuevo.</string>
     <string name="error_message">Mensaje de error</string>
     <string name="update">Actualizar</string>
+    <string name="press_again">Pulse atrás otra vez para salir</string>
 
 </resources>

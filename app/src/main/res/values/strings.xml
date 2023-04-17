@@ -63,5 +63,6 @@
     <string name="internet_error">Please check your internet connection and try again.</string>
     <string name="error_message">Error Message</string>
     <string name="update">Update</string>
+    <string name="press_again">Press back again to exit</string>
 
 </resources>

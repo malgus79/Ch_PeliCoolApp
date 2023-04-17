@@ -1,5 +1,6 @@
 package com.moviemain.core.utils
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
@@ -24,6 +25,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy.ALL
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.snackbar.Snackbar
 import com.moviemain.R
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
 import jp.wasabeef.recyclerview.animators.LandingAnimator
@@ -158,4 +161,18 @@ fun RecyclerView.setupRecyclerView(adapter: RecyclerView.Adapter<*>, columns: In
         setHasFixedSize(true)
         show()
     }
+}
+
+fun Activity.showConnectivitySnackbar(isConnected: Boolean) {
+    val binding = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+    val messageRes = if (isConnected) R.string.connection_restored else R.string.no_connection
+    val duration = if (isConnected) Snackbar.LENGTH_SHORT else Snackbar.LENGTH_INDEFINITE
+    val backgroundColorRes = if (isConnected) R.color.green_dark_theme else R.color.red_theme
+    val snackbar = Snackbar.make(findViewById(android.R.id.content), messageRes, duration)
+        .setAnchorView(binding)
+        .setBackgroundTint(ContextCompat.getColor(this, backgroundColorRes))
+    if (!isConnected) {
+        snackbar.setAction(getString(R.string.rule_out)) {}
+    }
+    snackbar.show()
 }

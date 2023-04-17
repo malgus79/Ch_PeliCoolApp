@@ -1,6 +1,7 @@
 package com.moviemain.ui.main
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -15,9 +16,12 @@ import com.google.android.material.snackbar.Snackbar
 import com.moviemain.R
 import com.moviemain.core.utils.hide
 import com.moviemain.core.utils.show
+import com.moviemain.core.utils.showConnectivitySnackbar
 import com.moviemain.databinding.ActivityMainBinding
+import com.moviemain.ui.home.HomeFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.drop
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -26,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
 
-    private var booleanState: Boolean? = null
+    private var doubleBackToExitPressedOnce = false
 
     private val viewModel by viewModels<MainActivityViewModel>()
 
@@ -64,48 +68,44 @@ class MainActivity : AppCompatActivity() {
 
     private fun checkNetworkConnection() {
         lifecycleScope.launchWhenCreated {
-            viewModel.isConnected.collectLatest { isConnected ->
-
-                if (booleanState == null && isConnected) {
-                    booleanState = false
+            viewModel.isConnected
+                .distinctUntilChanged()
+                .drop(1)
+                .collect { isConnected ->
+                    when (isConnected) {
+                        true -> showConnectivitySnackbar(true)
+                        false -> showConnectivitySnackbar(false)
+                    }
                 }
-
-                if (booleanState == false && !isConnected) {
-                    snackBarConnectivityOff()
-                    booleanState = true
-                }
-
-                if (booleanState == true && isConnected) {
-                    snackBarConnectivityOn()
-                    booleanState = false
-                }
-            }
         }
-    }
-
-    private fun snackBarConnectivityOff() {
-        Snackbar.make(binding.root, R.string.no_connection, Snackbar.LENGTH_INDEFINITE)
-            .setAction(getString(R.string.rule_out)) {}
-            .setAnchorView(binding.bottomNavigationView)
-            .setBackgroundTint(
-                ContextCompat.getColor(this, R.color.red_theme)
-            )
-            .show()
-    }
-
-    private fun snackBarConnectivityOn() {
-        Snackbar.make(binding.root, R.string.connection_restored, Snackbar.LENGTH_SHORT)
-            .setAnchorView(binding.bottomNavigationView)
-            .setTextColor(ContextCompat.getColor(this, R.color.black))
-            .setBackgroundTint(
-                ContextCompat.getColor(this, R.color.yellow)
-            )
-            .show()
     }
 
     fun exitApp(item: MenuItem) {
         when (item.itemId) {
             R.id.menu_exit -> finish()
+        }
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            onBackPressedDispatcher.onBackPressed()
+            return
+        }
+        this.doubleBackToExitPressedOnce = true
+        if (supportFragmentManager.findFragmentById(R.id.nav_host_fragment)?.childFragmentManager?.fragments?.get(
+                0
+            ) is HomeFragment
+        ) {
+            Snackbar.make(binding.root, R.string.press_again, Snackbar.LENGTH_SHORT)
+                .setAnchorView(binding.bottomNavigationView)
+                .setTextColor(ContextCompat.getColor(this, R.color.black))
+                .setBackgroundTint(ContextCompat.getColor(this, R.color.yellow))
+                .show()
+            Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
+        } else {
+            doubleBackToExitPressedOnce = false
+            onBackPressedDispatcher.onBackPressed()
         }
     }
 }
