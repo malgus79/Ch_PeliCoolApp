@@ -3,7 +3,6 @@ package com.moviemain.ui.gallery
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,12 +11,19 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.moviemain.R
-import com.moviemain.core.utils.*
+import com.moviemain.core.utils.hide
+import com.moviemain.core.utils.hideElements
+import com.moviemain.core.utils.hideRefresh
+import com.moviemain.core.utils.setRetryAction
+import com.moviemain.core.utils.setupRecyclerView
+import com.moviemain.core.utils.show
+import com.moviemain.core.utils.showElements
 import com.moviemain.databinding.FragmentGalleryBinding
 import com.moviemain.ui.gallery.adapter.GalleryAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import jp.wasabeef.recyclerview.animators.FlipInLeftYAnimator
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @AndroidEntryPoint
 class GalleryFragment : Fragment() {
@@ -72,6 +78,7 @@ class GalleryFragment : Fragment() {
                             if (swipeRefreshLayout.isRefreshing) hide() else show()
                         }
                     }
+
                     is GalleryState.Success -> {
                         swipeRefreshLayout.hideRefresh()
                         hideElements(containerError.root, containerLoading.root)
@@ -84,6 +91,7 @@ class GalleryFragment : Fragment() {
                         setupGalleryRecyclerView()
                         loadData()
                     }
+
                     is GalleryState.Failure -> {
                         swipeRefreshLayout.hideRefresh()
                         hideElements(containerLoading.root, rvMoviesUpComing)
@@ -122,7 +130,7 @@ class GalleryFragment : Fragment() {
     private fun loadData() {
         lifecycleScope.launch {
             viewModel.listData.collect {
-                Log.d("aaa", "load: $it")
+                Timber.tag("aaa").d(it.toString())
                 galleryAdapter.submitData(it)
             }
         }

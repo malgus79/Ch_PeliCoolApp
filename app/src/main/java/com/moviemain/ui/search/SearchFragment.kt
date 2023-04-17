@@ -2,7 +2,6 @@ package com.moviemain.ui.search
 
 import android.content.ContentValues.TAG
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,14 +14,17 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.moviemain.R
 import com.moviemain.core.utils.hide
+import com.moviemain.core.utils.hideElements
 import com.moviemain.core.utils.setupRecyclerView
 import com.moviemain.core.utils.show
+import com.moviemain.core.utils.showElements
 import com.moviemain.data.model.Movie
 import com.moviemain.databinding.FragmentSearchBinding
 import com.moviemain.domain.common.Resource
 import com.moviemain.ui.search.adapter.SearchAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import jp.wasabeef.recyclerview.animators.LandingAnimator
+import timber.log.Timber
 
 @AndroidEntryPoint
 class SearchFragment : Fragment(), SearchAdapter.OnMovieClickListener {
@@ -55,19 +57,20 @@ class SearchFragment : Fragment(), SearchAdapter.OnMovieClickListener {
                     is Resource.Success -> {
 
                         if (it.data.results.isEmpty()) {
-                            rvTopRatedInSearch.hide()
+                            hideElements(rvTopRatedInSearch)
                             return@observe
                         }
 
                         if (!rvMoviesSearch.isVisible) {
-                            rvMoviesSearch.hide()
-                            linearTopRated.show()
+                            hideElements(rvMoviesSearch)
+                            showElements(linearTopRated)
                             setupMostWantedRecyclerView()
                             searchAdapter.setMovieList(it.data.results)
                         }
                     }
+
                     is Resource.Failure -> {
-                        Log.d(TAG, "Error: " + it.exception)
+                        Timber.tag(TAG).d(it.exception)
                     }
                 }
             }
@@ -88,23 +91,25 @@ class SearchFragment : Fragment(), SearchAdapter.OnMovieClickListener {
             with(binding) {
                 when (it) {
                     is Resource.Loading -> {
-                        emptyContainer.root.hide()
-                        progressBar.show()
+                        hideElements(emptyContainer.root)
+                        showElements(progressBar)
                     }
+
                     is Resource.Success -> {
-                        progressBar.hide()
-                        linearTopRated.hide()
+                        hideElements(progressBar, linearTopRated)
+
                         if (it.data.isEmpty()) {
-                            rvMoviesSearch.hide()
-                            emptyContainer.root.show()
+                            hideElements(rvMoviesSearch)
+                            showElements(emptyContainer.root)
                             return@Observer
                         }
                         setupSearchRecyclerView()
                         searchAdapter.setMovieList(it.data)
                     }
+
                     is Resource.Failure -> {
-                        progressBar.hide()
-                        Log.d(TAG, "Error: " + it.exception)
+                        hideElements(progressBar)
+                        Timber.tag(TAG).d(it.exception)
                     }
                 }
             }

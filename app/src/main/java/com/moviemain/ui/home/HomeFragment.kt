@@ -12,7 +12,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ConcatAdapter
 import com.moviemain.R
-import com.moviemain.core.utils.*
+import com.moviemain.core.utils.hide
+import com.moviemain.core.utils.hideElements
+import com.moviemain.core.utils.hideRefresh
+import com.moviemain.core.utils.setRetryAction
+import com.moviemain.core.utils.show
+import com.moviemain.core.utils.showElements
 import com.moviemain.databinding.FragmentHomeBinding
 import com.moviemain.domain.common.Resource
 import com.moviemain.ui.home.adapter.HomeAdapter
@@ -70,16 +75,17 @@ class HomeFragment : Fragment() {
             with(binding) {
                 when (it) {
                     is Resource.Loading -> {
+                        hideElements(containerError.root)
                         if (swipeRefreshLayout.isRefreshing) {
                             containerLoading.root.hide()
                         } else {
                             containerLoading.root.show()
                         }
-                        containerError.root.hide()
                     }
+
                     is Resource.Success -> {
-                        swipeRefreshLayout.isRefreshing = false
-                        containerLoading.root.hide()
+                        swipeRefreshLayout.hideRefresh()
+                        hideElements(containerLoading.root)
 
                         if (!rvMovies.isVisible) {
                             concatAdapter.apply {
@@ -100,10 +106,11 @@ class HomeFragment : Fragment() {
                         setupHomeMoviesRecyclerView()
                         setupCarousel()
                     }
+
                     is Resource.Failure -> {
-                        swipeRefreshLayout.isRefreshing = false
+                        swipeRefreshLayout.hideRefresh()
                         hideElements(containerLoading.root, rvMovies)
-                        containerError.root.show()
+                        showElements(containerError.root)
 
                         val errorMessage = getString(R.string.not_found_error)
                         containerError.textView.text = errorMessage
